@@ -1,0 +1,7 @@
+{
+  "name": "pong-hub",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
