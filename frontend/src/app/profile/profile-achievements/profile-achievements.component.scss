@@ -1,6 +1,25 @@
 
 ion-grid{
     padding: 3%;
-
+    .row{
+        margin-bottom: 100%;
+    }
+    .ach{
+        text-align: center;
+        color: beige;
+    }
+    .achcol{
+        margin-left: 30%;
+        height: max-content;
+    }
+    .carousel-inner{
+        height: max-content;
+        width: 1080px;
+        img{
+            width:1080px;
+            height: 500px;
+        }
+    }
+    
 }
 
