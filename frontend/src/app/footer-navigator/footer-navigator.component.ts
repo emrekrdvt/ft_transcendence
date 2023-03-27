@@ -10,23 +10,28 @@ export class FooterNavigatorComponent  implements OnInit {
   tabs = [
     {
       name: "Profile",
-      icon: "person-outline"
+      icon: "person-outline",
+      url: "profile"
     },
     {
       name: "Social",
-      icon: "chatbubbles-outline"
+      icon: "chatbubbles-outline",
+      url: "social"
     },
     {
       name: "Play",
-      icon: "game-controller-outline"
+      icon: "game-controller-outline",
+      url: "play"
     },
     {
       name: "Settings",
-      icon: "settings-outline"
+      icon: "settings-outline",
+      url: "settings"
     },
     {
       name: "Leaderboard",
-      icon: "clipboard-outline"
+      icon: "clipboard-outline",
+      url: "leaderboard"
     }
   ]
 
