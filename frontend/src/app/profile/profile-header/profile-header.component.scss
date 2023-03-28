@@ -1,13 +1,31 @@
-ion-grid{
-    padding: 1% 5% 0;
-    p{
-        color:beige;
-    }
-    img{
-        width: 70%;
-        max-width: 25%;
-        height: auto;
-        border-radius: 50%;
-    }
-}       
+.outside{
+    width: 20%;
+    display: inline-block;
+    padding: 1%;
+    .o{
+        background-color: rgba(118, 120, 119, 0.957);
+        #firstrow{
+            .profile-img{
+                height: 50%;
+                border-radius: 100%;
+                border-width: 1%;
+                border-style: solid;
+                border-color: rgba(224, 219, 219, 0.63);
+                }
+        }
+        #secondrow{
+            h4{
+                margin-top: 0px;
+                background-color: red;
+            }
+            h6{
 
+            }
+        }
+        
+        #thirdrow{
+            background-color: blue;
+        }
+    }
+}
+    
