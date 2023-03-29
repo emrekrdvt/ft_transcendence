@@ -4,8 +4,8 @@
     padding: 1%;
     height: 95%;
     .o{
-        background-color: rgba(#ff6a00, 0.3);
-        border-radius: 8%;
+        background-color: rgba(white, 0.1);
+        border-radius: 7%;
         color: white;
         #firstrow{
             .profile-img{
@@ -14,23 +14,16 @@
                 border-radius: 100%;
                 border-width: 1%;
                 border-style: solid;
-                border-color: rgba(224, 219, 219, 0.63);
+                border-color: rgba(224, 219, 219, 0.805);
                 }
         }
         #secondrow{
             position: relative;
             bottom: 8%;
         }
-        
         #thirdrow{
             position: relative;
             bottom: 6%;
-            .table-responsive{
-                border-radius: 8%;
-                table{
-                    border-radius: 8%;
-                }
-            }
         }
     }
 }
