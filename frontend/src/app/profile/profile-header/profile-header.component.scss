@@ -2,10 +2,14 @@
     width: 20%;
     display: inline-block;
     padding: 1%;
+    height: 95%;
     .o{
-        background-color: rgba(118, 120, 119, 0.957);
+        background-color: rgba(#ff6a00, 0.3);
+        border-radius: 8%;
+        color: white;
         #firstrow{
             .profile-img{
+                
                 height: 50%;
                 border-radius: 100%;
                 border-width: 1%;
@@ -14,18 +18,19 @@
                 }
         }
         #secondrow{
-            h4{
-                margin-top: 0px;
-                background-color: red;
-            }
-            h6{
-                background-color: black;
-            }
+            position: relative;
+            bottom: 8%;
         }
         
         #thirdrow{
-            background-color: blue;
+            position: relative;
+            bottom: 6%;
+            .table-responsive{
+                border-radius: 8%;
+                table{
+                    border-radius: 8%;
+                }
+            }
         }
     }
 }
-    
