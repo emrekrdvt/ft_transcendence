@@ -24,6 +24,14 @@
         #thirdrow{
             position: relative;
             bottom: 6%;
+            table{
+                border-collapse: separate !important;
+                border-radius: 10%;
+                .even{
+                  background-color:#ff6a00; 
+                }
+
+            }
         }
     }
 }
