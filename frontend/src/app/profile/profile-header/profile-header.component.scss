@@ -1,15 +1,18 @@
 .outside{
     width: 25%;
-    display: inline-block;
     padding: 1%;
     height: 95%;
-    .o{
+
+    .o{   position: relative;
         background-color: rgba(white, 0.1);
+        border-color: #ff6a00;
+        border-width: 1%;
+        border-style: solid;
         border-radius: 4%;
         color: white;
+        text-align: center;
         #firstrow{
             .profile-img{
-                
                 height: 50%;
                 border-radius: 100%;
                 border-width: 1%;
@@ -42,34 +45,76 @@
                 }
                 tbody{
                     td{
-                    border-color: #ff6a00;
-                }
-                th{
-                    border-color: #ff6a00;
-                    font-weight:bold;
-                    color:#ff6a00;
-                }
-                .even{
-                  background-color: #2e2d2d ;
-                   
-                }
-                .odd{
+                        border-color: #ff6a00;
+                    }
+                    th{
+                        border-color: #ff6a00;
+                        font-weight:bold;
+                        color:#ff6a00;
+                    }
+                    .even{
+                        background-color: #2e2d2d ;
+                    }
+                    .odd{
+                        background-color:#3b3b3a;
+                    }
+                    .odd:hover{
+                        background-color: #959590;
+                        color:#2e2d2d;
+                    }
+                    .even:hover{
+                        background-color: #959590;
+                        color:#2b2b2b;
+                    }
                     
-                     background-color:#3b3b3a;
-                   
-                }
-                .odd:hover{
-                    background-color: #959590;
-                    color:#2e2d2d;
-                }
-                .even:hover{
-                    background-color: #959590;
-                    color:#2b2b2b;
-                }
 
                 }
                 
             }
         }
+    }
+    .carousel-common{
+         width:40%;
+        height:auto;
+        padding: 1%;
+        border-radius: 4%;
+        border-color: #ff6a00;
+        border-width: 1%;
+        border-style: solid;
+        background-color: rgba(white, 0.1);
+        .carousel{
+            width: 90%;
+            .pitem{
+                border-radius: 4%;
+            }
+        }
+    }
+    #fourtrow{
+         position: absolute;
+        left:135%;
+        top:40%;
+    }
+    #fifthrow{
+        position: absolute;
+       right:135%;
+       top:40%;
+   }
+      
+}
+
+@media (max-width: 700px) {
+    .o {
+        font-size: 12px;
+        #secondrow{
+            position: relative;
+            bottom: 1rem;
+            h4{
+                 font-size: 12px;
+            }
+            h6{
+                font-size: 10px;
+            }
+            
+       }
     }
 }
