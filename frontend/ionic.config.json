@@ -1,5 +1,5 @@
 {
-  "name": "pong-hub",
+  "name": "src",
   "integrations": {
     "capacitor": {}
   },
