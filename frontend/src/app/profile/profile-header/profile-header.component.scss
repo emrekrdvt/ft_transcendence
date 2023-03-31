@@ -3,14 +3,15 @@
     padding: 1%;
     height: 95%;
 
-    .o{   position: relative;
+    .o{ 
+        position: relative;
         background-color: rgba(white, 0.1);
         border-color: #ff6a00;
         border-width: 1%;
         border-style: solid;
         border-radius: 4%;
         color: white;
-        text-align: center;
+        //text-align: center;
         #firstrow{
             .profile-img{
                 height: 50%;
@@ -103,7 +104,7 @@
 }
 
 @media (max-width: 700px) {
-    .o {
+    .outside{
         font-size: 12px;
         #secondrow{
             position: relative;
@@ -113,8 +114,13 @@
             }
             h6{
                 font-size: 10px;
-            }
-            
+            }   
        }
-    }
+       .carousel-common{
+        
+        h4{
+            font-size: 8px;
+        }
+        }
+}
 }
