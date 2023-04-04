@@ -12,14 +12,15 @@ import {ProfileComponent} from "./profile/profile.component";
 import {ProfileHeaderComponent} from "./profile/profile-header/profile-header.component";
 import {ProfileStatsComponent} from "./profile/profile-stats/profile-stats.component";
 import {ProfileAchievementsComponent} from "./profile/profile-achievements/profile-achievements.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
-  declarations: [AppComponent, FooterNavigatorComponent, LoginPageComponent, ProfileComponent, ProfileHeaderComponent, ProfileStatsComponent, ProfileAchievementsComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  declarations: [AppComponent, FooterNavigatorComponent, LoginPageComponent, ProfileComponent, ProfileHeaderComponent, ProfileStatsComponent, ProfileAchievementsComponent,],
+  imports: [ BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
   exports: [
-    FooterNavigatorComponent
+    FooterNavigatorComponent  
   ]
 })
 export class AppModule {}

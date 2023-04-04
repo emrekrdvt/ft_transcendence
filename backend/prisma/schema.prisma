@@ -1,0 +1,49 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id        Int      @id @default(autoincrement())
+    
+    email     String   @unique
+    nickName      String? @unique @default("")
+    intraName   String?
+    avatar  String?
+    status  Int?
+
+
+    wins    Int      @default(0)
+    loses   Int      @default(0)
+    score    Int      @default(0)
+    level    Int      @default(1)
+    achievements Int[]
+
+    twoFactorEnabled Boolean @default(false)
+    twoFactorSecret  String?
+    friends Int[]
+    blockedUsers Int[]
+    blockedByUsers Int[]
+
+}
+
+model Achievements{
+    id Int @id @default(autoincrement())
+    name String
+    description String
+    icon String
+}
+
+model Match{
+    id Int @id @default(autoincrement())
+    player1 Int
+    player2 Int
+    winner Int
+    loser Int
+    score1 Int
+    score2 Int
+}
