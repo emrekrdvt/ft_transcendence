@@ -1,11 +1,12 @@
 import { HttpService } from '@nestjs/axios';
-import { ConsoleLogger, HttpException, Injectable } from '@nestjs/common';
-import { firstValueFrom, lastValueFrom, map, Observable } from 'rxjs';
+import {  HttpException, Injectable } from '@nestjs/common';
+import { catchError, first, firstValueFrom, lastValueFrom, map, throwError } from 'rxjs';
 import { PrismaClient } from '@prisma/client';
+import * as fs from 'fs';
 
 
 const UID=process.env.UID;
-const SECRET=process.env.SECRET;
+const SECRET=process.env.SEC;
 const REDIRECT_URI=process.env.REDIRECT_URI;
 const prisma = new PrismaClient();
 @Injectable()
@@ -13,10 +14,10 @@ export class UserService {
 
     constructor(private readonly httpService: HttpService){}
 
-
-    async getIntraToken(cdt: string)
+    async getIntraToken(cdt: any)
     {
-        try {
+        console.log(cdt);
+            try {
             const data =  {
                 grant_type: 'authorization_code',
                 client_id: UID,
@@ -24,9 +25,11 @@ export class UserService {
                 code: cdt,
                 redirect_uri: REDIRECT_URI,
             };
-            let response = await firstValueFrom(this.httpService.post('https://api.intra.42.fr/oauth/token', data));
-            return response.data;
-
+            const response = await firstValueFrom(this.httpService.post('https://api.intra.42.fr/oauth/token', data).pipe(map(response => response.data)).pipe(catchError((err) => {
+                console.error('HTTP Error:', err.message);
+                return throwError('HTTP Error Occurred');
+              })));
+            return response;
         }
         catch
         {
@@ -39,27 +42,15 @@ export class UserService {
        try {
         const res = await lastValueFrom(this.httpService.get('https://api.intra.42.fr/v2/me', {
             headers: {
-                'Authorization' : `Bearer ${theCode.access_token}`
+                'Authorization' : 'Bearer '+ theCode.access_token
             }
         }).pipe(map(response => response.data)));
         return res;
+   
        }
        catch {
-            console.log ("anannn1");
-             //return new HttpException('getCode ERROR', 500);
+             return new HttpException('getCode ERROR', 500);
        }
-    }
-
-    async addUser(userData: any)
-    {
-        try {
-            //prisma ile kayıt
-            console.log(userData);
-
-        }
-        catch{
-            return new HttpException('addUser ERROR', 500);
-        }
     }
 
     async login(code: string)
@@ -67,8 +58,12 @@ export class UserService {
         try {
             const token = await this.getIntraToken(code);
             const userData = await this.getCode(token);
-            const user = Object(await this.addUser(userData));
-            return user;
+            console.log(userData.login);
+            fs.writeFile('userData.json', JSON.stringify(userData), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
         }
         catch {
             return new HttpException('LOGIN Error', 500);
