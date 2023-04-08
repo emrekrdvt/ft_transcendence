@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable } from '@nestjs/common';
 import { error } from 'console';
 import { catchError, firstValueFrom, lastValueFrom, map, throwError } from 'rxjs';
-
+import * as fs from 'fs';
 
 require('dotenv').config();
 const UID = process.env.UID;
@@ -57,6 +57,9 @@ export class AuthService {
     {
         const token = await this.getToken(code);
         const data  = await this.getUser(token);
-        console.log(data);
+		console.log("data", data["id"]);
+		console.log("data", data["login"]);
+		console.log("data", data["email"]);
+		console.log("data", data["image"]["link"]);
     }
 }

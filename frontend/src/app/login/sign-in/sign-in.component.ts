@@ -23,6 +23,7 @@ export class SignInComponent implements OnInit{
 			this.http.get(`http://localhost:3000/auth/user?code=${code}`).subscribe(res => {
 				console.log(res);
 			});
+			this.logInComponent.isLoggedIn = true;
 		}
 	}
 

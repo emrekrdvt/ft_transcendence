@@ -11,6 +11,7 @@ import { PlayComponent } from './play/play.component';
 import { ChatComponent } from './chat/chat.component';
 import { GameComponent } from './play/game/game.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     PagesComponent,
     PlayComponent,
     ChatComponent,
-    GameComponent
+    GameComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

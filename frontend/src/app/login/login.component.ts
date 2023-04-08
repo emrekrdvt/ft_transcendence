@@ -7,10 +7,4 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 	isLoggedIn = false;
-	token = '';
-
-	setToken = (token: string) => {
-		this.token = token;
-		this.isLoggedIn = true;
-	}
 }
