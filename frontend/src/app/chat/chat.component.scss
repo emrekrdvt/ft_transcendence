@@ -1,0 +1,23 @@
+.chat
+{
+	
+	.card
+	{
+		min-width: 15vw;
+		min-height: 50vh;
+
+		.card-body
+		{
+			display: flex;
+			flex-direction: column;
+			overflow-y: scroll;
+			height: 100%;
+			overflow-x: hidden;
+
+			.send
+			{
+				margin-top: auto;
+			}
+		}
+	}
+}

@@ -7,6 +7,9 @@ import { LoginComponent } from './login/login.component';
 import { SignInComponent } from './login/sign-in/sign-in.component';
 import { SignOutComponent } from './login/sign-out/sign-out.component';
 import { PagesComponent } from './login/sign-out/pages/pages.component';
+import { PlayComponent } from './play/play.component';
+import { ChatComponent } from './chat/chat.component';
+import { GameComponent } from './play/game/game.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { PagesComponent } from './login/sign-out/pages/pages.component';
     LoginComponent,
     SignInComponent,
     SignOutComponent,
-    PagesComponent
+    PagesComponent,
+    PlayComponent,
+    ChatComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,
