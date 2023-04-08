@@ -13,7 +13,3 @@ export class AuthController {
         return await this.userService.login(code);
     }
 }
-
-
-
-//Api

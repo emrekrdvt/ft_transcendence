@@ -3,6 +3,8 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { error } from 'console';
 import { catchError, firstValueFrom, lastValueFrom, map, throwError } from 'rxjs';
 
+
+require('dotenv').config();
 const UID = process.env.UID;
 const SECRET=process.env.SEC;
 const REDIRECT_URI=process.env.R_URI;
@@ -22,6 +24,7 @@ export class AuthService {
                 code: code,
                 redirect_uri: REDIRECT_URI,
             };
+			console.log("data", data);	
             const response = await firstValueFrom(this.httpService.post('https://api.intra.42.fr/oauth/token', data).pipe(map(response => response.data)).pipe(catchError((err) => {
                 console.error('HTTP Error:', err.message);
                 return throwError('HTTP Error Occurred');
@@ -55,6 +58,5 @@ export class AuthService {
         const token = await this.getToken(code);
         const data  = await this.getUser(token);
         console.log(data);
-
     }
 }

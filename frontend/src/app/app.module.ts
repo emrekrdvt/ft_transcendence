@@ -10,6 +10,7 @@ import { PagesComponent } from './login/sign-out/pages/pages.component';
 import { PlayComponent } from './play/play.component';
 import { ChatComponent } from './chat/chat.component';
 import { GameComponent } from './play/game/game.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { GameComponent } from './play/game/game.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+	HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
