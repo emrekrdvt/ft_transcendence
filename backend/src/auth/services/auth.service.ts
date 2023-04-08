@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable } from '@nestjs/common';
 import { error } from 'console';
 import { catchError, firstValueFrom, lastValueFrom, map, throwError } from 'rxjs';
-import * as fs from 'fs';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 require('dotenv').config();
 const UID = process.env.UID;
@@ -11,7 +11,7 @@ const REDIRECT_URI=process.env.R_URI;
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly httpService: HttpService){}
+    constructor(private readonly httpService: HttpService, private prisma: PrismaService){}
 
 
     async getToken(code)
@@ -56,10 +56,16 @@ export class AuthService {
     async login(code: string)
     {
         const token = await this.getToken(code);
-        const data  = await this.getUser(token);
-		console.log("data", data["id"]);
-		console.log("data", data["login"]);
-		console.log("data", data["email"]);
-		console.log("data", data["image"]["link"]);
+        const rdata  = await this.getUser(token);
+		const user = await this.prisma.user.create({
+			data: {
+				intraId: rdata["id"],
+				username: rdata["login"],
+				nickname: rdata["displayname"],
+				email: rdata["email"],
+				avatarUrl: rdata["image"]["link"],
+			}
+		});
+		return user;
     }
 }

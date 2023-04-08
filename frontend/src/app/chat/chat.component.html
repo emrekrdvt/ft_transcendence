@@ -4,6 +4,9 @@
 			<h3>Chat</h3>
 		</div>
 		<div class="card-body">
+			<div class="message" *ngFor="let message of messages">
+				<img class="img-fluid mini-avatar" src="{{user.avatarUrl}}"><span class="message-text">{{message.time}} {{message.sender}}: {{message.text}}</span>
+			</div>
 			<input type="text" class="form-control send" placeholder="Type your message here..." (keydown)="onKeyDown($event)" value="">
 		</div>
 	</div>

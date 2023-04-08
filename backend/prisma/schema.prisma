@@ -16,17 +16,17 @@ model User {
   	intraId   String   @unique
   	email     String   @unique
   	username  String   @unique
-  	nickname  String  @unique
+  	nickname  String?  @unique
   	createdAt DateTime @default(now())
   	updatedAt DateTime @updatedAt
 
-	achievemets Achievemet[]
+	achievements Achievement[]
 	matches     Match[]
 
 	@@map("users")
 }
 
-model Achievemet {
+model Achievement {
 	id 	  Int      @default(autoincrement()) @id
 	name  String
 
