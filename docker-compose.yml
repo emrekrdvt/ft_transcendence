@@ -12,4 +12,3 @@ services:
       - transendence
 networks:
   transendence:
-    driver: bridge

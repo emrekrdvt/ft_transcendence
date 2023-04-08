@@ -57,15 +57,20 @@ export class AuthService {
     {
         const token = await this.getToken(code);
         const rdata  = await this.getUser(token);
-		const user = await this.prisma.user.create({
-			data: {
-				intraId: rdata["id"],
-				username: rdata["login"],
-				nickname: rdata["displayname"],
-				email: rdata["email"],
-				avatarUrl: rdata["image"]["link"],
-			}
-		});
-		return user;
+		try {
+
+			const user = await this.prisma.user.create({
+				data: {
+					intraId: rdata["id"],
+					username: rdata["login"],
+					nickname: rdata["displayname"],
+					email: rdata["email"],
+					avatarUrl: rdata["image"]["link"],
+				}});
+			return user;
+		} catch (error) {
+			console.error(error);
+			return new HttpException('login ERROR', 500);
+		}
     }
 }

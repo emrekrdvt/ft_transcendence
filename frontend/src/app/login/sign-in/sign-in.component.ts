@@ -20,7 +20,7 @@ export class SignInComponent implements OnInit{
 	ngOnInit() {
 		if (this.location.path().includes('code')) {
 			const code = this.location.path().split('=')[1];
-			this.http.get(`http://localhost:3000/auth/user?code=${code}`).subscribe(res => {
+			this.http.get(`http://10.11.242.115:3000/auth/user?code=${code}`).subscribe(res => {
 				console.log(res);
 			});
 		}
