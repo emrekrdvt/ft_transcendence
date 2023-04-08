@@ -1,0 +1,39 @@
+.row
+{
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-top: 5%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+
+	.mini-profile
+	{
+		margin-top: 5rem;
+		.avatar
+		{
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			border: 1px solid #ff6a00;
+		}
+		.username
+		{
+			margin-top: 3rem;
+		}
+	}
+}
+
+.btn
+{
+	font-size: 1.5rem;
+	font-weight: 600;
+	font-family: 'JetBrains Mono', monospace;
+	border-radius: 0%;
+	background-color: #ff6a00;
+	padding: 1rem 4rem;
+	width: max-content;
+	margin-top: 3rem;
+}
