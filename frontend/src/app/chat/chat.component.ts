@@ -7,4 +7,18 @@ import { Component } from '@angular/core';
 })
 export class ChatComponent {
 
+		input: string = '';
+
+	  constructor() { }
+
+
+	  onKeyDown(event: KeyboardEvent) {
+		if (event.key === 'Enter')
+		{
+			const el = event.target as HTMLInputElement;
+			console.log(el.value);
+			el.value = '';
+		}
+	  }
+
 }

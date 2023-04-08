@@ -4,7 +4,7 @@
 			<h3>Chat</h3>
 		</div>
 		<div class="card-body">
-			<input type="text" class="form-control send" placeholder="Type your message here..." >
+			<input type="text" class="form-control send" placeholder="Type your message here..." (keydown)="onKeyDown($event)" value="">
 		</div>
 	</div>
 </div>
