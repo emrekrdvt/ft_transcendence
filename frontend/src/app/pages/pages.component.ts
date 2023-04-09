@@ -10,7 +10,7 @@ export class PagesComponent {
 	filePath: string = 'assets/icons/';
 
 	pages = [
-		{ title: 'About', url: '/about', icon: this.filePath + 'about.png'},
+		{ title: 'Home', url: '/home', icon: this.filePath + 'about.png'},
 		{ title: 'Leaderboard', url: '/leaderboard', icon: this.filePath + 'leaderboard.png'},
 		{ title: 'Social', url: '/social', icon: this.filePath + 'social.png'},
 		{ title: 'Profile', url: '/profile', icon: this.filePath + 'profile.png'},

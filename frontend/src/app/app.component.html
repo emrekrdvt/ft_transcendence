@@ -1,1 +1,2 @@
-<router-outlet></router-outlet>
+<app-login *ngIf="!(login.isLoggedIn$ | async)"></app-login>
+<router-outlet *ngIf="login.isLoggedIn$ | async"></router-outlet>
