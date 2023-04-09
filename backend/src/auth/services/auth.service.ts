@@ -1,6 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable } from '@nestjs/common';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { JwtService } from '@nestjs/jwt';
 import { error } from 'console';
 import { catchError, firstValueFrom, lastValueFrom, map, throwError } from 'rxjs';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -9,10 +9,11 @@ require('dotenv').config();
 const UID = process.env.UID;
 const SECRET=process.env.SEC;
 const REDIRECT_URI=process.env.R_URI;
+const JWT_SECRET=process.env.JWT_SECRET;
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly httpService: HttpService, private prisma: PrismaService){}
+    constructor(private readonly httpService: HttpService, private prisma: PrismaService, private jwt: JwtService){}
 
     async getToken(code)
     {
@@ -53,20 +54,19 @@ export class AuthService {
         }
     }
 
-	async signup(rdata)
+	async signup(rdata, intraToken)
 	{
 		const user = await this.prisma.user.create({
 			data: {
 				intraId: rdata["id"],
 				username: rdata["login"],
-				nickname: rdata["displayname"],
 				email: rdata["email"],
 				avatarUrl: rdata["image"]["link"],
 			}});
-		console.log("user", user);
+		return this.signToken(intraToken, user.intraId);
 	}
 
-	async signin(rdata)
+	async signin(rdata, intraToken)
 	{
 		const user = await this.prisma.user.findUnique({
 			where: {
@@ -74,19 +74,31 @@ export class AuthService {
 			}
 		});
 		console.log("user", user);
+		if (!user)
+			return this.signup(rdata, intraToken);
+		return this.signToken(intraToken, user.intraId);
+	}
+
+	signToken = async (intraToken, intraId): Promise<{jwt_token: string}> => {
+		const payload = {
+			intraToken,
+			intraId,
+		};	
+		const token =  await this.jwt.signAsync(payload, {
+			expiresIn: '15m',
+			secret: JWT_SECRET
+		});
+		return {
+			jwt_token: token,
+		};
 	}
 
     async login(code: string)
     {
-        const token = await this.getToken(code);
-        const rdata  = await this.getUser(token);
-		let user;
-		try {
-			this.signin(rdata);
-		} catch (error) {
-			if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
-				this.signup(rdata);
-			}
-		}
+        const intraToken = await this.getToken(code);
+        const rdata  = await this.getUser(intraToken);
+		const jwtToken = await this.signin(rdata, intraToken.access_token);
+		console.log("jwtToken", jwtToken);
+		return jwtToken;
     }
 }
