@@ -1,5 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable } from '@nestjs/common';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { error } from 'console';
 import { catchError, firstValueFrom, lastValueFrom, map, throwError } from 'rxjs';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -12,7 +13,6 @@ const REDIRECT_URI=process.env.R_URI;
 @Injectable()
 export class AuthService {
     constructor(private readonly httpService: HttpService, private prisma: PrismaService){}
-
 
     async getToken(code)
     {
@@ -53,24 +53,40 @@ export class AuthService {
         }
     }
 
+	async signup(rdata)
+	{
+		const user = await this.prisma.user.create({
+			data: {
+				intraId: rdata["id"],
+				username: rdata["login"],
+				nickname: rdata["displayname"],
+				email: rdata["email"],
+				avatarUrl: rdata["image"]["link"],
+			}});
+		console.log("user", user);
+	}
+
+	async signin(rdata)
+	{
+		const user = await this.prisma.user.findUnique({
+			where: {
+				intraId: rdata["id"]
+			}
+		});
+		console.log("user", user);
+	}
+
     async login(code: string)
     {
         const token = await this.getToken(code);
         const rdata  = await this.getUser(token);
+		let user;
 		try {
-
-			const user = await this.prisma.user.create({
-				data: {
-					intraId: rdata["id"],
-					username: rdata["login"],
-					nickname: rdata["displayname"],
-					email: rdata["email"],
-					avatarUrl: rdata["image"]["link"],
-				}});
-			return user;
+			this.signin(rdata);
 		} catch (error) {
-			console.error(error);
-			return new HttpException('login ERROR', 500);
+			if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
+				this.signup(rdata);
+			}
 		}
     }
 }
