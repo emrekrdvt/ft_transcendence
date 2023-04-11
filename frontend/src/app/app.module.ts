@@ -11,6 +11,7 @@ import { GameComponent } from './play/game/game.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
 	HttpClientModule
   ],
-  providers: [LoginComponent],
+  providers: [LoginComponent, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../interfaces/user';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-home',
