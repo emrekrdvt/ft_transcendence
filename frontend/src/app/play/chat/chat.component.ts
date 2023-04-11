@@ -1,25 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit{
 
-	  user = {
-		name: 'John Doe',
-		avatarUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg'
-	  }
-
+	  user!: User;
+	  
 	  input: string = '';
 
 	  messages: any = [];
 
-	  constructor() { }
+	  constructor(private userService: UserService) {}
+
+	  ngOnInit() {
+		this.user = this.userService.getUser()!;
+	  }
 
 	  addMessage(text: string, sender: string, date: Date) {
-		//Date to hours/minutes/seconds
 		const hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
 		const minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
 		const seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
@@ -36,7 +38,7 @@ export class ChatComponent {
 		{
 			const el = event.target as HTMLInputElement;
 			if (el.value)
-				this.addMessage(el.value, this.user.name, new Date());
+				this.addMessage(el.value, this.user.username, new Date());
 			el.value = '';
 		}
 	  }

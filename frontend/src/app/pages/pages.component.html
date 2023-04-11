@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-4" *ngFor="let page of pages">
-		<div class="card">
-			<div class="card-body" routerLink="{{page.url}}">
+		<div class="card" routerLink="{{page.url}}">
+			<div class="card-body">
 				<img class="card-img-top" src="{{page.icon}}" alt="page">
 				<h5 class="card-title">{{page.title}}</h5>
 			</div>

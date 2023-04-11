@@ -4,14 +4,14 @@
 	.card
 	{
 		min-width: 15vw;
-		height: 50vh;
+		height: 60vh;
 		.card-body
 		{
 			height: 40vh;
 			.messages
 			{
 				overflow-y: scroll;
-				height: 90%;
+				height: 95%;
 				.message
 				{
 					margin: 0.5rem 0;
@@ -34,7 +34,7 @@
 			}
 			.send
 			{
-				height: 10%;
+				height: 5%;
 				width: 100%;
 			}
 		}

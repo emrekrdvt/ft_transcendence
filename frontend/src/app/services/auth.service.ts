@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { Auth } from '../models/auth';
+import { Auth } from '../models/auth.model';
 
 @Injectable()
 export class AuthService

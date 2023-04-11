@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
 import { Location } from '@angular/common'
 import { AuthService } from 'src/app/services/auth.service'
+import { UserService } from '../services/user.service'
 import { environment } from 'src/environment/environment'
 
 @Component({
@@ -16,11 +17,11 @@ export class LoginComponent {
 	private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
 	isLoggedIn$ = this._isLoggedIn$.asObservable();
 
-	constructor(private location: Location, private auth: AuthService){
-		const value  = localStorage.getItem('user');
-		if (value) {
+	constructor(private location: Location, private auth: AuthService, private userService: UserService) {
+		if (this.userService.getUser()) {
 			this._isLoggedIn$.next(true);
-		}
+		} else
+			this._isLoggedIn$.next(false);
 	}
 		
 	ngOnInit() {

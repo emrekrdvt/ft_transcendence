@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user';
+import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -8,22 +9,18 @@ import { User } from '../models/user';
 })
 export class HomeComponent implements OnInit{
 
-	user: any;
+	user!: User;
 
-	constructor() {
+	constructor(private userService: UserService) {
 		
 	}
-
+		
 	ngOnInit() {
-		const value  = localStorage.getItem('user');
-		if (value) {
-			const user: User = JSON.parse(value);
-			this.user = user;
-		}
+		this.user = this.userService.getUser()!;	
 	}
 
 	signOut = () => {
 		localStorage.removeItem('user');
-		document.location.href = '/login';
+		document.location.href = '/';
 	}
 }
