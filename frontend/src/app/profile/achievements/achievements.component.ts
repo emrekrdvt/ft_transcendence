@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-achievements',
   templateUrl: './achievements.component.html',
-  styleUrls: ['./achievements.component.scss']
+  styleUrls: ['./achievements.component.scss', '../profile.component.scss']
 })
 export class AchievementsComponent {
 

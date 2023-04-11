@@ -1,0 +1,12 @@
+<div class="card">
+	<div class="card-body">
+		<h1 class="mt-1">Match History</h1>
+		<div class="profile-group">
+			<div class="profile-item" *ngFor="let match of history">
+				<img src="../../../assets/icons/history.png">
+				<h2 class="mt-3">{{match.title}}</h2>
+			</div>
+		</div>
+
+	</div>
+</div>

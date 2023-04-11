@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-profile-navigator',
   templateUrl: './profile-navigator.component.html',
-  styleUrls: ['./profile-navigator.component.scss']
+  styleUrls: ['./profile-navigator.component.scss', '../profile.component.scss']
 })
 export class ProfileNavigatorComponent {
 

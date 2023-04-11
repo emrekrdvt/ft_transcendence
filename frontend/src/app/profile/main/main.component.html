@@ -1,6 +1,17 @@
 <div class="card">
 	<div class="card-body">
-		<img class="profile-image" src="https://avatars.githubusercontent.com/u/101070694?v=4" alt="Profile Image">
+		<img class="profile-image img-fluid" src="https://avatars.githubusercontent.com/u/101070694?v=4" alt="Profile Image">
 		<h1 class="mt-1">{{profile.user.username}}</h1>
+		<p class="text-muted">melihcakay@gmail.com</p>
+		<p class="mt-3">Level 1</p>
+		<div class="stats mt-4">
+			<p class="stat" *ngFor="let stat of stats">
+				<span class="stat-number">{{stat.value}}</span>
+				<span class="stat-name">{{stat.label}}</span>
+			</p>
+		</div>
+		<div class="mt-4">
+			<button class="btn btn-dark">Edit Profile</button>
+		</div>
 	</div>
 </div>

@@ -5,9 +5,48 @@
 
 .pages
 {
-	width: 100%;
 	display: flex;
 	margin-top: 15%;
 	justify-content: center;
 	align-items: center;
+}
+
+.card {
+	color: white;
+	background-color: (rgba(0, 0, 0, 0.5));
+	border: 1px solid #ff6a00;
+	max-width: 75vh;
+
+	.card-body {
+		text-align: center;
+		.profile-group {
+			display: inline-flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			
+			.profile-item{
+				max-width: 120px;
+				margin: 15px;
+				transition: 0.3s;
+				cursor: pointer;
+				h2 {
+					font-size: 1.2vh;
+					margin-bottom: 0;
+					text-align: center;
+				}
+				img {
+					max-width: 90px;
+					max-height: 90px;
+					filter: invert(100%);
+				}
+			}
+			.profile-item:hover
+			{
+				background-color: #ff6a00;
+				border-radius: 5px;
+				transition: 0.3s;
+				filter:saturate(0.8);
+			}
+		}
+	}
 }

@@ -15,6 +15,8 @@ import { UserService } from './services/user.service';
 import { MainComponent } from './profile/main/main.component';
 import { AchievementsComponent } from './profile/achievements/achievements.component';
 import { ProfileNavigatorComponent } from './profile/profile-navigator/profile-navigator.component';
+import { MatchHistoryComponent } from './profile/match-history/match-history.component';
+import { FooterComponent } from './profile/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ProfileNavigatorComponent } from './profile/profile-navigator/profile-n
 	HomeComponent,
  MainComponent,
  AchievementsComponent,
- ProfileNavigatorComponent
+ ProfileNavigatorComponent,
+ MatchHistoryComponent,
+ FooterComponent
   ],
   imports: [
     BrowserModule,

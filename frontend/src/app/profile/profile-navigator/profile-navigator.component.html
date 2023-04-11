@@ -1,7 +1,7 @@
 <div class="card">
 	<div class="card-body">
-		<div class="navs">
-			<div class="nav" *ngFor="let page of pages" routerLink="{{page.url}}">
+		<div class="profile-group">
+			<div class="profile-item" *ngFor="let page of pages" routerLink="{{page.url}}">
 				<img src="{{page.icon}}">
 				<h2 class="mt-3">{{page.title}}</h2>
 			</div>
