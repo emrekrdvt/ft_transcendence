@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row top" *ngIf="page == 0">
+		<h3 class="mt-3">Choose your avatar</h3>
+		<div class="avatars mt-3">
+			<div class="col-md-3 mt-3" *ngFor="let avatar of avatars">
+				<img class="avatar img-fluid" src="{{avatar.url}}">
+				<p class="avatar-name mt-3">{{avatar.name}}</p>
+			</div>
+			
+		</div>
+	</div>
+	<div class="row top" *ngIf="page == 1">
+		<h3 class="mt-3">Choose your username</h3>
+		<input type="text" class="form-control mt-3" placeholder="Username">
+	</div>
+	<div class="row top" *ngIf="page == 2">
+		<img class="img-fluid logo" src="assets/images/removed_bg_logo.png">
+		<h3 class>Welcome to the Ponghub!</h3>
+		<p class="mt-2">You can now start playing Ponghub. You can also change your avatar and username in the profile section.</p>
+	</div>
+	<div class="row bottom mt-4">
+		<button class="btn btn-dark btn-lg btn-block mt-1" (click)="nextPage()">Next</button>
+	</div>
+</div>

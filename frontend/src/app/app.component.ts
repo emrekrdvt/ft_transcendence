@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
+import { RegisterService } from './services/register.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { LoginComponent } from './login/login.component';
 export class AppComponent {
 
 
-	constructor(public login: LoginComponent) {
+	constructor(public login: AuthService, public register: RegisterService) {
 	}
 
   title = 'frontend';

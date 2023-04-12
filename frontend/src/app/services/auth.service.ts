@@ -2,11 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Auth } from '../models/auth.model';
+import { RegisterService } from './register.service';
+import { User } from '../models/user.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthService
 {
-	constructor(private http: HttpClient){}
+	private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
+	isLoggedIn$ = this._isLoggedIn$.asObservable();
+
+	constructor(private http: HttpClient, private registerService: RegisterService){
+		if (localStorage.getItem('user'))
+			this._isLoggedIn$.next(true);
+		else
+			this._isLoggedIn$.next(false);
+	}
 
 	authentication = (address: string, intraToken: string, callback: Function) => {
 		this.http.get<Auth>(address + '/auth/user?code=' + intraToken).subscribe(
@@ -23,10 +34,15 @@ export class AuthService
 		const headers = new HttpHeaders({
 			'Authorization': `Bearer ${token}`
 		});
-		this.http.get<Auth>(address + '/users/me', { headers }).subscribe(
+		this.http.get<User>(address + '/users/me', { headers }).subscribe(
 			res => {
 				localStorage.setItem('user', JSON.stringify(res));
-				//change this to redirect to home page
+				if (this.registerService.checkRegister(res.isSigned) == false)
+				{
+					this.registerService.beginRegister();
+					return ;
+				}
+				this._isLoggedIn$.next(true);
 				document.location.href = '/home';
 			},
 			err => {
@@ -35,5 +51,8 @@ export class AuthService
 		);
 	}
 
+	setLogin = () => {
+		this._isLoggedIn$.next(true);
+	}
 	
 }

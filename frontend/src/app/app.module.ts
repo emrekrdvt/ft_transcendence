@@ -12,11 +12,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { RegisterService } from './services/register.service';
 import { MainComponent } from './profile/main/main.component';
 import { AchievementsComponent } from './profile/achievements/achievements.component';
 import { ProfileNavigatorComponent } from './profile/profile-navigator/profile-navigator.component';
 import { MatchHistoryComponent } from './profile/match-history/match-history.component';
 import { FooterComponent } from './profile/footer/footer.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -32,14 +34,15 @@ import { FooterComponent } from './profile/footer/footer.component';
  AchievementsComponent,
  ProfileNavigatorComponent,
  MatchHistoryComponent,
- FooterComponent
+ FooterComponent,
+ RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
 	HttpClientModule
   ],
-  providers: [LoginComponent, AuthService, UserService],
+  providers: [AuthService, UserService, RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProfileComponent } from '../profile.component';
 
 @Component({
@@ -6,18 +6,24 @@ import { ProfileComponent } from '../profile.component';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
 
-	stats = [
-		{ value: 0, label: 'Wins' },
-		{ value: 0, label: 'Losses' },
-		{ value: 0, label: 'Draws' },
-		{ value: 0, label: 'Games' },
-		{ value: 0, label: 'Rating' },
-		{ value: 0, label: 'Rank'}
-	];
+	stats: any = [];
 
+	constructor(public profile: ProfileComponent) {
+		
+	}
 
-	constructor(public profile: ProfileComponent) { }
+	ngOnInit(): void {
+		this.stats = [
+			{ value: this.profile.user.wins, label: 'Wins' },
+			{ value: this.profile.user.losses, label: 'Losses' },
+			{ value: this.profile.user.draws, label: 'Draws' },
+			{ value: this.profile.user.games, label: 'Games' },
+			{ value: this.profile.user.rating, label: 'Rating' },
+			{ value: this.profile.user.rank, label: 'Rank'}
+		];
+		console.log(this.stats);
+	}
 
 }

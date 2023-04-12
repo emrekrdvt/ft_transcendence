@@ -12,13 +12,24 @@ datasource db {
 
 model User {
   	id        Int      @default(autoincrement()) @id
-	avatarUrl String
+	avatarUrl String?
   	intraId   Int   @unique
   	email     String   @unique
   	username  String   @unique
   	nickname  String?  @unique
   	createdAt DateTime @default(now())
   	updatedAt DateTime @updatedAt
+	isSigned  Boolean  @default(false)
+
+	
+	losses    Int      @default(0)
+	wins     Int      @default(0)
+	draws    Int      @default(0)
+	games	Int      @default(0)
+	rating   Int      @default(1500)
+	level	Int      @default(1)
+	rank    Int      @default(0)
+	xp	Int      @default(0)
 
 	achievements Achievement[]
 	matches     Match[]

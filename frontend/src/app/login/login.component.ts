@@ -14,17 +14,14 @@ import { environment } from 'src/environment/environment'
 
 export class LoginComponent {
 	
-	private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
-	isLoggedIn$ = this._isLoggedIn$.asObservable();
 
 	constructor(private location: Location, private auth: AuthService, private userService: UserService) {
-		if (this.userService.getUser()) {
-			this._isLoggedIn$.next(true);
-		} else
-			this._isLoggedIn$.next(false);
 	}
 		
 	ngOnInit() {
+		if (localStorage.getItem('user')) {
+			return;
+		}	
 		if (this.location.path().includes('code')) {
 			const intraToken = this.location.path().split('=')[1];
 			this.auth.authentication(environment.address, intraToken, this.auth.authenticateUser);

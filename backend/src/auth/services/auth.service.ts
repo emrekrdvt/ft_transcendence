@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
-import { HttpException, Injectable } from '@nestjs/common';
+import { Body, HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { User } from '@prisma/client';
 import { error } from 'console';
 import { catchError, firstValueFrom, lastValueFrom, map, throwError } from 'rxjs';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -61,7 +62,6 @@ export class AuthService {
 				intraId: rdata["id"],
 				username: rdata["login"],
 				email: rdata["email"],
-				avatarUrl: rdata["image"]["link"],
 			}});
 		return this.signToken(intraToken, user.intraId);
 	}
@@ -70,10 +70,9 @@ export class AuthService {
 	{
 		const user = await this.prisma.user.findUnique({
 			where: {
-				intraId: rdata["id"]
+				intraId: rdata["id"],
 			}
 		});
-		console.log("user", user);
 		if (!user)
 			return this.signup(rdata, intraToken);
 		return this.signToken(intraToken, user.intraId);
@@ -101,4 +100,22 @@ export class AuthService {
 		console.log("jwtToken", jwtToken);
 		return jwtToken;
     }
+
+	async register(id: number) {
+		const user = await this.prisma.user.findUnique({
+			where: {
+				intraId: id,
+			}
+		});
+		await this.prisma.user.update({
+			where: {
+				intraId: user.intraId,
+			},
+			data: {
+				isSigned: true,
+			}
+		});
+		return user;
+	}
+
 }
