@@ -1,3 +1,1 @@
-<app-login *ngIf="!(login.isLoggedIn$ | async) && !(register.isRegister$ | async)"></app-login>
-<router-outlet *ngIf="(login.isLoggedIn$ | async)"></router-outlet>
-<app-register *ngIf="(register.isRegister$ | async)"></app-register>
+<router-outlet></router-outlet>

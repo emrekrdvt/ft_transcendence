@@ -18,6 +18,9 @@ backend:
 	@echo "${BLUE}Building backend${NC}"
 	@cd backend && npm install && npm run start:dev --port 3000
 
+studio:
+	@cd backend && npx prisma studio
+
 stop:
 	@echo "${YELLOW}Stopping containers${NC}"
 	@sudo docker compose down

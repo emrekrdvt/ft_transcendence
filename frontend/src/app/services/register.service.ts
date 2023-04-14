@@ -1,34 +1,31 @@
 import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { AuthService } from './auth.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UserService } from './user.service';
 import { environment } from 'src/environment/environment';
+import { Router } from '@angular/router';
 
 
-@Injectable()
+@Injectable(
+	{providedIn: 'root' }
+)
 export class RegisterService	
 {
-	private _isRegister$ = new BehaviorSubject<boolean>(false);
-	isRegister$ = this._isRegister$.asObservable();
+	private isRegister$ = new BehaviorSubject<boolean>(false);
 
-	constructor(private http: HttpClient, private userService: UserService){}
+	constructor(private http: HttpClient, private userService: UserService, private router: Router){}
 
-	checkRegister = (isRegister: boolean) : boolean => {
-		if (isRegister == false)
-			return false;
-		return true;
+	isRegister = (): Observable<boolean> => {
+		return this.isRegister$.asObservable();
 	}
 
 	beginRegister = () => {
-		this._isRegister$.next(true);
-		localStorage.setItem('register', 'progress');
+		this.isRegister$.next(true);
+		this.router.navigate(['/register']);
 	}
 
 	completeRegister = () => {
 		const user = this.userService.getUser()!;
-		this._isRegister$.next(false);
-		localStorage.removeItem('register');
 		const body = { intraId: user.intraId}
 		user.isSigned = true;
 		localStorage.setItem('user', JSON.stringify(user));
@@ -40,6 +37,6 @@ export class RegisterService
 				console.log("Error: ", err);
 			}
 		);
-		document.location.href = '/home';
+		this.router.navigate(['/']);
 	}
 }

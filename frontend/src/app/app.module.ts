@@ -19,6 +19,7 @@ import { ProfileNavigatorComponent } from './profile/profile-navigator/profile-n
 import { MatchHistoryComponent } from './profile/match-history/match-history.component';
 import { FooterComponent } from './profile/footer/footer.component';
 import { RegisterComponent } from './register/register.component';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { RegisterComponent } from './register/register.component';
  ProfileNavigatorComponent,
  MatchHistoryComponent,
  FooterComponent,
- RegisterComponent
+ RegisterComponent,
+ MarketplaceComponent
   ],
   imports: [
     BrowserModule,
