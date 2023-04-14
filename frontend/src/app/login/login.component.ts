@@ -1,9 +1,10 @@
 import { Component } from '@angular/core'
-import { BehaviorSubject, tap } from 'rxjs'
+import { tap } from 'rxjs'
 import { Location } from '@angular/common'
 import { AuthService } from 'src/app/services/auth.service'
 import { UserService } from '../services/user.service'
 import { environment } from 'src/environment/environment'
+import { Router } from '@angular/router'
 
 @Component({
 	selector: 'app-login',
@@ -15,14 +16,14 @@ import { environment } from 'src/environment/environment'
 export class LoginComponent {
 
 
-	constructor(private location: Location, private auth: AuthService) {
+	constructor(private location: Location, private auth: AuthService, private router: Router) {
 	}
 
 	ngOnInit() {
 		this.auth.isAuthenticated().pipe(
 			tap(isLoggedIn => {
 				if (isLoggedIn) {
-					console.log('already logged in');
+					this.router.navigate(['/']);
 					return;
 				}
 			}));

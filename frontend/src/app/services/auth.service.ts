@@ -14,6 +14,8 @@ export class AuthService
 
 
 	constructor(private http: HttpClient, private registerService: RegisterService, private router: Router){
+		if (localStorage.getItem('user') !== null)
+			this.login();
 	}
 
 	isAuthenticated = (): Observable<boolean> => {
@@ -39,7 +41,9 @@ export class AuthService
 			res => {
 				localStorage.setItem('user', JSON.stringify(res));
 				if (res.isSigned === false)
+				{
 					this.registerService.beginRegister();
+				}		
 				this.login();
 			},
 			err => {

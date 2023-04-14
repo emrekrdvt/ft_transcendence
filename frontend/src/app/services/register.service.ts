@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { UserService } from './user.service';
 import { environment } from 'src/environment/environment';
 import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 
 @Injectable(
@@ -13,7 +14,11 @@ export class RegisterService
 {
 	private isRegister$ = new BehaviorSubject<boolean>(false);
 
-	constructor(private http: HttpClient, private userService: UserService, private router: Router){}
+	constructor(private http: HttpClient, private userService: UserService, private router: Router){
+		const user = this.userService.getUser();
+		if (user !== null && user.isSigned === false)
+			this.beginRegister();
+	}
 
 	isRegister = (): Observable<boolean> => {
 		return this.isRegister$.asObservable();
@@ -24,7 +29,7 @@ export class RegisterService
 		this.router.navigate(['/register']);
 	}
 
-	completeRegister = () => {
+	completeRegister = (callback: Function) => {
 		const user = this.userService.getUser()!;
 		const body = { intraId: user.intraId}
 		user.isSigned = true;
@@ -32,11 +37,12 @@ export class RegisterService
 		this.http.post(environment.address + '/auth/register', body).subscribe(
 			res => {
 				console.log(res);
-			},
+			},	
 			err => {
 				console.log("Error: ", err);
 			}
 		);
-		this.router.navigate(['/']);
+		this.isRegister$.next(false);
+		callback();
 	}
 }
