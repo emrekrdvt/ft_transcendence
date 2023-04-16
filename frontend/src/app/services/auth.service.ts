@@ -15,12 +15,12 @@ export class AuthService
 
 	constructor(private http: HttpClient, private registerService: RegisterService, private router: Router){
 		if (localStorage.getItem('user') !== null)
-			this.login();
+			this.isLoggedIn$.next(true);
 	}
 
 	isAuthenticated = (): Observable<boolean> => {
 		return this.isLoggedIn$.asObservable();
-	}
+	}	
 
 	authentication = (address: string, intraToken: string, callback: Function) => {
 		this.http.get<Auth>(address + '/auth/user?code=' + intraToken).subscribe(

@@ -20,6 +20,8 @@ import { MatchHistoryComponent } from './profile/match-history/match-history.com
 import { FooterComponent } from './profile/footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { GameService } from './services/game.service';
+import { DrawService } from './services/draw.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,7 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
     AppRoutingModule,
 	HttpClientModule
   ],
-  providers: [AuthService, UserService, RegisterService],
+  providers: [AuthService, UserService, RegisterService, GameService, DrawService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
