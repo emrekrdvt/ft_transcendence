@@ -8,6 +8,10 @@ export class DrawService {
 
 	constructor() {}
 
+	clearCanvas = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void => {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	}
+
 	drawRect = (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, color: string): void => {
 		ctx.fillStyle = color;
 		ctx.fillRect(x, y, w, h);
@@ -23,7 +27,7 @@ export class DrawService {
 
 	drawText = (ctx: CanvasRenderingContext2D, text: string, x: number, y: number, color: string): void => {
 		ctx.fillStyle = color;
-		ctx.font = 'Press Start 2P';
+		ctx.font = '70px courier new';
 		ctx.fillText(text, x, y);
 	}
 
@@ -33,10 +37,11 @@ export class DrawService {
 	}
 
 	draw = (ctx: CanvasRenderingContext2D, ball: Ball, playerOne: Player, playerTwo: Player, net: Net, canvas: HTMLCanvasElement): void => {
-		this.drawRect(ctx, 0, 0, 800, 600, '#000');
+		this.clearCanvas(ctx, canvas);
+		this.drawRect(ctx, 0, 0, 1024, 768, '#000');
 
-		this.drawText(ctx, playerOne.score.toString(), canvas.width / 4, canvas.height / 5, '#fff');
-		this.drawText(ctx, playerTwo.score.toString(), (3 * canvas.width) / 4, canvas.height / 5, '#fff');
+		this.drawText(ctx, playerOne.score.toString(), canvas.width / 4, canvas.height / 6, '#fff');
+		this.drawText(ctx, playerTwo.score.toString(), (3 * canvas.width) / 4, canvas.height / 6, '#fff');
 
 		this.drawNet(ctx, canvas, net);
 

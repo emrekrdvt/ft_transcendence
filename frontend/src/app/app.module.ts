@@ -22,6 +22,7 @@ import { RegisterComponent } from './register/register.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { GameService } from './services/game.service';
 import { DrawService } from './services/draw.service';
+import { PlayerService } from './services/player.service';
 
 @NgModule({
   declarations: [
@@ -39,14 +40,14 @@ import { DrawService } from './services/draw.service';
  MatchHistoryComponent,
  FooterComponent,
  RegisterComponent,
- MarketplaceComponent
+ MarketplaceComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
 	HttpClientModule
   ],
-  providers: [AuthService, UserService, RegisterService, GameService, DrawService],
+  providers: [AuthService, UserService, RegisterService, GameService, DrawService, PlayerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

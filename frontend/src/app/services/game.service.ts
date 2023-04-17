@@ -7,8 +7,16 @@ import { DrawService } from './draw.service';
 @Injectable()
 export class GameService {
 	
+	lastTime: number = 0;
 
 	constructor(private drawService: DrawService) {}
+
+	getDeltaTime = (): number => {
+		const now = performance.now();
+		const deltaTime = (now - this.lastTime) / 1000;
+		this.lastTime = now;
+		return deltaTime;
+	}
 
 	getBall = (canvasWidth: number, canvasHeight: number): Ball => {
 		const ball: Ball = {
@@ -21,46 +29,24 @@ export class GameService {
 		return ball;
 	}
 
-	getPlayerOne = (canvasHeight: number): Player => {
-		const playerOne: Player = {
-			x: 0,
-			y: canvasHeight / 2 - 50,
-			width: 10,
-			height: 100,
-			score: 0,
-			name : 'Player 1'
-		};
-		return playerOne;
-	}
+	
 
-	getPlayerTwo = (canvasWidth: number, canvasHeight: number): Player => {
-		const playerTwo: Player = {
-			x: canvasWidth - 10,
-			y: canvasHeight / 2 - 50,
-			width: 10,
-			height: 100,
-			score: 0,
-			name : 'Player 2'
-		};
-		return playerTwo;
-	}
-
-	movePaddle = (event: KeyboardEvent, canvas: HTMLCanvasElement, player: Player): void => {
-		if (event.key === 'ArrowUp') {
-			if (player.y - 100 > 0)
-				player.y -= 100;
+	movePaddle = (canvas: HTMLCanvasElement, player: Player, deltaTime: number): void => {
+		if (player.events.up === true) {
+			if (player.y - player.speed * deltaTime > 0)
+				player.y -= player.speed * deltaTime;
 			else
 				player.y = 0;
 		}
-		else if (event.key === 'ArrowDown') {
-			if (player.y + 100 < canvas.height - player.height)	
-				player.y += 100;
+		else if (player.events.down) {
+			if (player.y + player.speed * deltaTime < canvas.height - player.height)	
+				player.y += player.speed * deltaTime;
 			else
 				player.y = canvas.height - player.height;
 		}
 	}
 
-	moveBall = (ball: Ball, canvas: HTMLCanvasElement, playerOne: Player, playerTwo: Player): void => {	
+	moveBall = (ball: Ball, canvas: HTMLCanvasElement, playerOne: Player, playerTwo: Player, deltaTime: number): void => {	
 		
 		
 		ball.x += ball.dx;
@@ -71,6 +57,20 @@ export class GameService {
 		}
 		else
 		{
+			if (ball.x + ball.size > canvas.width) {
+				playerOne.score++;
+				ball.x = canvas.width / 2;
+				ball.y = canvas.height / 2;
+				ball.dx *= -1;
+				return;
+			}
+			else if (ball.x - ball.size < 0) {
+				playerTwo.score++;
+				ball.x = canvas.width / 2;
+				ball.y = canvas.height / 2;
+				ball.dx *= -1;
+				return;
+			}
 			if (ball.y + ball.size > canvas.height || ball.y - ball.size < 0)
 				ball.dy *= -1;
 			if (ball.x + ball.size > canvas.width || ball.x - ball.size < 0)
@@ -80,16 +80,20 @@ export class GameService {
 
 	collisonDetection = (ball: Ball, player: Player, add: number): Boolean => {
 		if (ball.x < player.x + player.width + add &&
-			ball.x + ball.size > player.x &&
+			ball.x + ball.size> player.x &&
 			ball.y < player.y + player.height &&
-			ball.y + ball.size > player.y)
+			ball.y + ball.size> player.y)
 			return true;
 		return false;
 	}
 
 	gameLoop = (ctx: CanvasRenderingContext2D, ball: Ball, playerOne: Player, playerTwo: Player, net: any, canvas: HTMLCanvasElement): void => {
-		this.moveBall(ball, canvas, playerOne, playerTwo);
+		const deltaTime = this.getDeltaTime();
+		this.moveBall(ball, canvas, playerOne, playerTwo, deltaTime);
+		this.movePaddle(canvas, playerOne, deltaTime);
+		this.movePaddle(canvas, playerTwo, deltaTime);
 		this.drawService.draw(ctx, ball, playerOne, playerTwo, net, canvas);
 		requestAnimationFrame(() => this.gameLoop(ctx, ball, playerOne, playerTwo, net, canvas));
+		
 	}
 }

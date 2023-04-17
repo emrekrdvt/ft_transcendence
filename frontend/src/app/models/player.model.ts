@@ -5,5 +5,11 @@ export interface Player
 	width: number,
 	height: number,
 	score: number,
-	name : String
+	name : string,
+	speed: number,
+	events: {
+		up: Boolean,
+		down: Boolean,
+	}
+	avatar: string,
 }
