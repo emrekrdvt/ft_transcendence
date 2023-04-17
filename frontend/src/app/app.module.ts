@@ -23,9 +23,14 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { GameService } from './services/game.service';
 import { DrawService } from './services/draw.service';
 import { PlayerService } from './services/player.service';
+import { LobbyComponent } from './play/lobby/lobby.component';
+import { SocketService } from './services/socket.service';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
-  declarations: [
+	declarations: [
     AppComponent,
     LoginComponent,
     PagesComponent,
@@ -41,13 +46,15 @@ import { PlayerService } from './services/player.service';
  FooterComponent,
  RegisterComponent,
  MarketplaceComponent,
+ LobbyComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-	HttpClientModule
+	HttpClientModule,
+	SocketIoModule.forRoot(config)
   ],
-  providers: [AuthService, UserService, RegisterService, GameService, DrawService, PlayerService],
+  providers: [AuthService, UserService, RegisterService, GameService, DrawService, PlayerService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

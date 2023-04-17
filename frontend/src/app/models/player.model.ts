@@ -8,8 +8,8 @@ export interface Player
 	name : string,
 	speed: number,
 	events: {
-		up: Boolean,
-		down: Boolean,
+		up: boolean,
+		down: boolean,
 	}
 	avatar: string,
 }
