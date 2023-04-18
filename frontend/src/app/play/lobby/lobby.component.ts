@@ -18,7 +18,7 @@ export class LobbyComponent implements OnInit {
 
 	findGame = () => {
 		const user: User = this.userService.getUser()!;
-		const seeker: Seeker = {nickname: user.username, avatarUrl: user.avatarUrl, rating: user.rating};
+		const seeker: Seeker = {nickname: user.nickname, avatarUrl: user.avatarUrl, rating: user.rating};
 		this.socketService.sendEvent('findGame', seeker);
 		this.socketService.sendEvent('listSeekers', null);
 	}

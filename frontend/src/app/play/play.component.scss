@@ -1,19 +1,14 @@
 .row	
 {
 		display: flex;
-		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		width: 360px;
-		height: 50vh;
-		position: absolute;
-		top: 20%;
-		left: 30%;
 		flex-wrap: wrap;
+		width: 100%;
 
-
-		.game
+		.lobby
 		{
-			filter: blur(3px);
+			margin-top: 15%;
+			width: 320px;
 		}
 }

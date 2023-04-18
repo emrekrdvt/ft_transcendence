@@ -15,48 +15,73 @@ export class RegisterComponent {
 
 	path: string = '../assets/avatars/';
 
+	selectedAvatar: string = '';
+	selectedNickname: string = '';
+
 	avatars = [
 		{
-			name: 'luna',
-			url: this.path + 'luna.jpeg'
+			url: this.path + 'luna.jpeg',
+			clicked: false
 		},
 		{
-			name: 'artemis',
-			url: this.path + 'artemis.jpeg'
+			url: this.path + 'artemis.jpeg',
+			clicked: false
 		},
 		{
-			name: 'mamoru',
-			url: this.path + 'mamoru.jpeg'
+			url: this.path + 'mamoru.jpeg',
+			clicked: false
 		},
 		{
-			name: 'ami',
-			url: this.path + 'ami.jpeg'
+			url: this.path + 'ami.jpeg',
+			clicked: false
 		},
 		{
-			name: 'makoto',
-			url: this.path + 'makoto.jpeg'
+			url: this.path + 'makoto.jpeg',
+			clicked: false
 		},
 		{
-			name: 'rei',
-			url: this.path + 'rei.jpeg'
+			url: this.path + 'rei.jpeg',
+			clicked: false
 		},
 		{
-			name: 'minako',
-			url: this.path + 'minako.jpeg'
+			url: this.path + 'minako.jpeg',
+			clicked: false
 		},
 		{
-			name: 'usagi',
-			url: this.path + 'usagi.jpeg'
+			url: this.path + 'usagi.jpeg',
+			clicked: false
 		},
 	];
 
 	nextPage = () => {
+		if (this.page == 0 && this.selectedAvatar == '')
+			return;
+		if (this.page == 1 && this.selectedNickname == '')
+			return;
 		if (this.page == 2)
 		{
-			this.registerService.completeRegister(this.authService.login);
+			this.registerService.completeRegister(this.authService.login, this.selectedAvatar, this.selectedNickname);
 			return;
 		}
 		this.page += 1;
+	}
+
+	selectAvatar = (url: string) => {
+		this.selectedAvatar = url;
+		this.avatars.forEach(avatar => {
+			if (avatar.url == url)
+			{
+				avatar.clicked = true;
+			}
+			else
+			{
+				avatar.clicked = false;
+			}
+		});
+	}
+
+	selectNickname = (event: any) => {
+		this.selectedNickname = event.target.value;
 	}
 
 }

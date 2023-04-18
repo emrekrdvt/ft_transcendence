@@ -29,9 +29,15 @@ export class RegisterService
 		this.router.navigate(['/register']);
 	}
 
-	completeRegister = (callback: Function) => {
+	completeRegister = (callback: Function, selectedAvatar: string, selectedNickname: string) => {
 		const user = this.userService.getUser()!;
 		const body = { intraId: user.intraId}
+		this.userService.updateUser(user, () => {
+			user.avatarUrl = selectedAvatar;
+		}, selectedAvatar);
+		this.userService.updateUser(user, () => {
+			user.nickname = selectedNickname;
+		}, selectedNickname);
 		user.isSigned = true;
 		localStorage.setItem('user', JSON.stringify(user));
 		this.http.post(environment.address + '/auth/register', body).subscribe(
@@ -42,6 +48,7 @@ export class RegisterService
 				console.log("Error: ", err);
 			}
 		);
+		
 		this.isRegister$.next(false);
 		callback();
 	}

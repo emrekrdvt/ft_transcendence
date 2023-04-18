@@ -1,2 +1,9 @@
-<canvas #game width="1024" height="768" (keydown)="onKeyDown($event)" tabindex="0" (keyup)="onKeyUp($event)">
-</canvas>
+<div class="container" >
+	<div class="row">
+		<app-player-stats></app-player-stats>
+	</div>
+	<div class="row">
+			<canvas #game width="1024" height="768" tabindex="0" (keydown)="onKeyDown($event)"  (keyup)="onKeyUp($event)">
+			</canvas>
+	</div>	
+</div>

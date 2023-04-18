@@ -3,15 +3,15 @@
 		<h3 class="mt-3">Choose your avatar</h3>
 		<div class="avatars mt-3">
 			<div class="col-md-3 mt-3" *ngFor="let avatar of avatars">
-				<img class="avatar img-fluid" src="{{avatar.url}}">
-				<p class="avatar-name mt-3">{{avatar.name}}</p>
+				<img class="avatar img-fluid mt-3" src="{{avatar.url}}" *ngIf="avatar.clicked === false" (click)="selectAvatar(avatar.url)">
+				<img class="avatar img-fluid mt-2 clicked" src="{{avatar.url}}" *ngIf="avatar.clicked === true">
 			</div>
 			
 		</div>
 	</div>
 	<div class="row top" *ngIf="page == 1">
-		<h3 class="mt-3">Choose your username</h3>
-		<input type="text" class="form-control mt-3" placeholder="Username">
+		<h3 class="mt-3">Choose your nickname</h3>
+		<input type="text" class="form-control mt-3" placeholder="Nickname" (keyup)="selectNickname($event)">
 	</div>
 	<div class="row top" *ngIf="page == 2">
 		<img class="img-fluid logo" src="assets/images/removed_bg_logo.png">

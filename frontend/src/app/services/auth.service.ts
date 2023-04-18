@@ -43,6 +43,7 @@ export class AuthService
 				if (res.isSigned === false)
 				{
 					this.registerService.beginRegister();
+					return;
 				}		
 				this.login();
 			},

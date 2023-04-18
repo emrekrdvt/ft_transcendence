@@ -3,7 +3,7 @@
 	<div class="card-body">
 		<p>Players in lobby: {{size}}</p>
 		<div class="seeker mt-2" *ngFor="let seeker of lobbyUsers">
-			<img src="../../../assets/avatars/usagi.jpeg" class="seeker-avatar" />
+			<img src="{{seeker.avatarUrl}}" class="seeker-avatar" />
 			<div class="seeker-info">
 				<p class="seeker-name">{{seeker.nickname}}</p>
 				<p class="seeker-rating">Rating: {{seeker.rating}}</p>

@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { PagesComponent } from './pages/pages.component';
 import { PlayComponent } from './play/play.component';
-import { ChatComponent } from './play/chat/chat.component';
 import { GameComponent } from './play/game/game.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
@@ -26,6 +25,7 @@ import { PlayerService } from './services/player.service';
 import { LobbyComponent } from './play/lobby/lobby.component';
 import { SocketService } from './services/socket.service';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { PlayerStatsComponent } from './play/player-stats/player-stats.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -35,7 +35,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     LoginComponent,
     PagesComponent,
     PlayComponent,
-    ChatComponent,
     GameComponent,
     ProfileComponent,
 	HomeComponent,
@@ -47,6 +46,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
  RegisterComponent,
  MarketplaceComponent,
  LobbyComponent,
+ PlayerStatsComponent,
   ],
   imports: [
     BrowserModule,
