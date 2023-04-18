@@ -1,0 +1,37 @@
+.card
+{
+	background-color: (rgba(0,0,0,0.8));
+	border: 1px solid #ff6a00;
+	color: white;
+	.card-header
+	{
+		background-color: #ff6a00;
+		color: white;
+		font-size: 1.2rem;
+	}
+	.card-body
+	{
+		.seeker
+		{
+			display: flex;
+			flex-direction: row;
+	
+			.seeker-avatar
+			{
+				width: 5rem;
+				height: 5rem;
+				margin-right: 1rem;
+			}
+		}
+	}
+	.btn
+	{
+		color: white;
+
+		&:hover
+		{
+			background-color: white;
+			color: #ff6a00;
+		}
+	}
+}

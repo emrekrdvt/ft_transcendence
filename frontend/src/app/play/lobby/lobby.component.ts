@@ -12,6 +12,7 @@ import { Seeker } from 'src/app/models/seeker.model';
 export class LobbyComponent implements OnInit {
 
 	public lobbyUsers: Set<Seeker> = new Set();
+	size: number = 0;
 
 	constructor(private socketService: SocketService, private userService: UserService) { }
 
@@ -27,6 +28,7 @@ export class LobbyComponent implements OnInit {
 		this.socketService.sendEvent('listSeekers', null);
 		this.socketService.listenToEvent('seekers').subscribe((seekers: Set<Seeker>) => {
 			this.lobbyUsers = seekers;
+			this.size = seekers.size;
 		});
 	}
 }
