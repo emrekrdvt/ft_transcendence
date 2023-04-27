@@ -10,13 +10,13 @@ import { AuthService } from './auth.service';
 @Injectable(
 	{providedIn: 'root' }
 )
-export class RegisterService	
+export class RegisterService
 {
 	private isRegister$ = new BehaviorSubject<boolean>(false);
 
 	constructor(private http: HttpClient, private userService: UserService, private router: Router){
 		const user = this.userService.getUser();
-		if (user !== null && user.isSigned === false)
+		if (user !== null && !user.isSigned)
 			this.beginRegister();
 	}
 
@@ -26,7 +26,7 @@ export class RegisterService
 
 	beginRegister = () => {
 		this.isRegister$.next(true);
-		this.router.navigate(['/register']);
+		this.router.navigate(['/register']).then(r => console.log(r));
 	}
 
 	completeRegister = (callback: Function, selectedAvatar: string, selectedNickname: string) => {
@@ -34,21 +34,23 @@ export class RegisterService
 		const body = { intraId: user.intraId}
 		this.userService.updateUser(user, () => {
 			user.avatarUrl = selectedAvatar;
+      return { avatarUrl: selectedAvatar };
 		}, selectedAvatar);
 		this.userService.updateUser(user, () => {
 			user.nickname = selectedNickname;
+      return { nickname: selectedNickname };
 		}, selectedNickname);
 		user.isSigned = true;
 		localStorage.setItem('user', JSON.stringify(user));
 		this.http.post(environment.address + '/auth/register', body).subscribe(
 			res => {
 				console.log(res);
-			},	
+			},
 			err => {
 				console.log("Error: ", err);
 			}
 		);
-		
+
 		this.isRegister$.next(false);
 		callback();
 	}

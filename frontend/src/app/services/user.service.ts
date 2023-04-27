@@ -19,14 +19,14 @@ export class UserService
 		return null;
 	}
 
-	updateUser = (user: User, callback: Function, data: any) => {	
+	updateUser = (user: User, callback: Function, data: any) => {
 		const token = localStorage.getItem('token');
 		const headers = new HttpHeaders({
 			'Authorization': `Bearer ${token}`
 		});
-		callback(data);
-		return this.http.put(`${environment.address}/${user.intraId}`, data, { headers }).subscribe(res => {
-			console.log(res);
+		data = callback(data);
+		return this.http.put(`${environment.address}/users/${user.intraId}`, data, { headers }).subscribe(res => {
+			console.log("update user: ", res);
 		});
 	}
 }

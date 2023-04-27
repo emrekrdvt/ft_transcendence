@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { RegisterService } from '../services/register.service';
+import { AuthService } from '../../services/auth.service';
+import { RegisterService } from '../../services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -69,14 +69,7 @@ export class RegisterComponent {
 	selectAvatar = (url: string) => {
 		this.selectedAvatar = url;
 		this.avatars.forEach(avatar => {
-			if (avatar.url == url)
-			{
-				avatar.clicked = true;
-			}
-			else
-			{
-				avatar.clicked = false;
-			}
+			avatar.clicked = avatar.url == url;
 		});
 	}
 

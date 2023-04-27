@@ -6,7 +6,7 @@
 				<img class="avatar img-fluid mt-3" src="{{avatar.url}}" *ngIf="avatar.clicked === false" (click)="selectAvatar(avatar.url)">
 				<img class="avatar img-fluid mt-2 clicked" src="{{avatar.url}}" *ngIf="avatar.clicked === true">
 			</div>
-			
+
 		</div>
 	</div>
 	<div class="row top" *ngIf="page == 1">
@@ -14,7 +14,7 @@
 		<input type="text" class="form-control mt-3" placeholder="Nickname" (keyup)="selectNickname($event)">
 	</div>
 	<div class="row top" *ngIf="page == 2">
-		<img class="img-fluid logo" src="assets/images/removed_bg_logo.png">
+		<img class="img-fluid logo" src="../../../assets/images/removed_bg_logo.png">
 		<h3 class>Welcome to the Ponghub!</h3>
 		<p class="mt-2">You can now start playing Ponghub. You can also change your avatar and username in the profile section.</p>
 	</div>

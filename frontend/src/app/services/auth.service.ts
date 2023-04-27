@@ -20,7 +20,7 @@ export class AuthService
 
 	isAuthenticated = (): Observable<boolean> => {
 		return this.isLoggedIn$.asObservable();
-	}	
+	}
 
 	authentication = (address: string, intraToken: string, callback: Function) => {
 		this.http.get<Auth>(address + '/auth/user?code=' + intraToken).subscribe(
@@ -40,13 +40,14 @@ export class AuthService
 		this.http.get<User>(address + '/users/me', { headers }).subscribe(
 			res => {
 				localStorage.setItem('user', JSON.stringify(res));
-				if (res.isSigned === false)
-				{
-					this.registerService.beginRegister();
-					return;
-				}		
-				this.login();
-			},
+        localStorage.setItem('token', token);
+        if (res.isSigned) {
+          this.login();
+        } else {
+          this.registerService.beginRegister();
+          return;
+        }
+      },
 			err => {
 				console.log(err);
 			}
@@ -55,11 +56,11 @@ export class AuthService
 
 	login = () => {
 		this.isLoggedIn$.next(true);
-		this.router.navigate(['/']);
+		this.router.navigate(['/']).then(r => console.log(r));
 	}
 
 	logout = () => {
 		this.isLoggedIn$.next(false);
 	}
-	
+
 }

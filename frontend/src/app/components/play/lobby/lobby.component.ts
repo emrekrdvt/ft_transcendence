@@ -11,14 +11,14 @@ import { Seeker } from 'src/app/models/seeker.model';
 })
 export class LobbyComponent implements OnInit {
 
-	public lobbyUsers: Set<Seeker> = new Set();
+	public lobbyUsers: Seeker[] = [];
 	size: number = 0;
 
 	constructor(private socketService: SocketService, private userService: UserService) { }
 
 	findGame = () => {
 		const user: User = this.userService.getUser()!;
-		const seeker: Seeker = {nickname: user.nickname, avatarUrl: user.avatarUrl, rating: user.rating};
+		const seeker: Seeker = {nickname: user.nickname, avatarUrl: user.avatarUrl, rating: user.rating, intraId: user.intraId};
 		this.socketService.sendEvent('findGame', seeker);
 		this.socketService.sendEvent('listSeekers', null);
 	}
@@ -26,9 +26,9 @@ export class LobbyComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.socketService.sendEvent('listSeekers', null);
-		this.socketService.listenToEvent('seekers').subscribe((seekers: Set<Seeker>) => {
+		this.socketService.listenToEvent('seekers').subscribe((seekers: Seeker[]) => {
 			this.lobbyUsers = seekers;
-			this.size = seekers.size;
+			this.size = seekers.length;
 		});
 	}
 }

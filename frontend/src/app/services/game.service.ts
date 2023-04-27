@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Ball } from 'src/app/models/ball.model';
-import { Player } from '../models/player.model';
-import { DrawService } from './draw.service';
+import {Injectable} from '@angular/core';
+import {Ball} from 'src/app/models/ball.model';
+import {Player} from '../models/player.model';
+import {DrawService} from './draw.service';
 
 
 @Injectable()
 export class GameService {
-	
+
 	lastTime: number = 0;
 
 	constructor(private drawService: DrawService) {}
@@ -19,39 +19,34 @@ export class GameService {
 	}
 
 	getBall = (canvasWidth: number, canvasHeight: number): Ball => {
-		const ball: Ball = {
-			x: canvasWidth / 2,
-			y: canvasHeight / 2,
-			size: 10,
-			dx: 8,
-			dy: 8
-		};
-		return ball;
+    return {
+      x: canvasWidth / 2,
+      y: canvasHeight / 2,
+      size: 10,
+      dx: 8,
+      dy: 8
+    };
 	}
 
-	
-
 	movePaddle = (canvas: HTMLCanvasElement, player: Player, deltaTime: number): void => {
-		if (player.events.up === true) {
+		if (player.events.up) {
 			if (player.y - player.speed * deltaTime > 0)
 				player.y -= player.speed * deltaTime;
 			else
 				player.y = 0;
 		}
 		else if (player.events.down) {
-			if (player.y + player.speed * deltaTime < canvas.height - player.height)	
+			if (player.y + player.speed * deltaTime < canvas.height - player.height)
 				player.y += player.speed * deltaTime;
 			else
 				player.y = canvas.height - player.height;
 		}
 	}
 
-	moveBall = (ball: Ball, canvas: HTMLCanvasElement, playerOne: Player, playerTwo: Player, deltaTime: number): void => {	
-		
-		
+	moveBall = (ball: Ball, canvas: HTMLCanvasElement, playerOne: Player, playerTwo: Player): void => {
 		ball.x += ball.dx;
 		ball.y += ball.dy;
-		if (this.collisonDetection(ball, playerOne, 10) || this.collisonDetection(ball, playerTwo, 0)) {
+		if (this.collisionDetection(ball, playerOne, 10) || this.collisionDetection(ball, playerTwo, 0)) {
 			Math.random() > 0.5 ? ball.dy *= -1 : ball.dy *= 1;
 			ball.dx *= -1;
 		}
@@ -78,22 +73,19 @@ export class GameService {
 		}
 	}
 
-	collisonDetection = (ball: Ball, player: Player, add: number): Boolean => {
-		if (ball.x < player.x + player.width + add &&
-			ball.x + ball.size> player.x &&
-			ball.y < player.y + player.height &&
-			ball.y + ball.size> player.y)
-			return true;
-		return false;
+	collisionDetection = (ball: Ball, player: Player, add: number): Boolean => {
+		return ball.x < player.x + player.width + add &&
+      ball.x + ball.size > player.x &&
+      ball.y < player.y + player.height &&
+      ball.y + ball.size > player.y;
 	}
 
 	gameLoop = (ctx: CanvasRenderingContext2D, ball: Ball, playerOne: Player, playerTwo: Player, net: any, canvas: HTMLCanvasElement): void => {
 		const deltaTime = this.getDeltaTime();
-		this.moveBall(ball, canvas, playerOne, playerTwo, deltaTime);
+		this.moveBall(ball, canvas, playerOne, playerTwo);
 		this.movePaddle(canvas, playerOne, deltaTime);
 		this.movePaddle(canvas, playerTwo, deltaTime);
 		this.drawService.draw(ctx, ball, playerOne, playerTwo, net, canvas);
 		requestAnimationFrame(() => this.gameLoop(ctx, ball, playerOne, playerTwo, net, canvas));
-		
 	}
 }

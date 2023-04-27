@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { tap } from 'rxjs'
 import { Location } from '@angular/common'
 import { AuthService } from 'src/app/services/auth.service'
-import { UserService } from '../services/user.service'
+import { UserService } from '../../services/user.service'
 import { environment } from 'src/environment/environment'
 import { Router } from '@angular/router'
 
