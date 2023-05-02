@@ -8,6 +8,13 @@ export class DrawService {
 
 	constructor() {}
 
+  getCanvas = (): HTMLCanvasElement => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1024;
+    canvas.height = 768;
+    return canvas;
+  }
+
 	clearCanvas = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void => {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	}

@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { PagesComponent } from './components/pages/pages.component';
 import { PlayComponent } from './components/play/play.component';
-import { GameComponent } from './components/play/game/game.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
@@ -19,13 +18,9 @@ import { MatchHistoryComponent } from './components/profile/match-history/match-
 import { FooterComponent } from './components/profile/footer/footer.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MarketplaceComponent } from './components/marketplace/marketplace.component';
-import { GameService } from './services/game.service';
 import { DrawService } from './services/draw.service';
-import { PlayerService } from './services/player.service';
-import { LobbyComponent } from './components/play/lobby/lobby.component';
 import { SocketService } from './services/socket.service';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
-import { PlayerStatsComponent } from './components/play/player-stats/player-stats.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -35,7 +30,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     LoginComponent,
     PagesComponent,
     PlayComponent,
-    GameComponent,
     ProfileComponent,
 	HomeComponent,
  MainComponent,
@@ -45,8 +39,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
  FooterComponent,
  RegisterComponent,
  MarketplaceComponent,
- LobbyComponent,
- PlayerStatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +46,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 	HttpClientModule,
 	SocketIoModule.forRoot(config)
   ],
-  providers: [AuthService, UserService, RegisterService, GameService, DrawService, PlayerService, SocketService],
+  providers: [AuthService, UserService, RegisterService, DrawService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

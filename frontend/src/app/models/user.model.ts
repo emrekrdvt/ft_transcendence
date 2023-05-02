@@ -1,3 +1,5 @@
+import {Game} from "./game.model";
+
 export interface User
 {
 	intraId: number;
@@ -12,5 +14,4 @@ export interface User
 	draws: number;
 	games: number;
 	rank: number;
-	inGame: boolean;
 }

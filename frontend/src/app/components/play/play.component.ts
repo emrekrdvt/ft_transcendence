@@ -8,13 +8,9 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./play.component.scss']
 })
 export class PlayComponent implements OnInit{
-
-	inGame: boolean = true;
-	constructor(private userService: UserService) {}
+	constructor() {}
 
 	ngOnInit(): void {
-		const user: User = this.userService.getUser()!;
-		this.inGame = user.inGame;
 	}
 
 
