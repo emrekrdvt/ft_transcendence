@@ -1,0 +1,14 @@
+<div class="card">
+	<div class="card-header">Lobby</div>
+	<div class="card-body">
+		<p>Players in lobby: {{lobbyService.getLobbySize()}}</p>
+		<div class="player mt-2" *ngFor="let player of lobbyService.getLobby()">
+			<img src="{{player.avatarUrl}}" class="player-avatar" />
+			<div class="player-info">
+				<p class="player-name">{{player.nickname}}</p>
+				<p class="player-rating">{{player.rating}}</p>
+			</div>
+		</div>
+	</div>
+	<button class="btn btn-dark btn-block" (click)="join()">Find a game</button>
+</div>

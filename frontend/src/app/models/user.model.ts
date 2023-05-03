@@ -14,4 +14,5 @@ export interface User
 	draws: number;
 	games: number;
 	rank: number;
+	ingame: boolean;
 }

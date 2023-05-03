@@ -21,32 +21,38 @@ import { MarketplaceComponent } from './components/marketplace/marketplace.compo
 import { DrawService } from './services/draw.service';
 import { SocketService } from './services/socket.service';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { GameComponent } from './components/play/game/game.component';
+import { LobbyComponent } from './components/play/lobby/lobby.component';
+import { LobbyService } from './services/lobby.service';
+import { PlayerService } from './services/player.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
 	declarations: [
-    AppComponent,
-    LoginComponent,
-    PagesComponent,
-    PlayComponent,
-    ProfileComponent,
-	HomeComponent,
- MainComponent,
- AchievementsComponent,
- ProfileNavigatorComponent,
- MatchHistoryComponent,
- FooterComponent,
- RegisterComponent,
- MarketplaceComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-	HttpClientModule,
-	SocketIoModule.forRoot(config)
-  ],
-  providers: [AuthService, UserService, RegisterService, DrawService, SocketService],
-  bootstrap: [AppComponent]
+		AppComponent,
+		LoginComponent,
+		PagesComponent,
+		PlayComponent,
+		ProfileComponent,
+		HomeComponent,
+		MainComponent,
+		AchievementsComponent,
+		ProfileNavigatorComponent,
+		MatchHistoryComponent,
+		FooterComponent,
+		RegisterComponent,
+		MarketplaceComponent,
+		LobbyComponent,
+  GameComponent,
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		SocketIoModule.forRoot(config)
+	],
+	providers: [AuthService, UserService, RegisterService, DrawService, SocketService, LobbyService, PlayerService],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

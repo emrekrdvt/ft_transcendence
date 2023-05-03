@@ -3,6 +3,8 @@ import {
   WebSocketGateway,
   WebSocketServer,
   OnGatewayDisconnect,
+  OnGatewayInit,
+  OnGatewayConnection,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { PongEvents } from '../models/pevents.model';
@@ -10,39 +12,54 @@ import { PongMessage } from '../models/pmessages.model';
 import { Logger } from '@nestjs/common';
 import { PongService } from '../services/pong.service';
 import { MatchService } from '../services/match.service';
+import { LobbyService } from '../services/lobby.service';
 
-@WebSocketGateway()
-export class PongGateway implements OnGatewayDisconnect {
-  @WebSocketServer()
-  server: Server;
+@WebSocketGateway({protocol: 'http', cors: {origin: 'http://localhost:4200'}})
+export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect  {
+	@WebSocketServer()
+	server: Server;
+	constructor(
+		private readonly pongService: PongService,
+		private matchService: MatchService,
+		private lobbyService: LobbyService,
+	) {}
 
-  constructor(
-    private readonly pongService: PongService,
-    private matchService: MatchService,
-  ) {}
+	afterInit(server: Server) {
+		Logger.log('Pong gateway initialized');
+	}
 
-  handleDisconnect(client: Socket) {
-    Logger.log(`Client disconnected: ${client.id}`);
-    this.pongService.removePlayer(client.id);
-    client.broadcast.emit(PongEvents.PlayerLeft, client.id);
-    client.emit(PongEvents.PlayerLeft, client.id);
-  }
+	handleConnection(client: Socket) {
+		Logger.log(`Client connected: ${client.id}`);
+	}
 
-  @SubscribeMessage(PongEvents.Join)
-  handleJoin(client: Socket, data: any) {
-    Logger.log(`Client connected: ${client.id}`);
-    this.pongService.addPlayer(client.id, data.rating);
-    client.broadcast.emit(PongEvents.PlayerJoined, { clientId: client.id });
-    client.emit(PongEvents.PlayerConfirmed, { clientId: client.id });
-  }
+	handleDisconnect(client: Socket) {
+		Logger.log(`Client disconnected: ${client.id}`);
+		this.lobbyService.removePlayer(client.id);
+		this.server.emit('lobby', this.lobbyService.getLobby());
+	}
 
-  @SubscribeMessage(PongEvents.MovePaddle)
-  handleMovePaddle(client: Socket, message: PongMessage) {
-    // İletiyi diğer oyuncuya gönder
-  }
+	@SubscribeMessage(PongEvents.Join)
+	handleJoin(client: Socket, data: any) {
+		Logger.log(`Client joined: ${client.id}`);
+		if (this.lobbyService.getPlayer(client.id) != null)
+			return;
+		this.lobbyService.addPlayer(client.id, data);
+		this.server.emit('lobby', this.lobbyService.getLobby());
+	}
 
-  @SubscribeMessage(PongEvents.UpdateBall)
-  handleUpdateBall(client: Socket, message: PongMessage) {
-    // İletiyi diğer oyuncuya gönder
-  }
+	@SubscribeMessage(PongEvents.GetLobby)
+	handleGetLobby(client: Socket)
+	{
+		client.emit('lobby', this.lobbyService.getLobby());
+	}
+
+	@SubscribeMessage(PongEvents.MovePaddle)
+	handleMovePaddle(client: Socket, message: PongMessage) {
+	  // İletiyi diğer oyuncuya gönder
+	}
+
+	@SubscribeMessage(PongEvents.UpdateBall)
+	handleUpdateBall(client: Socket, message: PongMessage) {
+   	  // İletiyi diğer oyuncuya gönder
+	}
 }

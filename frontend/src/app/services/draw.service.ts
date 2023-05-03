@@ -8,13 +8,6 @@ export class DrawService {
 
 	constructor() {}
 
-  getCanvas = (): HTMLCanvasElement => {
-    const canvas = document.createElement('canvas');
-    canvas.width = 1024;
-    canvas.height = 768;
-    return canvas;
-  }
-
 	clearCanvas = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void => {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	}
@@ -47,8 +40,12 @@ export class DrawService {
 		this.clearCanvas(ctx, canvas);
 		this.drawRect(ctx, 0, 0, 1024, 768, '#000');
 
-		this.drawText(ctx, playerOne.score.toString(), canvas.width / 4, canvas.height / 6, '#fff');
-		this.drawText(ctx, playerTwo.score.toString(), (3 * canvas.width) / 4, canvas.height / 6, '#fff');
+		if (playerOne.score && playerTwo.score)
+		{
+			this.drawText(ctx, playerOne.score.toString(), canvas.width / 4, canvas.height / 6, '#fff');
+			this.drawText(ctx, playerTwo.score.toString(), (3 * canvas.width) / 4, canvas.height / 6, '#fff');
+		}
+		
 
 		this.drawNet(ctx, canvas, net);
 
