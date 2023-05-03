@@ -28,6 +28,7 @@ export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 		Logger.log('Pong gateway initialized');
 	}
 
+
 	handleConnection(client: Socket) {
 		Logger.log(`Client connected: ${client.id}`);
 	}
@@ -44,8 +45,15 @@ export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 		if (this.lobbyService.getPlayer(client.id) != null)
 			return;
 		this.lobbyService.addPlayer(client.id, data);
+		this.matchService.matchPlayers(this.lobbyService.getLobby(), this.server, (id1: string, id2: string) => {
+			this.lobbyService.removePlayer(id1);
+			this.lobbyService.removePlayer(id2);
+			const roomId = this.matchService.getMatchByClientId(id1).id;
+			this.server.to(roomId).emit('match', this.matchService.getMatchById(roomId));
+		});
 		this.server.emit('lobby', this.lobbyService.getLobby());
 	}
+	
 
 	@SubscribeMessage(PongEvents.GetLobby)
 	handleGetLobby(client: Socket)

@@ -5,6 +5,8 @@ import { Player } from 'src/app/models/player.model';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { PlayerService } from 'src/app/services/player.service';
+import { PlayComponent } from '../play.component';
+import { Game } from 'src/app/models/game.model';
 
 @Component({
 	selector: 'app-lobby',
@@ -13,12 +15,21 @@ import { PlayerService } from 'src/app/services/player.service';
 })
 export class LobbyComponent {
 
-	constructor(public lobbyService: LobbyService, private socketService: SocketService, private userService: UserService, private playerService: PlayerService) {}
+	constructor(public lobbyService: LobbyService,
+			private socketService: SocketService,
+			private userService: UserService, 
+			private playerService: PlayerService,
+			private parentComponent: PlayComponent) {}
 
 	ngOnInit(): void {
 		this.socketService.sendEvent('get_lobby', null);
 		this.socketService.listenToEvent('lobby').subscribe((lobby: Player[]) => {
 			this.lobbyService.setLobby(lobby);
+		});
+		this.socketService.listenToEvent('match').subscribe((match: Game) => {
+			const user: User = this.userService.getUser()!;
+			this.parentComponent.inGame = true;
+			this.parentComponent.game = match;
 		});
 	};
 

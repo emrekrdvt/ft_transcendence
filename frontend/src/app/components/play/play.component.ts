@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { Game } from 'src/app/models/game.model';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 
@@ -10,12 +11,9 @@ import { UserService } from '../../services/user.service';
 export class PlayComponent implements OnInit{
 
 	inGame: boolean = false;
+	game!: Game;
 
-	constructor(private userService: UserService) {}
+	constructor() {}
 
-	ngOnInit(): void {
-		const user: User = this.userService.getUser()!;
-		if (user.ingame === true)
-			this.inGame = user.ingame;
-	}
+	ngOnInit(): void {}
 }

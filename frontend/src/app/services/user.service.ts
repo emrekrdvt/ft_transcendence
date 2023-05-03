@@ -17,7 +17,11 @@ export class UserService
 			return user;
 		}
 		return null;
-	}
+	};
+
+	setUser = (user: User) => {
+		localStorage.setItem('user', JSON.stringify(user));
+	};
 
 	updateUser = (user: User, callback: Function, data: any) => {
 		const token = localStorage.getItem('token');
@@ -28,5 +32,5 @@ export class UserService
 		return this.http.put(`${environment.address}/users/${user.intraId}`, data, { headers }).subscribe(res => {
 			console.log("update user: ", res);
 		});
-	}
+	};
 }

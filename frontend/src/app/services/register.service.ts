@@ -34,11 +34,11 @@ export class RegisterService
 		const body = { intraId: user.intraId}
 		this.userService.updateUser(user, () => {
 			user.avatarUrl = selectedAvatar;
-      return { avatarUrl: selectedAvatar };
+			return { avatarUrl: selectedAvatar };
 		}, selectedAvatar);
 		this.userService.updateUser(user, () => {
 			user.nickname = selectedNickname;
-      return { nickname: selectedNickname };
+			return { nickname: selectedNickname };
 		}, selectedNickname);
 		user.isSigned = true;
 		localStorage.setItem('user', JSON.stringify(user));

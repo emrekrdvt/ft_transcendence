@@ -25,6 +25,7 @@ import { GameComponent } from './components/play/game/game.component';
 import { LobbyComponent } from './components/play/lobby/lobby.component';
 import { LobbyService } from './services/lobby.service';
 import { PlayerService } from './services/player.service';
+import { GameStatsComponent } from './components/play/game-stats/game-stats.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -45,6 +46,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		MarketplaceComponent,
 		LobbyComponent,
   GameComponent,
+  GameStatsComponent,
 	],
 	imports: [
 		BrowserModule,
