@@ -1,4 +1,6 @@
-<div class="row">
+<div class="row mt-5">
 	<app-game-stats></app-game-stats>
-	<canvas width="1024" height="768" id="gameCanvas"></canvas>
+</div>
+<div class="row">
+	<canvas width="1024" height="768" #gameCanvas tabindex="0" (keydown)="onKeyDown($event)"  (keyup)="onKeyUp($event)"></canvas>
 </div>

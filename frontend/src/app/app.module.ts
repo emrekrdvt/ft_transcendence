@@ -26,6 +26,7 @@ import { LobbyComponent } from './components/play/lobby/lobby.component';
 import { LobbyService } from './services/lobby.service';
 import { PlayerService } from './services/player.service';
 import { GameStatsComponent } from './components/play/game-stats/game-stats.component';
+import { GameService } from './services/game.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -45,8 +46,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		RegisterComponent,
 		MarketplaceComponent,
 		LobbyComponent,
-  GameComponent,
-  GameStatsComponent,
+	GameComponent,
+	GameStatsComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -54,7 +55,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		HttpClientModule,
 		SocketIoModule.forRoot(config)
 	],
-	providers: [AuthService, UserService, RegisterService, DrawService, SocketService, LobbyService, PlayerService],
+	providers: [AuthService, UserService, RegisterService, DrawService, SocketService, LobbyService, PlayerService, GameService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

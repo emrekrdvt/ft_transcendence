@@ -3,6 +3,7 @@ import {Ball} from "./ball.model";
 
 export interface Game
 {
+	id: string;
 	player1: Player;
 	player2: Player;
 	ball: Ball;

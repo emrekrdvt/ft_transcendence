@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Player } from '../models/player.model';
 import { Match } from '../models/match.model';
+import { Server } from 'socket.io';
 
 @Injectable()
 export class PongService {
@@ -41,18 +42,19 @@ export class PongService {
 			if (match.ball.x + match.ball.size > match.canvasWidth)
 			{
 				this.scoreDetection(match, match.player1);
-				return;
+				return match;
 			}
 			else if (match.ball.x - match.ball.size < 0)
 			{
 				this.scoreDetection(match, match.player2);
-				return;
+				return match;
 			}
 			if (match.ball.y + match.ball.size > match.canvasHeight || match.ball.y - match.ball.size < 0)
 				match.ball.velocityY *= -1;
 			if (match.ball.x + match.ball.size > match.canvasWidth || match.ball.x - match.ball.size < 0)
 				match.ball.velocityX *= -1;
 		}
+		return match;
 	};
 
 	movePlayer = (match: Match, player: Player, deltaTime: number) => {
@@ -64,5 +66,28 @@ export class PongService {
 			player.y = 0;
 		if (player.y + player.height > match.canvasHeight)
 			player.y = match.canvasHeight - player.height;
+		if (player.nickname == match.player1.nickname)
+			match.player1 = player;
+		else
+			match.player2 = player;
+	};
+
+	updateMatch = (match: Match, server: Server, roomId: string): Match => {
+		const deltaTime = this.getDeltaTime(match);
+		this.movePlayer(match, match.player1, deltaTime);
+		this.movePlayer(match, match.player2, deltaTime);
+		this.moveBall(match);
+		return match;
+	}
+
+	startMatch = async (match: Match, server: Server, roomId: string): Promise<void> => {
+		let i = 0;
+		while (i < 1000)
+		{
+			await new Promise(resolve => setTimeout(resolve, 10));
+			this.updateMatch(match, server, roomId);
+			server.to(roomId).emit('match', match);
+			i++;
+		}
 	};
 }
