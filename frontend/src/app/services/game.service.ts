@@ -11,7 +11,7 @@ import { User } from "../models/user.model";
 @Injectable()
 export class GameService implements OnInit{
 
-	match!: Game;
+	game!: Game;
 
 	constructor(private drawService: DrawService, private socketService: SocketService, private userService: UserService){}
 
@@ -20,10 +20,10 @@ export class GameService implements OnInit{
 
 	findPlayer = () => {
 		const user: User = this.userService.getUser()!;
-		if (this.match.player1.nickname == user.nickname)
-			return this.match.player1;
-		else if (this.match.player2.nickname == user.nickname)
-			return this.match.player2;
+		if (this.game.player1.nickname == user.nickname)
+			return this.game.player1;
+		else if (this.game.player2.nickname == user.nickname)
+			return this.game.player2;
 		return null;
 	};
 
@@ -51,13 +51,18 @@ export class GameService implements OnInit{
 		this.socketService.sendEvent('move_paddle', player);
 	};
 
-	gameLoop = (ctx: CanvasRenderingContext2D, match: Game, net: Net, canvas: HTMLCanvasElement) => {
-		if (this.match == undefined)
-			this.match = match;
-		this.socketService.listenToEvent('match').subscribe((game: Game) => {
-			this.match = game;
+
+	gameLoop = (ctx: CanvasRenderingContext2D, game: Game, net: Net, canvas: HTMLCanvasElement) => {
+		if (this.game == undefined)
+			this.game = game;
+		this.socketService.listenToEvent('game').subscribe((game: Game) => {
+			this.game = game;
 		});
-		this.drawService.draw(ctx, this.match.ball, this.match.player1, this.match.player2, net, canvas);
-		requestAnimationFrame(() => this.gameLoop(ctx, this.match, net, canvas));
+		this.socketService.listenToEvent('endGame').subscribe(() => {
+			this.userService.getUserFromDb();
+			return;
+		});
+		this.drawService.draw(ctx, this.game.ball, this.game.player1, this.game.player2, net, canvas);
+		requestAnimationFrame(() => this.gameLoop(ctx, this.game, net, canvas));
 	}
 }

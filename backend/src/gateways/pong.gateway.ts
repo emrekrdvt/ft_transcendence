@@ -12,8 +12,8 @@ import { Logger } from '@nestjs/common';
 import { PongService } from '../services/pong.service';
 import { MatchService } from '../services/match.service';
 import { LobbyService } from '../services/lobby.service';
-import { Match } from '../models/match.model';
 import { Player } from 'src/models/player.model';
+import { Game } from 'src/models/game.model';
 
 
 @WebSocketGateway({protocol: 'http', cors: {origin: 'http://localhost:4200'}})
@@ -50,10 +50,10 @@ export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 		this.matchService.matchPlayers(this.lobbyService.getLobby(), this.server, (id1: string, id2: string) => {
 			this.lobbyService.removePlayer(id1);
 			this.lobbyService.removePlayer(id2);
-			const roomId = this.matchService.getMatchByClientId(id1).id;
-			const match: Match = this.matchService.getMatchById(roomId);
-			this.server.to(roomId).emit('match', match);
-			this.pongService.startMatch(match, this.server, roomId);
+			const roomId = this.matchService.getGameByClientId(id1).id;
+			const game: Game = this.matchService.getGameById(roomId);
+			this.server.to(roomId).emit('game', game);
+			this.pongService.startGame(game, this.server, roomId);
 		});
 		this.server.emit('lobby', this.lobbyService.getLobby());
 	}
@@ -66,6 +66,6 @@ export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
 	@SubscribeMessage(PongEvents.MovePaddle)
 	handleMovePaddle(client: Socket, player: Player) {
-		this.pongService.changePlayerState(this.matchService.getMatchByClientId(client.id), player, client, this.server);
+		this.pongService.changePlayerState(this.matchService.getGameByClientId(client.id), player, client, this.server);
 	}
 }

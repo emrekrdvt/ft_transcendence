@@ -20,6 +20,7 @@ export class UserService
 	};
 
 	setUser = (user: User) => {
+		localStorage.removeItem('user');
 		localStorage.setItem('user', JSON.stringify(user));
 	};
 
@@ -33,4 +34,14 @@ export class UserService
 			console.log("update user: ", res);
 		});
 	};
+
+	getUserFromDb = () => {
+		const token = localStorage.getItem('token');
+		const headers = new HttpHeaders({
+			'Authorization': `Bearer ${token}`
+		});
+		this.http.get<User>(`${environment.address}/users/me`, { headers }).subscribe(res => {
+			this.setUser(res);
+		});
+	}
 }

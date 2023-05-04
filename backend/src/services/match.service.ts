@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Player } from '../models/player.model';
-import { Match } from '../models/match.model';
+import { Game } from '../models/game.model';
 import { Server, Socket } from 'socket.io';
 
 @Injectable()
 export class MatchService {
 	CANVAS_WIDTH = 1024;
 	CANVAS_HEIGHT = 768;
-	matches: Match[] = [];
+	games: Game[] = [];
 
 	generateId = (): string => {
 		return Math.random().toString(36).substring(2, 15);
@@ -29,7 +29,7 @@ export class MatchService {
 				velocityY: 6,
 				size: 10,
 			};
-			const match: Match = {
+			const game: Game = {
 				player1: player1,
 				player2: player2,
 				id: this.generateId(),
@@ -39,9 +39,9 @@ export class MatchService {
 			};
 			player1 = this.createPlayer1(player1);
 			player2 = this.createPlayer2(player2);
-			this.getClient(player1.clientId, server).join(match.id);
-			this.getClient(player2.clientId, server).join(match.id);
-			this.matches.push(match);
+			this.getClient(player1.clientId, server).join(game.id);
+			this.getClient(player2.clientId, server).join(game.id);
+			this.games.push(game);
 			callback(player1.clientId, player2.clientId);
 		}
 	};
@@ -70,12 +70,12 @@ export class MatchService {
 		return player;
 	}
 
-	getMatches = (): Match[] => this.matches;
-	getMatchById = (matchId: string): Match => {
-		return this.matches.find((match: Match): boolean => match.id === matchId);
+	getGames = (): Game[] => this.games;
+	getGameById = (gameId: string): Game => {
+		return this.games.find((game: Game): boolean => game.id === gameId);
 	};
 
-	getMatchByClientId = (clientId: string): Match => {
-		return this.matches.find((match: Match): boolean => match.player1.clientId === clientId || match.player2.clientId === clientId);
+	getGameByClientId = (clientId: string): Game => {
+		return this.games.find((game: Game): boolean => game.player1.clientId === clientId || game.player2.clientId === clientId);
 	}
 }

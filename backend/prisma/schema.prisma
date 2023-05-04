@@ -26,10 +26,11 @@ model User {
 	wins     Int      @default(0)
 	draws    Int      @default(0)
 	games	Int      @default(0)
-	rating   Int      @default(1500)
+	rating  Float      @default(1500)
 	level	Int      @default(1)
 	rank    Int      @default(0)
 	xp	Int      @default(0)
+	cash Int @default(0)
 
 	achievements Achievement[]
 	matches     Match[]
@@ -56,11 +57,9 @@ model Achievement {
 model Match {
 	id        Int      @default(autoincrement()) @id
 	opponent String
-	oppenentId Int
 	isWin     Boolean
 	userScore Int
 	opponentScore Int
-	isFinished Boolean @default(false)
 	isDraw    Boolean @default(false)
 	createdAt DateTime @default(now())
 	updatedAt DateTime @updatedAt

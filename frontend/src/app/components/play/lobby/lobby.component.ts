@@ -26,10 +26,10 @@ export class LobbyComponent {
 		this.socketService.listenToEvent('lobby').subscribe((lobby: Player[]) => {
 			this.lobbyService.setLobby(lobby);
 		});
-		this.socketService.listenToEvent('match').subscribe((match: Game) => {
+		this.socketService.listenToEvent('game').subscribe((game: Game) => {
 			const user: User = this.userService.getUser()!;
 			this.parentComponent.inGame = true;
-			this.parentComponent.game = match;
+			this.parentComponent.game = game;
 		});
 	};
 

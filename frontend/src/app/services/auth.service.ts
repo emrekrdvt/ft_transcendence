@@ -42,12 +42,12 @@ export class AuthService
 				localStorage.setItem('user', JSON.stringify(res));
         localStorage.setItem('token', token);
         if (res.isSigned) {
-          this.login();
+			this.login();
         } else {
-          this.registerService.beginRegister();
-          return;
+			this.registerService.beginRegister();
+			return;
         }
-      },
+    },
 			err => {
 				console.log(err);
 			}
