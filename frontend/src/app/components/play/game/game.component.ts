@@ -21,9 +21,7 @@ export class GameComponent implements AfterViewInit, OnInit {
 
 	match!: Game;
 
-	constructor(private socketService: SocketService,
-			private gameService: GameService,
-			private userService: UserService,
+	constructor(private gameService: GameService,
 			private playComponent: PlayComponent) { }
 
 	ngOnInit(): void {

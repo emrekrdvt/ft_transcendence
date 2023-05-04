@@ -11,52 +11,34 @@ export class RegisterComponent {
 
 	constructor(private registerService: RegisterService, private authService: AuthService){}
 
-	page: number = 0;
+	page: number = -1;
 
 	path: string = '../assets/avatars/';
-
+	upload: boolean = false;
 	selectedAvatar: string = '';
 	selectedNickname: string = '';
 
-	avatars = [
-		{
-			url: this.path + 'luna.jpeg',
-			clicked: false
-		},
-		{
-			url: this.path + 'artemis.jpeg',
-			clicked: false
-		},
-		{
-			url: this.path + 'mamoru.jpeg',
-			clicked: false
-		},
-		{
-			url: this.path + 'ami.jpeg',
-			clicked: false
-		},
-		{
-			url: this.path + 'makoto.jpeg',
-			clicked: false
-		},
-		{
-			url: this.path + 'rei.jpeg',
-			clicked: false
-		},
-		{
-			url: this.path + 'minako.jpeg',
-			clicked: false
-		},
-		{
-			url: this.path + 'usagi.jpeg',
-			clicked: false
-		},
-	];
+	avatars: any = [];
+
+	ngOnInit(): void {
+		fetch('../assets/avatars.json')
+			.then(response => response.json())
+			.then(data => {
+				this.avatars = data.avatars;
+				this.avatars.forEach((avatar: any) => {
+					avatar.url = this.path + avatar.url;
+					avatar.clicked = false;
+				});
+			}
+		);
+	};
 
 	nextPage = () => {
 		if (this.page == 0 && this.selectedAvatar == '')
 			return;
 		if (this.page == 1 && this.selectedNickname == '')
+			return;
+		if (this.page == 1 && !this.registerService.checkNickname(this.selectedNickname))
 			return;
 		if (this.page == 2)
 		{
@@ -64,17 +46,25 @@ export class RegisterComponent {
 			return;
 		}
 		this.page += 1;
-	}
+	};
 
 	selectAvatar = (url: string) => {
 		this.selectedAvatar = url;
-		this.avatars.forEach(avatar => {
+		this.avatars.forEach((avatar: any) => {
 			avatar.clicked = avatar.url == url;
 		});
-	}
+	};
 
 	selectNickname = (event: any) => {
 		this.selectedNickname = event.target.value;
-	}
+	};
+
+	chooseAvatar = () => {
+		this.upload = false;
+	};
+
+	uploadAvatar = () => {
+		this.upload = true;
+	};
 
 }

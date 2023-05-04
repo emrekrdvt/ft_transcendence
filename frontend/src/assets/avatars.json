@@ -1,0 +1,68 @@
+{
+	"avatars": [
+	{
+		"name": "Rei",
+		"url": "rei.jpeg"
+	},
+	{
+		"name": "Oğuzhan Uğur",
+		"url": "kopek.jpeg"
+	},
+	{
+		"name": "Çocuklar Duymasın Tuna",
+		"url": "tuna.jpeg"
+	},
+	{
+		"name": "Yalova Tavuğu",
+		"url": "tavuk.png"
+	},
+	{
+		"name": "Mağara Adamı Haluk",
+		"url": "magara_adami.jpeg"
+	},	
+	{
+		"name": "Özgür Demirtaş",
+		"url": "ozgur.jpeg"
+	},
+	{
+		"name": "Aslan Akbey",
+		"url": "aslan_akbey.png"
+	},
+	{
+		"name": "Sayın Uzman Yardımcımız",
+		"url": "uzman_yardimcisi.jpeg"
+	},
+	{
+		"name": "Besim Tibuk",
+		"url": "besim_tibuk.png"
+	},
+	{
+		"name": "Besim Tibuk El Kıbrıs",
+		"url": "besim_tibuk_el_kibris.webp"
+	},
+	{
+		"name": "Celal Şengör",
+		"url": "celal_sengor.png"
+	},
+	{
+		"name": "Jamal Shengor",
+		"url": "jamal_shengor.jpeg"
+	},
+	{
+		"name": "Dilşad",
+		"url": "denizli_horozu.png"
+	},
+	{
+		"name": "Fintech CEO",
+		"url": "fintech_ceo.jpeg"
+	},
+	{
+		"name": "Havaray",
+		"url": "havaray.jpeg"
+	},
+	{
+		"name": "Saksoy",
+		"url": "saksoy.jpeg"
+	}
+	]
+}

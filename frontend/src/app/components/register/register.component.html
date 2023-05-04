@@ -1,24 +1,40 @@
 <div class="container">
-	<div class="row top" *ngIf="page == 0">
+	<div class="row select" *ngIf="page == -1">
+		<div class="col-md-6">
+			<img class="img-fluid logo clicked" src="../../../assets/images/removed_bg_logo.png" (click)="uploadAvatar()" *ngIf="upload">
+			<img class="img-fluid logo" src="../../../assets/images/removed_bg_logo.png" (click)="uploadAvatar()" *ngIf="!upload">
+			<p>Upload Avatar</p>
+		</div>
+		<div class="col-md-6">
+			<img class="img-fluid logo clicked" src="../../../assets/images/removed_bg_logo.png" (click)="chooseAvatar()"  *ngIf="!upload">
+			<img class="img-fluid logo" src="../../../assets/images/removed_bg_logo.png" (click)="chooseAvatar()"  *ngIf="upload">
+			<p>Choose Avatar</p>
+		</div>
+	</div>
+	<div class="row top" *ngIf="page == 0 && !upload">
 		<h3 class="mt-3">Choose your avatar</h3>
 		<div class="avatars mt-3">
 			<div class="col-md-3 mt-3" *ngFor="let avatar of avatars">
 				<img class="avatar img-fluid mt-3" src="{{avatar.url}}" *ngIf="avatar.clicked === false" (click)="selectAvatar(avatar.url)">
 				<img class="avatar img-fluid mt-2 clicked" src="{{avatar.url}}" *ngIf="avatar.clicked === true">
+				<p>{{avatar.name}}</p>
 			</div>
-
 		</div>
+	</div>
+	<div class="row top" *ngIf="page == 0 && upload">
+		<h3 class="mt-3">Upload your avatar</h3>
+		<button class="btn btn-dark btn-lg btn-block mt-1">Upload</button>
 	</div>
 	<div class="row top" *ngIf="page == 1">
 		<h3 class="mt-3">Choose your nickname</h3>
-		<input type="text" class="form-control mt-3" placeholder="Nickname" (keyup)="selectNickname($event)">
+		<input type="text" class="form-control mt-3 mb-3" placeholder="Nickname" (keyup)="selectNickname($event)">
 	</div>
 	<div class="row top" *ngIf="page == 2">
 		<img class="img-fluid logo" src="../../../assets/images/removed_bg_logo.png">
 		<h3 class>Welcome to the Ponghub!</h3>
 		<p class="mt-2">You can now start playing Ponghub. You can also change your avatar and username in the profile section.</p>
 	</div>
-	<div class="row bottom mt-4">
-		<button class="btn btn-dark btn-lg btn-block mt-1" (click)="nextPage()">Next</button>
+	<div class="row bottom">
+		<button class="btn btn-dark btn-lg btn-block" (click)="nextPage()">Next</button>
 	</div>
 </div>

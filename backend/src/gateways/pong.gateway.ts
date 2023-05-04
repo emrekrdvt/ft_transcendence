@@ -66,19 +66,6 @@ export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
 	@SubscribeMessage(PongEvents.MovePaddle)
 	handleMovePaddle(client: Socket, player: Player) {
-		const match: Match = this.matchService.getMatchByClientId(client.id);
-		if (match == null)
-			return;
-		if (match.player1.clientId === client.id) {
-			match.player1.up = player.up;
-			match.player1.down = player.down;
-		}
-		else if (match.player2.clientId === client.id) {
-			match.player2.up = player.up;
-			match.player2.down = player.down;
-		};
-		console.log(player.up, player.down);
-		console.log(match.player1.up, match.player1.down, match.player2.up, match.player2.down);
-		this.server.to(match.id).emit('match', match);
+		this.pongService.changePlayerState(this.matchService.getMatchByClientId(client.id), player, client, this.server);
 	}
 }

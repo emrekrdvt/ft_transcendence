@@ -70,15 +70,6 @@ export class MatchService {
 		return player;
 	}
 
-	updateMatch = (match: Match): void => {
-		for (let i = 0; i < this.matches.length; i++) {
-			if (this.matches[i].id === match.id) {
-				this.matches[i] = match;
-				break;
-			}
-		}
-	};
-
 	getMatches = (): Match[] => this.matches;
 	getMatchById = (matchId: string): Match => {
 		return this.matches.find((match: Match): boolean => match.id === matchId);

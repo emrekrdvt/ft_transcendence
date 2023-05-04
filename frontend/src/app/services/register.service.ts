@@ -20,6 +20,16 @@ export class RegisterService
 			this.beginRegister();
 	}
 
+	checkNickname = (nickname: String) => {
+		if (nickname.length < 8 || nickname.length > 20)
+			return false;
+		if (!nickname.match(/^[a-zA-Z0-9]+$/))
+			return false;
+		if (nickname[0].match(/[0-9]/))
+			return false;
+		return true;
+	}
+
 	isRegister = (): Observable<boolean> => {
 		return this.isRegister$.asObservable();
 	}

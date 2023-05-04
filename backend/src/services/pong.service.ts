@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Player } from '../models/player.model';
 import { Match } from '../models/match.model';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 
 @Injectable()
 export class PongService {
@@ -72,22 +72,37 @@ export class PongService {
 			match.player2 = player;
 	};
 
+	changePlayerState = (match: Match, player: Player, client: Socket, server: Server) => {
+		if (match == null)
+			return;
+		if (match.player1.clientId === client.id) {
+			match.player1.up = player.up;
+			match.player1.down = player.down;
+		}
+		else if (match.player2.clientId === client.id) {
+			match.player2.up = player.up;
+			match.player2.down = player.down;
+		};
+		server.to(match.id).emit('match', match);
+	};
+
+
 	updateMatch = (match: Match, server: Server, roomId: string): Match => {
 		const deltaTime = this.getDeltaTime(match);
 		this.movePlayer(match, match.player1, deltaTime);
 		this.movePlayer(match, match.player2, deltaTime);
 		this.moveBall(match);
 		return match;
-	}
+	};
 
 	startMatch = async (match: Match, server: Server, roomId: string): Promise<void> => {
-		let i = 0;
-		while (i < 1000)
+		while (match.player1.score < 5 && match.player2.score < 5)
 		{
 			await new Promise(resolve => setTimeout(resolve, 10));
 			this.updateMatch(match, server, roomId);
 			server.to(roomId).emit('match', match);
-			i++;
 		}
+		server.sockets.sockets[match.player1.clientId].leave(roomId);
+		server.sockets.sockets[match.player2.clientId].leave(roomId);
 	};
 }
