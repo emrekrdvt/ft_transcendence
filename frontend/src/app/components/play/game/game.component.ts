@@ -9,26 +9,28 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { Player } from 'src/app/models/player.model';
 import { PlayComponent } from '../play.component';
+import { waitForAsync } from '@angular/core/testing';
 
 @Component({
 	selector: 'app-game',
 	templateUrl: './game.component.html',
 	styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements AfterViewInit, OnInit {
+export class GameComponent implements AfterViewInit {
 	@ViewChild('gameCanvas', {static: false})
 	canvas!: ElementRef<HTMLCanvasElement>;
 
-	match!: Game;
+	isFinished: boolean = false;
+	game: Game = this.playComponent.game;
 
 	constructor(private gameService: GameService,
 			private playComponent: PlayComponent) { }
 
 	ngOnInit(): void {
-		this.match = this.playComponent.game;
-	};
+		this.isFinished = this.game.isFinished;
+	}
 
-	ngAfterViewInit(): void {
+	ngAfterViewInit() {
 		const htmlCanvas: HTMLCanvasElement = this.canvas.nativeElement;
 		const ctx: CanvasRenderingContext2D = htmlCanvas.getContext('2d')!;
 		const net: Net = {
@@ -38,12 +40,14 @@ export class GameComponent implements AfterViewInit, OnInit {
 			height: 10,
 			color: '#fff'
 		};
-		this.gameService.gameLoop(ctx, this.match, net, htmlCanvas);
+		this.gameService.gameLoop(ctx, this.game, net, htmlCanvas, (game: Game) => {
+			this.game = game;
+			this.isFinished = game.isFinished;
+		});
 	};
 
 	onKeyDown = (event: KeyboardEvent) => {
 		this.gameService.onKeyDown(event);
-		
 	};
 
 	onKeyUp = (event: KeyboardEvent) => {

@@ -12,4 +12,5 @@ export interface Player
 	down?: boolean,
 	intraId: number,
 	avatarUrl: string,
+	eloChange?: number,
 }

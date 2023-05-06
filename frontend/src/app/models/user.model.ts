@@ -15,4 +15,8 @@ export interface User
 	games: number;
 	rank: number;
 	ingame: boolean;
+	level: number;
+	xp: number;
+	xpToNextLevel: number;
+	cash: number;
 }

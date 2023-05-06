@@ -15,7 +15,6 @@ import { MainComponent } from './components/profile/main/main.component';
 import { AchievementsComponent } from './components/profile/achievements/achievements.component';
 import { ProfileNavigatorComponent } from './components/profile/profile-navigator/profile-navigator.component';
 import { MatchHistoryComponent } from './components/profile/match-history/match-history.component';
-import { FooterComponent } from './components/profile/footer/footer.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MarketplaceComponent } from './components/marketplace/marketplace.component';
 import { DrawService } from './services/draw.service';
@@ -27,6 +26,8 @@ import { LobbyService } from './services/lobby.service';
 import { PlayerService } from './services/player.service';
 import { GameStatsComponent } from './components/play/game-stats/game-stats.component';
 import { GameService } from './services/game.service';
+import { GameEndComponent } from './components/play/game-end/game-end.component';
+import { MatchService } from './services/match.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -42,12 +43,12 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		AchievementsComponent,
 		ProfileNavigatorComponent,
 		MatchHistoryComponent,
-		FooterComponent,
 		RegisterComponent,
 		MarketplaceComponent,
 		LobbyComponent,
 	GameComponent,
 	GameStatsComponent,
+ GameEndComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -55,7 +56,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		HttpClientModule,
 		SocketIoModule.forRoot(config)
 	],
-	providers: [AuthService, UserService, RegisterService, DrawService, SocketService, LobbyService, PlayerService, GameService],
+	providers: [AuthService, UserService, RegisterService, DrawService, SocketService, LobbyService, PlayerService, GameService, MatchService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

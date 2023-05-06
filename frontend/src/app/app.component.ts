@@ -13,5 +13,5 @@ export class AppComponent {
 	constructor(public login: AuthService, public register: RegisterService) {
 	}
 
-  title = 'frontend';
+	title = 'frontend';
 }

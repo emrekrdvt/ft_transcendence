@@ -2,7 +2,8 @@
 	color: white;
 	background-color: (rgba(0,0,0,0.5));
 	border: 1px solid #ff6a00;
-	height: 100.15%;
+	height: 100%;
+	min-width: 400px;
 	.card-body
 	{
 		display: flex;
@@ -10,9 +11,12 @@
 		flex-direction: column;
 		align-items: center;
 
+		h1{
+			font-size: 32px;
+		}
 		.profile-image {
-			width: 9vw;
-			height: 9vw;
+			width: 230px;
+			height: 230px;
 			border-radius: 50%;
 			border: 1px solid #ff6a00;
 			position: relative;
@@ -42,21 +46,15 @@
 				width: 50%;
 				.stat-value
 				{
-					font-size: 1.5em;
+					font-size: 12px;
 					font-weight: bold;
 				}
 				.stat-name
 				{
-					font-size: 0.8em;
+					font-size: 10px;
 				}
 			}
 		}
 	}
 	
-}
-
-@media (max-width: 1440px) {
-	p {
-		font-size: 0.7vh;
-	}
 }

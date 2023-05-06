@@ -6,11 +6,17 @@ import { RatingService } from './rating.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Match } from '@prisma/client';
 import { UserService } from 'src/auth/services/user.service';
+import { LevelService } from './level.service';
+import { BalanceService } from './balance.service';
 
 @Injectable()
 export class PongService {
 
-	constructor(private ratingService: RatingService, private prismaService: PrismaService, private userService: UserService) {}
+	constructor(private ratingService: RatingService,
+			private prismaService: PrismaService,
+			private userService: UserService,
+			private levelService: LevelService,
+			private balanceService: BalanceService) {}
 
 	collisionDetection = (game: Game, player: Player, add: number) => {
 		if (game.ball.x  < player.x + player.width + add
@@ -137,26 +143,36 @@ export class PongService {
 		else
 			score = 0.5;
 		this.ratingService.calculateNewElo(game.player1, game.player2, score);
-		const user1 = await this.prismaService.user.findUnique({
+		let user1 = await this.prismaService.user.findUnique({
 			where: {
 				intraId: game.player1.intraId
 			}
 		});
+		user1 = this.levelService.updateLevel(user1, score);
 		this.userService.updateUser(game.player1.intraId, { wins: user1.wins + (score == 1 ? 1 : 0),
 			losses: user1.losses + (score == 0 ? 1 : 0),
 			draws: user1.draws + (score == 0.5 ? 1 : 0),
 			rating: game.player1.rating,
-			games: user1.games + 1 });
-		const user2 = await this.prismaService.user.findUnique({
+			games: user1.games + 1,
+			level: user1.level,
+			xp: user1.xp,
+			xpToNextLevel: user1.xpToNextLevel,
+			cash: this.balanceService.updateBalance(user1, score)});
+		let user2 = await this.prismaService.user.findUnique({
 			where: {
 				intraId: game.player2.intraId
 			}
 		});
+		user2 = this.levelService.updateLevel(user2, score === 1 ? 0 : 1);
 		this.userService.updateUser(game.player2.intraId, { wins: user2.wins + (score == 0 ? 1 : 0),
 			losses: user2.losses + (score == 1 ? 1 : 0),
 			draws: user2.draws + (score == 0.5 ? 1 : 0),
 			rating: game.player2.rating,
-			games: user2.games + 1 });
+			games: user2.games + 1,
+			level: user2.level,
+			xp: user2.xp,
+			xpToNextLevel: user2.xpToNextLevel,
+			cash: this.balanceService.updateBalance(user2, score === 1 ? 0 : 1)});
 		this.createMatch(score, game.player1, game.player2);
 		this.createMatch(score === 1 ? 0 : 1, game.player2, game.player1);
 		server.to(roomId).emit('endGame', { user1: user1, user2: user2 });

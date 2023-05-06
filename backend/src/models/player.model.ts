@@ -12,4 +12,5 @@ export interface Player {
 	up?: boolean;
 	down?: boolean;
 	avatarUrl?: string;
+	eloChange: number;
 }

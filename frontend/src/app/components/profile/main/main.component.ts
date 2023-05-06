@@ -21,9 +21,8 @@ export class MainComponent implements OnInit {
 			{ value: this.profile.user.draws, label: 'Draws' },
 			{ value: this.profile.user.games, label: 'Games' },
 			{ value: this.profile.user.rating, label: 'Rating' },
-			{ value: this.profile.user.rank, label: 'Rank'}
+			{ value: this.profile.user.cash.toFixed(2), label: 'Cash'},
 		];
-		console.log(this.stats);
 	}
 
 }

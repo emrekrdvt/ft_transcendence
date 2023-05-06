@@ -10,7 +10,7 @@ import { Server, Socket } from 'socket.io';
 import { PongEvents } from '../models/pevents.model';
 import { Logger } from '@nestjs/common';
 import { PongService } from '../services/pong.service';
-import { MatchService } from '../services/match.service';
+import { MatchmakingService } from '../services/matchmaking.service';
 import { LobbyService } from '../services/lobby.service';
 import { Player } from 'src/models/player.model';
 import { Game } from 'src/models/game.model';
@@ -22,7 +22,7 @@ export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 	server: Server;
 	constructor(
 		private readonly pongService: PongService,
-		private matchService: MatchService,
+		private matchService: MatchmakingService,
 		private lobbyService: LobbyService,
 	) {}
 

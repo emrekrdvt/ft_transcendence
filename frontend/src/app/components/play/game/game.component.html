@@ -1,6 +1,7 @@
-<div class="row mt-5">
+<div class="row mt-5" *ngIf="isFinished === false">
 	<app-game-stats></app-game-stats>
 </div>
 <div class="row">
-	<canvas width="1024" height="768" #gameCanvas tabindex="0" (keydown)="onKeyDown($event)"  (keyup)="onKeyUp($event)"></canvas>
+	<canvas *ngIf="isFinished === false" width="1024" height="768" #gameCanvas tabindex="0" (keydown)="onKeyDown($event)"  (keyup)="onKeyUp($event)"></canvas>
+	<app-game-end *ngIf="isFinished === true"></app-game-end>
 </div>

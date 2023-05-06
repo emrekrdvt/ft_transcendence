@@ -103,7 +103,7 @@ export class AuthService {
       intraId,
     };
     const token = await this.jwt.signAsync(payload, {
-      expiresIn: '15m',
+      expiresIn: '1d',
       secret: JWT_SECRET,
     });
     return {

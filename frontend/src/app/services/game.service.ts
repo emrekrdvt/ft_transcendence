@@ -52,7 +52,7 @@ export class GameService implements OnInit{
 	};
 
 
-	gameLoop = (ctx: CanvasRenderingContext2D, game: Game, net: Net, canvas: HTMLCanvasElement) => {
+	gameLoop = (ctx: CanvasRenderingContext2D, game: Game, net: Net, canvas: HTMLCanvasElement, callback: Function) => {
 		if (this.game == undefined)
 			this.game = game;
 		this.socketService.listenToEvent('game').subscribe((game: Game) => {
@@ -60,9 +60,22 @@ export class GameService implements OnInit{
 		});
 		this.socketService.listenToEvent('endGame').subscribe(() => {
 			this.userService.getUserFromDb();
-			return;
+			if (this.game.player1.score != undefined && this.game.player2.score != undefined)
+			{
+				if (this.game.player1.score > this.game.player2.score)
+					this.game.end_message = this.game.player1.score > this.game.player2.score ? `${this.game.player1.nickname}` : `${this.game.player2.nickname}`;
+				else if (this.game.player1.score < this.game.player2.score)
+					this.game.end_message = this.game.player1.score < this.game.player2.score ? `${this.game.player2.nickname}` : `${this.game.player1.nickname}`;
+				else
+					this.game.end_message = "Draw";
+				if (this.game.end_message != "Draw")
+					this.game.end_message += " won";
+				this.game.isFinished = true;
+				callback(this.game);
+			}
 		});
 		this.drawService.draw(ctx, this.game.ball, this.game.player1, this.game.player2, net, canvas);
-		requestAnimationFrame(() => this.gameLoop(ctx, this.game, net, canvas));
+		requestAnimationFrame(() => this.gameLoop(ctx, this.game, net, canvas, callback));
 	}
+
 }

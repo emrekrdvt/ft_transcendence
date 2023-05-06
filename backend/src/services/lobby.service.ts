@@ -13,6 +13,7 @@ export class LobbyService {
 			nickname: data.nickname,
 			intraId: data.intraId,
 			avatarUrl: data.avatarUrl,
+			eloChange: 0,
 		};
 		this.lobby.push(player);
 	};

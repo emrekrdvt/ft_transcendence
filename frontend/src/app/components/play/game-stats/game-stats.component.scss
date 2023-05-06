@@ -2,7 +2,6 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	align-items: center;
 }
 
 .player
@@ -13,6 +12,7 @@
 	.avatar
 	{
 		height: 100%;
+		width: 240px;
 		object-fit: contain;
 	}
 	.player-info{
@@ -22,25 +22,22 @@
 		flex-direction: column;
 		align-items: center;
 		width: 100%;
-		padding: .5rem;
 		color: white;
 		.player-name{
-			font-size: 2.5rem;
+			font-size: 20px;
 			font-weight: bold;
 		}
 		.player-rating{
-			font-size: 1.5rem;
+			font-size: 12px;
 		}
 	}	
 }
 .player1{
 	flex-direction: row;
 	justify-content: start;
-	align-items: start;
 }
 .player2 {
 	flex-direction: row-reverse;
 	justify-content: end;
-	align-items: start;
 }
 

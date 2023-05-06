@@ -28,9 +28,9 @@ model User {
 	games	Int      @default(0)
 	rating  Float      @default(1500)
 	level	Int      @default(1)
-	rank    Int      @default(0)
 	xp	Int      @default(0)
-	cash Int @default(0)
+	xpToNextLevel Int @default(300)
+	cash Float @default(0)
 
 	achievements Achievement[]
 	matches     Match[]

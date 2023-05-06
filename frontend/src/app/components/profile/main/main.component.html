@@ -3,14 +3,15 @@
 		<img class="profile-image img-fluid" src="{{profile.user.avatarUrl}}" alt="Profile Image">
 		<h1 class="mt-1">{{profile.user.nickname}}</h1>
 		<p class="text-muted">{{profile.user.email}}</p>
-		<p class="mt-3">Level 1</p>
-		<div class="stats mt-4">
+		<p class="mt-3">Level {{profile.user.level}}</p>
+		<p class="text-muted">({{profile.user.xp}}/{{profile.user.xpToNextLevel}})</p>
+		<div class="stats">
 			<p class="stat" *ngFor="let stat of stats">
 				<span class="stat-number">{{stat.value}}</span>
 				<span class="stat-name">{{stat.label}}</span>
 			</p>
 		</div>
-		<div class="mt-4">
+		<div>
 			<button class="btn btn-dark">Edit Profile</button>
 		</div>
 	</div>

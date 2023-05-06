@@ -15,6 +15,8 @@ export class RatingService {
 
 	//if score = 1, player1 won, if score = 0, player2 won if score = 0.5, draw
 	calculateNewElo = (player1: Player, player2: Player, score: number): void => {
+		let player1RatingOld = player1.rating;
+		let player2RatingOld = player2.rating;
 		if (score === 1)
 		{
 			player1.rating = this.calculateExpectedElo(player1.rating, player2.rating, 1);
@@ -30,5 +32,9 @@ export class RatingService {
 			player1.rating = this.calculateExpectedElo(player1.rating, player2.rating, 0.5);
 			player2.rating = this.calculateExpectedElo(player2.rating, player1.rating, 0.5);
 		}
+		player1.rating = Math.floor(player1.rating);
+		player2.rating = Math.floor(player2.rating);
+		player1.eloChange = player1.rating - player1RatingOld;
+		player2.eloChange = player2.rating - player2RatingOld;
 	}
 }

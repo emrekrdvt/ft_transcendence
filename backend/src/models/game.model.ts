@@ -9,4 +9,6 @@ export interface Game {
 	canvasWidth?: number;
 	canvasHeight?: number;
 	lastTime?: number;
+	end_message?: string;
+	isFinished: boolean;
 }
