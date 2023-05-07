@@ -59,19 +59,12 @@ export class GameService implements OnInit{
 			this.game = game;
 		});
 		this.socketService.listenToEvent('endGame').subscribe(() => {
-			this.userService.getUserFromDb();
 			if (this.game.player1.score != undefined && this.game.player2.score != undefined)
 			{
-				if (this.game.player1.score > this.game.player2.score)
-					this.game.end_message = this.game.player1.score > this.game.player2.score ? `${this.game.player1.nickname}` : `${this.game.player2.nickname}`;
-				else if (this.game.player1.score < this.game.player2.score)
-					this.game.end_message = this.game.player1.score < this.game.player2.score ? `${this.game.player2.nickname}` : `${this.game.player1.nickname}`;
-				else
-					this.game.end_message = "Draw";
-				if (this.game.end_message != "Draw")
-					this.game.end_message += " won";
 				this.game.isFinished = true;
+				this.socketService.sendEvent('leave', game.id);
 				callback(this.game);
+				return;
 			}
 		});
 		this.drawService.draw(ctx, this.game.ball, this.game.player1, this.game.player2, net, canvas);

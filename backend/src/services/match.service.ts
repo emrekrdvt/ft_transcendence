@@ -15,4 +15,12 @@ export class MatchService
 		});
 		return matches[matches.length - 1];
 	};
+
+	getMatches = async (intraId: number) => {
+		return await this.prisma.match.findMany({
+			where: {
+				userId: intraId,
+			},
+		});
+	}
 }

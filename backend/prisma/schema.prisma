@@ -11,14 +11,14 @@ datasource db {
 }
 
 model User {
-  	id        Int      @default(autoincrement()) @id
+	id        Int      @default(autoincrement()) @id
 	avatarUrl String?
-  	intraId   Int   @unique
-  	email     String   @unique
-  	username  String   @unique
-  	nickname  String?  @unique
-  	createdAt DateTime @default(now())
-  	updatedAt DateTime @updatedAt
+	intraId   Int   @unique
+	email     String   @unique
+	username  String   @unique
+	nickname  String?  @unique
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
 	isSigned  Boolean  @default(false)
 
 	
@@ -56,10 +56,18 @@ model Achievement {
 
 model Match {
 	id        Int      @default(autoincrement()) @id
-	opponent String
+	player1   String
+	player2   String
+	player1Elo Int
+	player2Elo Int
+	player1EloChange Int
+	player2EloChange Int
+	player1AvatarUrl String
+	player2AvatarUrl String
+	player1Score Int
+	player2Score Int
+	endMessage String
 	isWin     Boolean
-	userScore Int
-	opponentScore Int
 	isDraw    Boolean @default(false)
 	createdAt DateTime @default(now())
 	updatedAt DateTime @updatedAt

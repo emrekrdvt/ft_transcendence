@@ -28,6 +28,7 @@ import { GameStatsComponent } from './components/play/game-stats/game-stats.comp
 import { GameService } from './services/game.service';
 import { GameEndComponent } from './components/play/game-end/game-end.component';
 import { MatchService } from './services/match.service';
+import { MatchHistoryPageComponent } from './components/profile/match-history-page/match-history-page.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -49,6 +50,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 	GameComponent,
 	GameStatsComponent,
  GameEndComponent,
+ MatchHistoryPageComponent,
 	],
 	imports: [
 		BrowserModule,

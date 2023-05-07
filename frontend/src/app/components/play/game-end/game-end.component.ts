@@ -1,16 +1,31 @@
 import { Component } from '@angular/core';
-import { Game } from 'src/app/models/game.model';
+import { Router } from '@angular/router';
+import { Match } from 'src/app/models/match.model';
 import { MatchService } from 'src/app/services/match.service';
-import { GameComponent } from '../game/game.component';
 
 @Component({
-  selector: 'app-game-end',
-  templateUrl: './game-end.component.html',
-  styleUrls: ['./game-end.component.scss']
+	selector: 'app-game-end',
+	templateUrl: './game-end.component.html',
+	styleUrls: ['./game-end.component.scss']
 })
 export class GameEndComponent {
 
-	game: Game = this.matchService.getLastMatch()!;	
+	game!: Match;
 
-	constructor(private matchService: MatchService) { }
+	constructor(private matchService: MatchService, private router: Router) { }
+
+	ngOnInit(): void {
+		this.matchService.getLastMatch()!;
+		this.game = JSON.parse(localStorage.getItem('lastMatch')!);
+	}
+
+	homeButton = () => {
+		this.router.navigate(['home']);
+	};
+	
+	rematchButton = () => {
+		this.router.navigate(['play']);
+	};
+
+
 }

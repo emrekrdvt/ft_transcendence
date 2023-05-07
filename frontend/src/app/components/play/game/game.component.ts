@@ -24,7 +24,8 @@ export class GameComponent implements AfterViewInit {
 	game: Game = this.playComponent.game;
 
 	constructor(private gameService: GameService,
-			private playComponent: PlayComponent) { }
+			private playComponent: PlayComponent,
+			private userService: UserService) { }
 
 	ngOnInit(): void {
 		this.isFinished = this.game.isFinished;
@@ -41,6 +42,7 @@ export class GameComponent implements AfterViewInit {
 			color: '#fff'
 		};
 		this.gameService.gameLoop(ctx, this.game, net, htmlCanvas, (game: Game) => {
+			this.userService.getUserFromDb();
 			this.game = game;
 			this.isFinished = game.isFinished;
 		});

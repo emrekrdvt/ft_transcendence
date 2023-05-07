@@ -7,6 +7,5 @@ export interface Game
 	player1: Player;
 	player2: Player;
 	ball: Ball;
-	end_message?: string;
 	isFinished: boolean;
 }

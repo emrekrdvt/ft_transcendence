@@ -68,4 +68,11 @@ export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 	handleMovePaddle(client: Socket, player: Player) {
 		this.pongService.changePlayerState(this.matchService.getGameByClientId(client.id), player, client, this.server);
 	}
+
+	@SubscribeMessage(PongEvents.Leave)
+	handleLeave(client: Socket, roomId: string) {
+		this.lobbyService.removePlayer(client.id);
+		client.leave(roomId);
+		client.disconnect();
+	};
 }

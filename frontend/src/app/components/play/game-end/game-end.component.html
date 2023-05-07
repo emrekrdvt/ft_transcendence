@@ -1,27 +1,27 @@
-<div class="game-end" *ngIf="game != null && game.player1.eloChange != undefined && game.player2.eloChange">
+<div class="game-end" *ngIf="game != null">
 	<div class="game-end-content">
-		<h1 class="game-end-title">{{game.end_message}}</h1>
+		<h1 class="game-end-title">{{game.endMessage}}</h1>
 		<div class="game-end-score">
 			<h2 class="game-end-score-value">
 				<div class="player">
-					<img src="{{game.player1.avatarUrl}}" class="avatar">
-					<p class="player-name">{{game.player1.nickname}}</p>
-					<p class="player-elo">{{game.player1.rating}}<span class="elo-change elo-change-up">
-						<img src="../../../../assets/icons/up.png" *ngIf="game.player1.eloChange > 0">
-						{{game.player1.eloChange}}
-						<img src="../../../../assets/icons/down.png" *ngIf="game.player1.eloChange < 0">
+					<img src="{{game.player1AvatarUrl}}" class="avatar">
+					<p class="player-name">{{game.player1}}</p>
+					<p class="player-elo">{{game.player1Elo}}<span class="elo-change elo-change-up">
+						<img src="../../../../assets/icons/up.png" *ngIf="game.player1EloChange > 0">
+						<img src="../../../../assets/icons/down.png" *ngIf="game.player1EloChange < 0">
+						{{game.player1EloChange}}
 					</span>
 				</p>
 				</div>
-				<p class="score">{{game.player1.score}} - {{game.player2.score}}</p>
+				<p class="score">{{game.player1Score}} - {{game.player2Score}}</p>
 				<div class="player">
-					<img src="{{game.player2.avatarUrl}}" class="avatar">
-					<p class="player-name">{{game.player2.nickname}}</p>
-					<p class="player-elo">{{game.player2.rating}}
+					<img src="{{game.player2AvatarUrl}}" class="avatar">
+					<p class="player-name">{{game.player2}}</p>
+					<p class="player-elo">{{game.player2Elo}}
 						<span class="elo-change elo-change-down">
-							<img src="../../../../assets/icons/up.png" *ngIf="game.player2.eloChange > 0">
-							{{game.player2.eloChange}}
-							<img src="../../../../assets/icons/down.png" *ngIf="game.player2.eloChange < 0">
+							<img src="../../../../assets/icons/up.png" *ngIf="game.player2EloChange > 0">
+							<img src="../../../../assets/icons/down.png" *ngIf="game.player2EloChange < 0">
+							{{game.player2EloChange}}				
 						</span>
 					</p>
 				</div>
@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	<div class="game-end-buttons">
-		<button class="btn btn-dark btn-block">Home</button>
-		<button class="btn btn-dark btn-block">Rematch</button>
+		<button class="btn btn-dark btn-block" (click)="homeButton()">Home</button>
+		<button class="btn btn-dark btn-block" (click)="rematchButton()">Rematch</button>
 	</div>
 </div>

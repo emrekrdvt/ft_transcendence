@@ -117,19 +117,28 @@ export class PongService {
 		this.endGame(game, server, roomId);
 	};
 
-	createMatch = async (score: number, player: Player, opponent: Player) => {
+	createMatch = async (score: number, player1: Player, player2: Player, user: Player) => {
+		
 		await this.prismaService.match.create({
 			data: {
-				opponent: opponent.nickname,
-				userScore: player.score,
-				opponentScore: opponent.score,
+				player1: player1.nickname,
+				player2: player2.nickname,
+				player1Score: player1.score,
+				player2Score: player2.score,
+				player1EloChange: player1.eloChange,
+				player2EloChange: player2.eloChange,
+				player1Elo: player1.rating,
+				player2Elo: player2.rating,
+				player1AvatarUrl: player1.avatarUrl,
+				player2AvatarUrl: player2.avatarUrl,
 				user: {
 					connect: {
-						intraId: player.intraId
+						intraId: user.intraId
 					}
 				},
 				isWin: score == 1 ? true : false,
-				isDraw: score == 0.5 ? true : false
+				isDraw: score == 0.5 ? true : false,
+				endMessage: player1.score == 5 ? player1.nickname + ' won' : (player2.score == 5 ?  player2.nickname + ' won' : 'Draw'),
 			}
 		});
 	};
@@ -173,8 +182,8 @@ export class PongService {
 			xp: user2.xp,
 			xpToNextLevel: user2.xpToNextLevel,
 			cash: this.balanceService.updateBalance(user2, score === 1 ? 0 : 1)});
-		this.createMatch(score, game.player1, game.player2);
-		this.createMatch(score === 1 ? 0 : 1, game.player2, game.player1);
+		this.createMatch(score, game.player1, game.player2, game.player1);
+		this.createMatch(score === 1 ? 0 : 1, game.player1, game.player2, game.player2);
 		server.to(roomId).emit('endGame', { user1: user1, user2: user2 });
 	}
 }

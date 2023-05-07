@@ -11,4 +11,10 @@ export class MatchController
 	getLastMatch(@Body() intraId: number) {
 		return this.matchService.getLastMatch(intraId);
 	}
+
+	@Get('matches')
+	getMatches(@Body() intraId: number) {
+		return this.matchService.getMatches(intraId);
+	}
+	
 }

@@ -7,6 +7,7 @@ import { MarketplaceComponent } from './components/marketplace/marketplace.compo
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { MatchHistoryPageComponent } from './components/profile/match-history-page/match-history-page.component';
 
 const routes: Routes = [
 	{
@@ -37,6 +38,10 @@ const routes: Routes = [
 	{
 		path: 'register',
 		component: RegisterComponent
+	},
+	{
+		path: 'history',
+		component: MatchHistoryPageComponent, canActivate: [AuthGuard]
 	}
 ];
 
