@@ -1,0 +1,64 @@
+
+.page-main
+{
+	align-items: flex-start !important;
+	
+}
+
+.buttons
+{
+	.btn
+	{
+		width: 100%;
+		margin: 5px;
+		border-radius: 0;
+		border: 1px solid white;
+	}
+	.btn:hover
+	{
+		background-color: white;
+		color: black;
+	}
+}
+
+.list-group-item
+{
+	margin-top: 5%;
+	width: 600px;
+	background-color: transparent;
+	border: 1px solid white;
+	color: white;
+	border-radius: 10px;
+}
+
+.list-group-item:hover
+{
+	background-color: white;
+	color: black;
+	cursor: pointer;
+	border: 1px solid black;
+}
+
+.user
+{
+	
+	display: flex;
+	align-items: center;
+	margin: 20px;
+	.avatar
+	{
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+	}
+	.user-info
+	{
+		margin-left: 100px;
+	}
+}
+
+.sort-names
+{
+	margin-top: 5%;
+	color: white;
+}

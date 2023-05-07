@@ -59,6 +59,8 @@ export class GameService implements OnInit{
 			this.game = game;
 		});
 		this.socketService.listenToEvent('endGame').subscribe(() => {
+			if (this.game.isFinished == true)
+				return;
 			if (this.game.player1.score != undefined && this.game.player2.score != undefined)
 			{
 				this.game.isFinished = true;

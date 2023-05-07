@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatchHistoryComponent } from './match-history.component';
+import { LeaderboardComponent } from './leaderboard.component';
 
-describe('MatchHistoryComponent', () => {
-  let component: MatchHistoryComponent;
-  let fixture: ComponentFixture<MatchHistoryComponent>;
+describe('LeaderboardComponent', () => {
+  let component: LeaderboardComponent;
+  let fixture: ComponentFixture<LeaderboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MatchHistoryComponent ]
+      declarations: [ LeaderboardComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MatchHistoryComponent);
+    fixture = TestBed.createComponent(LeaderboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

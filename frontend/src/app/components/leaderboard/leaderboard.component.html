@@ -1,0 +1,26 @@
+<div class="container-fluid">
+	<h1 class="page-header">Leaderboard</h1>
+	<div class="page-icons">
+		<img src="../../../../assets/icons/home.png" class="icon" (click)="goToHome()"/>
+	</div>
+	<div class="page-main">
+		<div class="row">
+			<div class="col-md-4" *ngFor="let users of userLists">
+				<h3 class="sort-names">{{users.name}}</h3>
+				<ul class="list-group">
+					<li class="list-group-item" *ngFor="let user of users.sorted">
+						<div class="user">
+							<img src="{{user.avatarUrl}}" class="avatar">
+							<div class="user-info">
+								<h4>{{user.nickname}}</h4>
+								<p>XP: {{user.xp}}</p>
+								<p>Wins: {{user.wins}}</p>
+								<p>Rating: {{user.rating}}</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

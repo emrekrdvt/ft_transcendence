@@ -15,8 +15,9 @@ export class GameEndComponent {
 	constructor(private matchService: MatchService, private router: Router) { }
 
 	ngOnInit(): void {
-		this.matchService.getLastMatch()!;
-		this.game = JSON.parse(localStorage.getItem('lastMatch')!);
+		this.matchService.getLastMatch().then((match) => {
+			this.game = match!;
+		});
 	}
 
 	homeButton = () => {
