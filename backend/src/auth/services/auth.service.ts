@@ -2,6 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { error } from 'console';
+import { AchievementService } from 'src/services/achievement.service';
 import {
   catchError,
   firstValueFrom,
@@ -24,6 +25,7 @@ export class AuthService {
     private readonly httpService: HttpService,
     private prisma: PrismaService,
     private jwt: JwtService,
+	private achievementService: AchievementService,
   ) {}
 
   async getToken(code) {
@@ -84,6 +86,7 @@ export class AuthService {
         email: rdata['email'],
       },
     });
+	await this.achievementService.addDefaultAchievements(user.intraId);
     return this.signToken(intraToken, user.intraId);
   }
 

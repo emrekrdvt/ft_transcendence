@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouterService } from 'src/app/services/route.service';
 import { Match } from 'src/app/models/match.model';
 import { MatchService } from 'src/app/services/match.service';
 
@@ -12,7 +12,7 @@ export class MatchHistoryPageComponent implements OnInit{
 
 	matches!: Match[];
 
-	constructor(private matchService: MatchService, private router: Router) {}
+	constructor(public routerService: RouterService, private matchService: MatchService) {}
 
 	ngOnInit() {
 		this.matchService.getMatches().then(
@@ -21,11 +21,4 @@ export class MatchHistoryPageComponent implements OnInit{
 			});
 	};
 
-	goToHome() {
-		this.router.navigate(['/home']);
-	};
-
-	goToProfile() {
-		this.router.navigate(['/profile']);
-	};
 }

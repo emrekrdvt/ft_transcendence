@@ -3,12 +3,11 @@ import { Router } from '@angular/router';
 import { RouterService } from 'src/app/services/route.service';
 
 @Component({
-	selector: 'app-marketplace',
-	templateUrl: './marketplace.component.html',
-	styleUrls: ['./marketplace.component.scss']
+	selector: 'app-watch',
+	templateUrl: './watch.component.html',
+	styleUrls: ['./watch.component.scss']
 })
-export class MarketplaceComponent {
+export class WatchComponent {
 
 	constructor(public routerService: RouterService){}
-
 }

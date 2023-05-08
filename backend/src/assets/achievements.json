@@ -1,0 +1,104 @@
+[
+		{
+			"name": "First Blood",
+			"description": "Play a game",
+			"progressMax": 1,
+			"url": "../assets/achievements/play-achievement.png"
+		},
+		{
+			"name": "Ten Games",
+			"description": "Play ten games",
+			"progressMax": 10,
+			"url": "../assets/achievements/play-achievement.png"
+		},
+		{
+			"name": "One Hundred Games",
+			"description": "Play one hundred games",
+			"progressMax": 100,
+			"url": "../assets/achievements/play-achievement.png"
+		},
+		{
+			"name": "Winner Winner Chicken Dinner",
+			"description": "Win a game",
+			"progressMax": 1,
+			"url": "../assets/achievements/trophy-achievement.png"
+		},
+		{
+			"name": "Ten Wins",
+			"description": "Win ten games",
+			"progressMax": 10,
+			"url": "../assets/achievements/trophy-achievement.png"
+		},
+		{
+			"name": "One Hundred Wins",
+			"description": "Win one hundred games",
+			"progressMax": 100,
+			"url": "../assets/achievements/trophy-achievement.png"
+		},
+		{
+			"name": "Level 2",
+			"description": "Reach level 2",
+			"progressMax": 1,
+			"url": "../assets/achievements/level-achievement.png"
+		},
+		{
+			"name": "Level 5",
+			"description": "Reach level 5",
+			"progressMax": 1,
+			"url": "../assets/achievements/level-achievement.png"
+		},
+		{
+			"name": "Level 10",
+			"description": "Reach level 10",
+			"progressMax": 1,
+			"url": "../assets/achievements/level-achievement.png"
+		},
+		{
+			"name": "Level 20",
+			"description": "Reach level 20",
+			"progressMax": 1,
+			"url": "../assets/achievements/level-achievement.png"
+		},
+		{
+			"name": "Newcomer Capitalist",
+			"description": "Earn 10 dollars",
+			"progressMax": 10,
+			"url": "../assets/achievements/cash-achievement.png"
+		},
+		{
+			"name": "Capitalist",
+			"description": "Earn 100 dollars",
+			"progressMax": 100,
+			"url": "../assets/achievements/cash-achievement.png"
+		},
+		{
+			"name": "Elon Musk",
+			"description": "Earn 10000 dollars",
+			"progressMax": 10000,
+			"url": "../assets/achievements/cash-achievement.png"
+		},
+		{
+			"name": "Billionaire",
+			"description": "Earn 1000000 dollars",
+			"progressMax": 1000000,
+			"url": "../assets/achievements/cash-achievement.png"
+		},
+		{
+			"name": "Shopaholic 1",
+			"description": "Buy an item",
+			"progressMax": 1,
+			"url": "../assets/achievements/shopping-achievement.png"
+		},
+		{
+			"name": "Shopaholic 2",
+			"description": "Buy 10 items",
+			"progressMax": 10,
+			"url": "../assets/achievements/shopping-achievement.png"
+		},
+		{
+			"name": "Shopaholic 3",
+			"description": "Buy 100 items",
+			"progressMax": 100,
+			"url": "../assets/achievements/shopping-achievement.png"
+		}
+]

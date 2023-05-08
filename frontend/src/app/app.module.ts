@@ -29,6 +29,10 @@ import { MatchService } from './services/match.service';
 import { MatchHistoryPageComponent } from './components/profile/match-history-page/match-history-page.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { LeaderboardService } from './services/leaderboard.service';
+import { WatchComponent } from './components/watch/watch.component';
+import { AchievementsPageComponent } from './components/profile/achievements-page/achievements-page.component';
+import { RouterService } from './services/route.service';
+import { AchievementService } from './services/achievement.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -50,6 +54,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		GameEndComponent,
 		MatchHistoryPageComponent,
 		LeaderboardComponent,
+  WatchComponent,
+  AchievementsPageComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -57,7 +63,19 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		HttpClientModule,
 		SocketIoModule.forRoot(config)
 	],
-	providers: [AuthService, UserService, RegisterService, DrawService, SocketService, LobbyService, PlayerService, GameService, MatchService, LeaderboardService],
+	providers: [AuthService,
+			UserService, 
+			RegisterService,
+			DrawService, 
+			SocketService, 
+			LobbyService, 
+			PlayerService, 
+			GameService, 
+			MatchService, 
+			LeaderboardService, 
+			RouterService,
+			AchievementService,
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { LeaderboardService } from 'src/app/services/leaderboard.service';
+import { RouterService } from 'src/app/services/route.service';
 
 @Component({
 	selector: 'app-leaderboard',
@@ -16,17 +17,13 @@ export class LeaderboardComponent {
 		{ name: 'XP', sorted: [] as User[]},
 	];
 
-	constructor(private router: Router, private leaderboardService: LeaderboardService) { }
+	constructor(public routerService: RouterService, private leaderboardService: LeaderboardService) { }
 
 	ngOnInit(): void {
 		this.sortByRating(0);
 		this.sortByWins(1);
 		this.sortByXP(2);
 	}
-
-	goToHome() {
-		this.router.navigate(['/home']);
-	};
 
 	sortByRating = (index: number) => {
 		this.leaderboardService.getUsersByRating().then(

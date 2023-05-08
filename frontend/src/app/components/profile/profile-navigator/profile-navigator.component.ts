@@ -26,8 +26,8 @@ export class ProfileNavigatorComponent {
 			icon: this.path + 'history.png'
 		},
 		{
-			title: 'Purchases',
-			url: '/purchases',
+			title: 'Inventory',
+			url: '/inventory',
 			icon: this.path + 'purchases.png'
 		},
 		{

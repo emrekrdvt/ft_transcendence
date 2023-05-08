@@ -9,6 +9,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MatchHistoryPageComponent } from './components/profile/match-history-page/match-history-page.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { WatchComponent } from './components/watch/watch.component';
+import { AchievementsPageComponent } from './components/profile/achievements-page/achievements-page.component';
 
 const routes: Routes = [
 	{
@@ -49,10 +51,18 @@ const routes: Routes = [
 		component: LeaderboardComponent, canActivate: [AuthGuard]
 	},
 	{
+		path: 'watch',
+		component: WatchComponent, canActivate: [AuthGuard]
+	},
+	{
+		path: 'achievements',
+		component: AchievementsPageComponent, canActivate: [AuthGuard]
+	},
+	{
 		path: '**',
 		redirectTo: '/home',
 		pathMatch: 'full'
-	},	
+	},
 	
 ];
 

@@ -1,0 +1,53 @@
+.achievements
+{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	color: white;
+
+	.achievement
+	{
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		width: 320px;
+		height: 320px;
+		margin: 15px;
+		transition: 0.5s;
+		border: 1px solid white;
+		text-align: center;
+		background-color: #1a1a1a;
+		.achievement-icon
+		{
+			margin-top: 30px;
+			width: 120px;
+			height: 120px;
+			filter: invert(100%);
+		}
+
+
+		.achievement-name
+		{
+			margin-top: 30px;
+		}
+		.achievement-description
+		{
+			margin-top: 10px;
+			font-size: 12px;
+		}
+	}
+}
+
+.achievement:hover
+{
+	transform: scale(1.1);
+	transition: 0.5s;
+	cursor: pointer;
+}
+
+.disabled
+{
+	opacity: 0.5;
+}
