@@ -1,5 +1,11 @@
+.page-main
+{
+	justify-content: start !important;
+}
+
+
 .match {
-	margin: 20px;
+	margin: 30px;
 	color: white;
 	background-color: #303030;
 	display: flex;
@@ -10,40 +16,16 @@
 	box-shadow: 0 0 2px 0 rgba(#303030, 0.1), 0 4px 4px 0 rgba(#303030, 0.1);
 }
 
-.match-status {
-	background-color: var(--color-bg-alert);
-	color: var(--color-text-alert);
-	padding: 8px 12px;
-	border-radius: 6px;
-	font-weight: 600;
-	font-size: 14px;
-	display: flex;
-	align-items: center;
-	line-height: 1;
-	margin-right: auto;
-	&:before {
-		content: "";
-		display: block;
-		width: 6px;
-		height: 6px;
-		background-color: currentColor;
-		border-radius: 50%;
-		margin-right: 8px;
-	}
+.match:hover
+{
+	box-shadow: 0 0 2px 0 rgba(#303030, 0.1), 0 4px 4px 0 rgba(#303030, 0.1), 0 0 0 5px white;
+	cursor: pointer;
 }
+
 
 .match-actions {
 	display: flex;
 	margin-left: auto;
-}
-
-.btn-icon {
-	border: 0;
-	background-color: transparent;
-	color: var(--color-text-icon);
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
 
 .match-content {

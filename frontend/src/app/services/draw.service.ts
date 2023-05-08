@@ -40,12 +40,12 @@ export class DrawService {
 		this.clearCanvas(ctx, canvas);
 		this.drawRect(ctx, 0, 0, 1024, 768, '#000');
 
-		if (playerOne.score && playerTwo.score)
-		{
-			this.drawText(ctx, playerOne.score.toString(), canvas.width / 4, canvas.height / 6, '#fff');
-			this.drawText(ctx, playerTwo.score.toString(), (3 * canvas.width) / 4, canvas.height / 6, '#fff');
-		}
-		
+		if (!playerOne.score)
+			playerOne.score = 0;
+		if (!playerTwo.score)
+			playerTwo.score = 0;
+		this.drawText(ctx, playerOne.score.toString(), canvas.width / 4, canvas.height / 6, '#fff');
+		this.drawText(ctx, playerTwo.score.toString(), (3 * canvas.width) / 4, canvas.height / 6, '#fff');
 
 		this.drawNet(ctx, canvas, net);
 

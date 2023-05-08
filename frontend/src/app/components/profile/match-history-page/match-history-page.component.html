@@ -5,35 +5,39 @@
 		<img src="../../../../assets/icons/profile.png" class="icon" (click)="routerService.routeToProfile()"/>
 	</div>
 	<div class="page-main">
-		<div class="match" *ngFor="let match of matches">
-			<div class="match-content">
-				<div class="column">
-					<div class="team">
-						<img src="{{match.player1AvatarUrl}}" class="avatar"/>
-						<h2 class="player">{{match.player1}}</h2>
-					</div>
-				</div>
-				<div class="column">
-					<div class="match-details">
-						<div class="match-date">
-							12 Aug at <strong>19:00</strong>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="match" *ngFor="let match of matches">
+					<div class="match-content">
+						<div class="column">
+							<div class="team">
+								<img src="{{match.player1AvatarUrl}}" class="avatar"/>
+								<h2 class="player">{{match.player1}}</h2>
+							</div>
 						</div>
-						<div class="match-score">
-							<span class="match-score-number">{{match.player1Score}}</span>
-							<span class="match-score-divider">:</span>
-							<span class="match-score-number">{{match.player2Score}}</span>
+						<div class="column">
+							<div class="match-details">
+								<div class="match-date">
+									12 Aug at <strong>19:00</strong>
+								</div>
+								<div class="match-score">
+									<span class="match-score-number">{{match.player1Score}}</span>
+									<span class="match-score-divider">:</span>
+									<span class="match-score-number">{{match.player2Score}}</span>
+								</div>
+								<div class="match-time-lapsed">
+									72'
+								</div>
+							</div>
 						</div>
-						<div class="match-time-lapsed">
-							72'
+						<div class="column">
+							<div class="team">
+									<img src="{{match.player2AvatarUrl}}" class="avatar"/>
+								<h2 class="player">{{match.player2}}</h2>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="column">
-					<div class="team">
-							<img src="{{match.player2AvatarUrl}}" class="avatar"/>
-						<h2 class="player">{{match.player2}}</h2>
-					</div>
-				</div>
+			</div>
 			</div>
 		</div>
 	</div>

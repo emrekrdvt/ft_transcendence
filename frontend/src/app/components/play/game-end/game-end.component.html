@@ -6,10 +6,10 @@
 				<div class="player">
 					<img src="{{game.player1AvatarUrl}}" class="avatar">
 					<p class="player-name">{{game.player1}}</p>
-					<p class="player-elo">{{game.player1Elo}}<span class="elo-change elo-change-up">
+					<p class="player-elo">{{game.player1Elo}}<span class="elo-change" [ngClass]="game.player1EloChange > 0 ? 'elo-change-up' : 'elo-change-down'">
 						<img src="../../../../assets/icons/up.png" *ngIf="game.player1EloChange > 0">
 						<img src="../../../../assets/icons/down.png" *ngIf="game.player1EloChange < 0">
-						{{game.player1EloChange}}
+						{{game.player1EloChange < 0 ? game.player1EloChange * -1 : game.player1EloChange}}
 					</span>
 				</p>
 				</div>
@@ -18,10 +18,10 @@
 					<img src="{{game.player2AvatarUrl}}" class="avatar">
 					<p class="player-name">{{game.player2}}</p>
 					<p class="player-elo">{{game.player2Elo}}
-						<span class="elo-change elo-change-down">
+						<span class="elo-change" [ngClass]="game.player2EloChange > 0 ? 'elo-change-up' : 'elo-change-down'">
 							<img src="../../../../assets/icons/up.png" *ngIf="game.player2EloChange > 0">
 							<img src="../../../../assets/icons/down.png" *ngIf="game.player2EloChange < 0">
-							{{-game.player2EloChange}}				
+							{{game.player2EloChange < 0 ? game.player2EloChange * -1 : game.player2EloChange}}				
 						</span>
 					</p>
 				</div>
