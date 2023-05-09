@@ -1,0 +1,75 @@
+.nav
+{
+	margin: 25px;
+	.nav-item
+	{
+		cursor: pointer;
+		border: 1px solid white;
+		margin-right: 40px;
+		width: 240px;
+		.nav-link
+		{
+			color: white !important;
+			text-decoration: none;
+			padding: 20px;
+			font-size: 20px;
+		}
+
+		&:hover
+		{
+			background-color: white;
+			border: 1px solid black;
+			.nav-link
+			{
+				color: black !important;
+			}
+		}
+	}
+}
+
+.content
+{
+	.container	
+	{
+		width: 50%;
+	}
+	display: flex;
+	.list-group
+	{
+		.list-group-item
+		{
+			border-radius: 0%;
+			cursor: pointer;
+			background-color: transparent;
+			border: 1px solid white;
+			color: white;
+			font-size: 20px;
+			margin: 10px;
+			&:hover
+			{
+				background-color: white;
+				border: 1px solid black;
+				color: black;
+			}
+			.content-img
+			{
+				border: 1px solid black;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+			}
+			.content-text
+			{
+				margin-left: 20px;
+			}
+			.content-buttons
+			{
+				margin-top: 20px;
+				.btn
+				{
+					margin: 10px;
+				}
+			}
+		}
+	}
+}

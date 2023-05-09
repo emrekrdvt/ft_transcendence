@@ -1,0 +1,19 @@
+<div class="container-fluid">
+	<h1 class="page-header">Chat</h1>
+	<div class="page-icons">
+		<img src="../../../../assets/icons/home.png" class="icon" (click)="routerService.routeToHome()" />
+	</div>
+	<div class="page-main">
+		<div class="row">
+			<ul class="nav nav-pills nav-fill">
+				<li class="nav-item" *ngFor="let tab of tabs">
+					<a class="nav-link" (click)="tab.function()">{{tab.name}}</a>
+				</li>
+			</ul>
+			<app-request  *ngIf="selectedTab === 'request'"></app-request>
+			<app-friends  *ngIf="selectedTab === 'friends'"></app-friends>
+			<app-blocked  *ngIf="selectedTab === 'blocked'"></app-blocked>
+			<app-chatrooms  *ngIf="selectedTab === 'chatrooms'"></app-chatrooms>
+		</div>
+	</div>
+</div>

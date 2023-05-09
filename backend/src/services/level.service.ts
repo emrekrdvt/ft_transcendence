@@ -9,8 +9,6 @@ export class LevelService {
 			return 100 + (level * 10);
 		else if (score == 0)
 			return 50 + (level * 5);
-		else if (score == 0.5)
-			return 75 + (level * 7.5);
 	};
 
 	updateLevel = (user: User, score: number): User => {

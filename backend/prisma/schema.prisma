@@ -7,6 +7,13 @@ datasource db {
 	url      = env("DATABASE_URL")
 }
 
+enum FriendshipStatus {
+	PENDING
+	ACCEPTED
+	DECLINED
+}
+
+
 model User {
 	id        Int      @default(autoincrement()) @id
 	avatarUrl String?
@@ -21,7 +28,6 @@ model User {
 	
 	losses    Int      @default(0)
 	wins     Int      @default(0)
-	draws    Int      @default(0)
 	games	Int      @default(0)
 	rating  Float      @default(1500)
 	level	Int      @default(1)
@@ -31,7 +37,12 @@ model User {
 
 	achievements Achievement[]
 	matches     Match[]
-
+	sentRequests     Friendship[] @relation("sentRequests")
+	receivedRequests Friendship[] @relation("receivedRequests")
+	Friendship       Friendship[]
+	friendIntraIds Int[]
+	blockedFriends Int[]
+	Message Message[]
 	@@map("users")
 }
 
@@ -73,6 +84,55 @@ model Match {
 
 	userId Int
 	user   User @relation(fields: [userId], references: [intraId])
-
+	
 	@@map("matches")
+}
+
+model Friendship {
+	id        Int      @id @default(autoincrement())
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+
+	status FriendshipStatus
+
+	requester   User @relation("sentRequests", fields: [requesterId], references: [intraId])
+	requesterId Int
+
+	requested   User  @relation("receivedRequests", fields: [requestedId], references: [intraId])
+	requestedId Int
+	User        User? @relation(fields: [userId], references: [id])
+	userId      Int?
+
+	@@unique([requesterId, requestedId])
+	@@map("friendships")
+}
+
+model Message {
+	id         Int      @id @default(autoincrement())
+	text       String
+	sender     User     @relation(fields: [senderId], references: [intraId])
+	senderId   Int
+	chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+	chatRoomId Int
+}
+
+model ChatRoom {
+	id           Int       @id @default(autoincrement())
+	name         String    @unique
+	password     String?
+	participants Int[]
+	creator      Int[]
+	moderator    Int[]
+	messages     Message[]
+	shutUp       Int[]
+	createdAt    DateTime  @default(now())
+	updatedAt    DateTime  @updatedAt
+	privChat     Boolean   @default(false)
+}
+
+model BannedUsers {
+	id          Int      @id @default(autoincrement())
+	bannedUsers Int
+	chatRoomId  String
+	banEndTime  DateTime
 }

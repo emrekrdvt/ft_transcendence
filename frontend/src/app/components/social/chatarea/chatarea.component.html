@@ -1,0 +1,38 @@
+<div class="chat-area">
+	<div class="chat-area-content">
+		<div class="chat-header d-flex justify-content-between align-items-end">
+			<div style="color: #ff6a00; display: block;" *ngIf="selectedFriend && !selectedChatroom">
+				{{selectedFriend.username}}
+			</div>
+			<div style="color: #ff6a00; display: block;" *ngIf="!selectedFriend && selectedChatroom">
+				{{selectedChatroom.name}}
+			</div>
+		</div>
+		<div class="chat-messages" *ngIf="selectedFriend && !selectedChatroom" #chatMessages>
+			<div *ngFor="let message of messages"
+				[ngClass]="{'right': message.sender === this.userService.getUser()?.username, 'message': message.sender !== this.userService.getUser()?.username}">
+				<div> <span style="color: #FF6A00"> {{message.sender}}
+						:</span> {{ message.content }} </div>
+			</div>
+		</div>
+		<div class="chat-messages" *ngIf="!selectedFriend && selectedChatroom" #chatMessages>
+			<div *ngFor="let message of selectedChatroom.messages"
+				[ngClass]="{'right': message.sender === this.userService.getUser()?.username, 'message': message.sender !== this.userService.getUser()?.username}">
+				<ng-container *ngIf="message.sender === 'System'; then Alert else noAlert"></ng-container>
+				<ng-template #Alert>
+					{{showAlert(message.content)}}
+				</ng-template>
+				<ng-template #noAlert>
+					<div>
+						<span style="color: #FF6A00">{{ message.sender }}
+							:</span> {{ message.content }} {{message.text}}
+					</div>
+				</ng-template>
+			</div>
+		</div>
+	</div>
+	<div class="chat-input">
+		<input style=" border: 1px solid #ff6a00; outline: none;" type="text" placeholder="Press enter to send message"
+			#messageInput (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''" />
+	</div>
+</div>

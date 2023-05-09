@@ -33,6 +33,12 @@ import { WatchComponent } from './components/watch/watch.component';
 import { AchievementsPageComponent } from './components/profile/achievements-page/achievements-page.component';
 import { RouterService } from './services/route.service';
 import { AchievementService } from './services/achievement.service';
+import { SocialComponent } from './components/social/social.component';
+import { RequestComponent } from './components/social/request/request.component';
+import { FriendsComponent } from './components/social/friends/friends.component';
+import { BlockedComponent } from './components/social/blocked/blocked.component';
+import { ChatroomsComponent } from './components/social/chatrooms/chatrooms.component';
+import { ChatareaComponent } from './components/social/chatarea/chatarea.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -56,6 +62,12 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		LeaderboardComponent,
   WatchComponent,
   AchievementsPageComponent,
+  SocialComponent,
+  RequestComponent,
+  FriendsComponent,
+  BlockedComponent,
+  ChatroomsComponent,
+  ChatareaComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -75,6 +87,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 			LeaderboardService, 
 			RouterService,
 			AchievementService,
+			FriendsComponent,
+			ChatroomsComponent
 	],
 	bootstrap: [AppComponent]
 })

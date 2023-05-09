@@ -11,6 +11,7 @@ import { MatchHistoryPageComponent } from './components/profile/match-history-pa
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { WatchComponent } from './components/watch/watch.component';
 import { AchievementsPageComponent } from './components/profile/achievements-page/achievements-page.component';
+import { SocialComponent } from './components/social/social.component';
 
 const routes: Routes = [
 	{
@@ -57,6 +58,10 @@ const routes: Routes = [
 	{
 		path: 'achievements',
 		component: AchievementsPageComponent, canActivate: [AuthGuard]
+	},
+	{
+		path: 'social',
+		component: SocialComponent, canActivate: [AuthGuard]
 	},
 	{
 		path: '**',

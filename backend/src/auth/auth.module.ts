@@ -9,8 +9,8 @@ import { JwtStrategy } from './strategy';
 import { AchievementService } from 'src/services/achievement.service';
 
 @Module({
-  imports: [HttpModule, JwtModule.register({})],
-  providers: [UserService, AuthService, JwtStrategy, AchievementService],
-  controllers: [UserController, AuthController]
+	imports: [HttpModule, JwtModule.register({})],
+	providers: [UserService, AuthService, JwtStrategy, AchievementService],
+	controllers: [UserController, AuthController],
 })
-export class AuthModule {}
+export class AuthModule { }

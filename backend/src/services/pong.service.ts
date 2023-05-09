@@ -137,8 +137,7 @@ export class PongService {
 					}
 				},
 				isWin: score == 1 ? true : false,
-				isDraw: score == 0.5 ? true : false,
-				endMessage: player1.score == 5 ? player1.nickname + ' won' : (player2.score == 5 ?  player2.nickname + ' won' : 'Draw'),
+				endMessage: player1.score == 5 ? player1.nickname + ' won' : player2.nickname + ' won'
 			}
 		});
 	};
@@ -149,8 +148,6 @@ export class PongService {
 			score = 1;
 		else if (game.player2.score == 5)
 			score = 0;
-		else
-			score = 0.5;
 		this.ratingService.calculateNewElo(game.player1, game.player2, score);
 		let user1 = await this.prismaService.user.findUnique({
 			where: {
@@ -160,7 +157,6 @@ export class PongService {
 		user1 = this.levelService.updateLevel(user1, score);
 		this.userService.updateUser(game.player1.intraId, { wins: user1.wins + (score == 1 ? 1 : 0),
 			losses: user1.losses + (score == 0 ? 1 : 0),
-			draws: user1.draws + (score == 0.5 ? 1 : 0),
 			rating: game.player1.rating,
 			games: user1.games + 1,
 			level: user1.level,
@@ -175,7 +171,6 @@ export class PongService {
 		user2 = this.levelService.updateLevel(user2, score === 1 ? 0 : 1);
 		this.userService.updateUser(game.player2.intraId, { wins: user2.wins + (score == 0 ? 1 : 0),
 			losses: user2.losses + (score == 1 ? 1 : 0),
-			draws: user2.draws + (score == 0.5 ? 1 : 0),
 			rating: game.player2.rating,
 			games: user2.games + 1,
 			level: user2.level,

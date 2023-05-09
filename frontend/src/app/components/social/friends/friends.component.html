@@ -1,0 +1,14 @@
+<div class="content">
+	<div class="container">
+		<ul class="list-group" *ngIf="chatOpen === false">
+			<li class="list-group-item" *ngFor="let friend of friends">
+				<img src="{{friend.avatarUrl}}" class="content-img">
+				<span class="content-text">{{friend.username}}</span>
+				<div class="content-buttons">
+					<button class="btn btn-dark" *ngFor="let button of buttons" (click)="button.function(friend)">{{button.name}}</button>
+				</div>
+			</li>
+		</ul>
+		<app-chatarea *ngIf="chatOpen === true" id="friends"></app-chatarea>
+	</div>
+</div>

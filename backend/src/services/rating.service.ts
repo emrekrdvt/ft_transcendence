@@ -27,11 +27,6 @@ export class RatingService {
 			player1.rating = this.calculateExpectedElo(player1.rating, player2.rating, 0);
 			player2.rating = this.calculateExpectedElo(player2.rating, player1.rating, 1);
 		}
-		else if (score === 0.5)
-		{
-			player1.rating = this.calculateExpectedElo(player1.rating, player2.rating, 0.5);
-			player2.rating = this.calculateExpectedElo(player2.rating, player1.rating, 0.5);
-		}
 		player1.rating = Math.floor(player1.rating);
 		player2.rating = Math.floor(player2.rating);
 		player1.eloChange = player1.rating - player1RatingOld;

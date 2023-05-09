@@ -1,10 +1,10 @@
 import {
-  SubscribeMessage,
-  WebSocketGateway,
-  WebSocketServer,
-  OnGatewayDisconnect,
-  OnGatewayInit,
-  OnGatewayConnection,
+	SubscribeMessage,
+	WebSocketGateway,
+	WebSocketServer,
+	OnGatewayDisconnect,
+	OnGatewayInit,
+	OnGatewayConnection,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { PongEvents } from '../models/pevents.model';

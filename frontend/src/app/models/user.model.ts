@@ -11,7 +11,6 @@ export interface User
 	rating: number;
 	wins: number;
 	losses: number;
-	draws: number;
 	games: number;
 	rank: number;
 	ingame: boolean;
