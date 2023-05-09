@@ -52,7 +52,7 @@ export class UserService
 	};
 
 	getIntraIdFromUsername(username: string): Observable<User> {
-		return this.http.get<User>(`${environment.address}/username/${username}`);
+		return this.http.get<User>(`${environment.address}/users/username/${username}`);
 	}
 
 	sendFriendRequest(requesterId: number, requestedId: number) {

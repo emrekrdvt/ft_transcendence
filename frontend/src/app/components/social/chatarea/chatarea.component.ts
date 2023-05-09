@@ -36,8 +36,17 @@ export class ChatareaComponent implements OnInit {
 					sender: message.sender,
 				});
 			});
-		};
-		
+		}
+		else
+		{
+			this.selectedChatroom = this.chatRoomsComponent.selectedChatroom!;
+			this.chatService.getMessageFromChannel().subscribe((message: { message: string, sender: string }) => {
+				this.selectedChatroom.messages!.push({
+					content: message.message,
+					sender: message.sender,
+				});
+			});
+		}
 	};
 
 	showAlert(content: string): void {
@@ -71,7 +80,41 @@ export class ChatareaComponent implements OnInit {
 			senderID: message.senderID,
 			roomName: roomName,
 		};
-		this.chatService.sendMessageToChannel(updateMsg);
+
+		const command = updateMsg.content.split(' ')[0];
+		const time = updateMsg.content.split(' ')[2];
+		const commandContent = updateMsg.content.split(' ')[1];
+
+		if (command === '/help') {
+			alert('Commands: \n /kick <username> <time> \n /ban <username> <time> \n /unban <username> \n /setMod <username> \n /unsetMod <username> \n /mute <username> <time> \n /unmute <username> \n /pass <password> \n /deletePass <password>')
+			return;
+		}
+		if (command === '/kick' || command === '/ban' || command === '/unban' || command === '/setMod' || command === '/unsetMod' || command === '/mute' || command === '/unmute') {
+			console.log(command, commandContent, updateMsg.sender, this.selectedChatroom?.name!);
+			this.chatService.executeCommand(command, commandContent, updateMsg.sender, this.selectedChatroom?.name!, parseInt(time));
+		}
+		else if (command === '/pass') {
+			const password = updateMsg.content.split(' ')[1];
+			this.chatService.changePassword(this.selectedChatroom?.name!, password, updateMsg.sender);
+
+		}
+		else if (command === '/deletePass') {
+			const password = updateMsg.content.split(' ')[1];
+			this.chatService.destroyPassWord(this.selectedChatroom?.name!, password, updateMsg.sender);
+		}
+		else {
+			const checkMute = this.chatService.canIchat(this.selectedChatroom?.name!, updateMsg.sender).subscribe((response) => {
+				console.log(response)
+				if (response === true) {
+					this.chatService.sendMessageToChannel(updateMsg);
+					this.selectedChatroom?.messages!.push(updateMsg);
+				}
+				else {
+					alert("You are muted")
+				}
+			});
+
+		}
 	}
 
 	sendMessage(content: string) {
@@ -99,10 +142,6 @@ export class ChatareaComponent implements OnInit {
 					content: content,
 					senderID: this.userService.getUser()?.intraId,
 				};
-				const chatroom: Chatroom = {
-					name: this.selectedChatroom.name,
-					messages: [message],
-				}
 				this.sendChatRoom(message);
 			}
 		}

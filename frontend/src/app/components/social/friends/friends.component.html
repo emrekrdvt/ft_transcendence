@@ -1,5 +1,10 @@
 <div class="content">
 	<div class="container">
+		<h1 class="content-header">Friends</h1>
+		<div class="button-group">
+			<input type="text" class="form-control" placeholder="Enter a nickname" (input)="updateFriendName($event)">
+			<button class="btn btn-primary" (click)="sendFriendRequest()">Add friend</button>
+		</div>
 		<ul class="list-group" *ngIf="chatOpen === false">
 			<li class="list-group-item" *ngFor="let friend of friends">
 				<img src="{{friend.avatarUrl}}" class="content-img">

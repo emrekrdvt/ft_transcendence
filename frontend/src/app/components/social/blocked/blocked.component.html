@@ -1,1 +1,14 @@
-<p>blocked works!</p>
+<div class="content">
+	<div class="container">
+		<h1 class="content-header">Blocked</h1>
+		<ul class="list-group">
+			<li class="list-group-item" *ngFor="let blocked of blockedFriends">
+				<img src="{{blocked.avatarUrl}}" class="content-img">
+				<span class="content-text">{{blocked.username}}</span>
+				<div class="content-buttons">
+					<button class="btn btn-dark" (click)="removeBlock(blocked)">Unblock</button>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

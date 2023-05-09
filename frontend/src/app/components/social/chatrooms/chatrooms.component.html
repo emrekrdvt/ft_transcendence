@@ -1,1 +1,19 @@
-<p>chatrooms works!</p>
+<div class="content">
+	<div class="container">
+		<h1 class="content-header">Chatrooms</h1>
+		<ul class="list-group" *ngIf="chatOpen === false">
+			<div class="button-group">
+				<input type="text" class="form-control" placeholder="Enter the channel name" (input)="updateChannelName($event)">
+				<input type="password" class="form-control" placeholder="Enter the password" (input)="updatePassword($event)">
+				<button class="btn btn-primary" (click)="createChatroom()">Create Chat</button>
+			</div>
+			<li class="list-group-item" *ngFor="let room of chatrooms">
+				<div class="room">
+					<span class="content-text">{{room.name}}</span>
+						<button class="btn btn-primary" (click)="selectChatroom(room)">Join</button>
+				</div>
+			</li>
+		</ul>
+		<app-chatarea *ngIf="chatOpen === true" id="chatrooms"></app-chatarea>
+	</div>
+</div>

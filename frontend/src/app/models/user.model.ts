@@ -1,5 +1,3 @@
-import {Game} from "./game.model";
-
 export interface User
 {
 	intraId: number;

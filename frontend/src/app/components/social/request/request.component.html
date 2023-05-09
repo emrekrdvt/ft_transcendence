@@ -1,1 +1,15 @@
-<p>request works!</p>
+<div class="content">
+	<div class="container">
+		<h1 class="content-header">Requests</h1>
+		<ul class="list-group">
+			<li class="list-group-item" *ngFor="let request of friendRequests">
+				<img src="{{request.requester.avatarUrl}}" class="content-img">
+				<span class="content-text">{{request.requester.username}}</span>
+				<div class="content-buttons">
+					<button class="btn btn-dark" (click)="acceptFriendRequest(request)">Accept</button>
+					<button class="btn btn-dark" (click)="declineFriendRequest(request)">Decline</button>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

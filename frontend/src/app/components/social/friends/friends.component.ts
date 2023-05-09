@@ -13,8 +13,10 @@ import { SocialComponent } from '../social.component';
 	templateUrl: './friends.component.html',
 	styleUrls: ['./friends.component.scss', '../social.component.scss']
 })
-export class FriendsComponent implements OnInit {
 
+export class FriendsComponent implements OnInit {
+	friendUsername: string = '';
+	friendIntraID: number = 0;
 	friends: Friend[] = [];
 	messages: Message[] = [];
 	selectedFriend: Friend | null = null;
@@ -37,14 +39,6 @@ export class FriendsComponent implements OnInit {
 			this.friends = friends;
 		});
 	};
-	
-
-	acceptFriendRequest(request: any) {
-		this.friends.push({ username: request.requester.username });
-		this.userService
-			.acceptFriendRequest(request.requester.intraId, request.requested.intraId)
-			.subscribe();
-	}
 
 	selectFriend(friend: Friend) {
 		this.selectedFriend = friend;
@@ -77,17 +71,42 @@ export class FriendsComponent implements OnInit {
 
 	removeFriend(friend: Friend): void {
 		this.userService.removeFriend(friend.username).subscribe();
+		this.friends = this.friends.filter((friend) => friend.username !== friend.username);
 	}
 
 	blockFriend(friend: Friend): void {
 		this.userService.blockUser(friend.username).subscribe();
-	}
-	removeBlock(friend: Friend): void {
-		this.userService.removeBlock(friend.username).subscribe();
+		this.friends = this.friends.filter((friend) => friend.username !== friend.username);
 	}
 
 	viewProfile(friend: Friend): void {
 		this.router.navigate(['/profileid', friend.intraId]);
 	}
 
+	sendFriendRequest(): void {
+		this.userService
+			.getIntraIdFromUsername(this.friendUsername)
+			.subscribe((friendUsername) => {
+				const friendInfo = friendUsername;
+				console.log(friendInfo);
+				this.postRequest(friendInfo.intraId, 0);
+			});
+		this.friendUsername = '';
+	}
+
+	postRequest(friendID: number, myIntraID: number): void {
+		const asd = this.userService.getUser()?.intraId;
+		myIntraID = asd!;
+		this.friendIntraID = friendID;
+		this.userService
+			.sendFriendRequest(myIntraID, friendID)
+			.subscribe((friendRequest: any) => {
+				const friendInfo = friendRequest;
+				console.log(friendInfo);
+			});
+	}
+
+	updateFriendName(event: any): void {
+		this.friendUsername = event.target.value;
+	};
 }
