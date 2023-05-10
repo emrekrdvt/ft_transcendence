@@ -4,4 +4,6 @@ export enum StatusEvents {
 	ingame = 'ingame',
 	inchat = 'inchat',
 	getFriends = 'getFriends',
+	updateFriends = 'updateFriends',
+	logout = 'logout',
 };

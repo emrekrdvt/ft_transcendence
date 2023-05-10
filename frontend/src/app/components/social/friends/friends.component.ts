@@ -6,7 +6,9 @@ import { Chatroom } from 'src/app/models/chatroom.model';
 import { ChatService } from 'src/app/services/chat.service';
 import { Message } from 'src/app/models/message.model';
 import { Router } from '@angular/router';
-import { SocialComponent } from '../social.component';
+import { SocketService } from 'src/app/services/socket.service';
+import { User } from 'src/app/models/user.model';
+import { Status } from 'src/app/models/status.model';
 
 @Component({
 	selector: 'app-friends',
@@ -32,13 +34,60 @@ export class FriendsComponent implements OnInit {
 	constructor(private userService: UserService,
 		private chatService: ChatService,
 		private router: Router,
-		private social: SocialComponent) {}
+		private socketService: SocketService) {}
 
-	ngOnInit(): void {
+	ngOnInit() {
+		const user: User = this.userService.getUser()!;
+		this.socketService.listenToEvent('updateFriends').subscribe(() => {
+			this.socketService.sendEvent('getFriends', user.intraId);
+		});
 		this.userService.getFriends().subscribe((friends) => {
 			this.friends = friends;
 		});
+		this.socketService.sendEvent('status_connect', user.intraId);
+		this.socketService.sendEvent('inchat', user.intraId);
+		//wait 1ms for the server to update the status
+		setTimeout(() => {
+			this.socketService.sendEvent('getFriends', user.intraId);
+		}, 100);
+		this.socketService.listenToEvent('getFriends').subscribe((friendsStatus: Status[]) => {
+			this.friends.forEach((friend) => {
+				friendsStatus.forEach((friendStatus) => {
+					if (friend.intraId === friendStatus.intraId) {
+						friend.status = friendStatus;
+					}
+				});
+			});
+		});
+		this.socketService.sendEvent('getFriends', user.intraId);
+		
 	};
+
+	getStatus = (friendStatus: Status | undefined) => {
+		if (!friendStatus)
+			return;
+		if (friendStatus.chat) {
+			return 'In Chat';
+		} else if (friendStatus.ingame) {
+			return 'In Game';
+		} else if (friendStatus.online) {
+			return 'Online';
+		}
+		return 'Offline';
+	}
+
+	getColor = (friendStatus: Status | undefined) => {
+		if (!friendStatus)
+			return;
+		if (friendStatus.chat) {
+			return 'chat';
+		} else if (friendStatus.ingame) {
+			return 'game';
+		} else if (friendStatus.online) {
+			return 'online';
+		}
+		return 'offline';
+	}
 
 	selectFriend(friend: Friend) {
 		this.selectedFriend = friend;

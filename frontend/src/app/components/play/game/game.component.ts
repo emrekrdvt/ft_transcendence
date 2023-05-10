@@ -42,7 +42,6 @@ export class GameComponent implements AfterViewInit {
 			color: '#fff'
 		};
 		this.gameService.gameLoop(ctx, this.game, net, htmlCanvas, (game: Game) => {
-			console.log('game finished');
 			this.userService.getUserFromDb();
 			this.game = game;
 			this.isFinished = game.isFinished;

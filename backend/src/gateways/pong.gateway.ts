@@ -32,11 +32,11 @@ export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
 
 	handleConnection(client: Socket) {
-		Logger.log(`Client connected: ${client.id}`);
+		Logger.log(`Game Client connected: ${client.id}`);
 	}
 
 	handleDisconnect(client: Socket) {
-		Logger.log(`Client disconnected: ${client.id}`);
+		Logger.log(`Game Client disconnected: ${client.id}`);
 		this.lobbyService.removePlayer(client.id);
 		this.server.emit('lobby', this.lobbyService.getLobby());
 	}

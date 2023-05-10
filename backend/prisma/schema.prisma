@@ -57,6 +57,8 @@ model Achievement {
 	url		 String
 	createdAt DateTime @default(now())
 	updatedAt DateTime @updatedAt
+	achievedAt DateTime?
+	newly 	Boolean @default(true)
 
 	userId Int
 	user   User @relation(fields: [userId], references: [intraId])
@@ -76,6 +78,10 @@ model Match {
 	player2AvatarUrl String
 	player1Score Int
 	player2Score Int
+	player1XPChange Int
+	player2XPChange Int
+	player1CashChange Float
+	player2CashChange Float
 	endMessage String
 	isWin     Boolean
 	isDraw    Boolean @default(false)

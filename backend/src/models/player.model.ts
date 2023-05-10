@@ -13,4 +13,6 @@ export interface Player {
 	down?: boolean;
 	avatarUrl?: string;
 	eloChange: number;
+	xpChange: number;
+	cashChange: number;
 }

@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { User } from "@prisma/client";
+import { Player } from "src/models/player.model";
 
 @Injectable()
 export class LevelService {
@@ -11,14 +12,17 @@ export class LevelService {
 			return 50 + (level * 5);
 	};
 
-	updateLevel = (user: User, score: number): User => {
+	updateLevel = (user: User, score: number, player: Player): User => {
 		const xp = this.updateXp(user.level, score);
 		user.xp += xp;
 		if (user.xp >= user.xpToNextLevel && user.level < 20)
 		{
 			user.level++;
+			player.xpChange = -1;
 			user.xpToNextLevel = this.exps[user.level - 1];
 		}
+		else
+			player.xpChange = xp;
 		return user;
 	};
 }

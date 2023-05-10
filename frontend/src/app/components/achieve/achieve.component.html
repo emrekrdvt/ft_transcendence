@@ -1,0 +1,10 @@
+<div class="achievement-container">
+	<h1 *ngIf="achievedAchievements.length == 1">Congratulations! You've unlocked a new achievement!</h1>
+	<h1 *ngIf="achievedAchievements.length > 1">Congratulations! You've unlocked new achievements!</h1>
+	<div class="achievement" *ngFor="let achievement of achievedAchievements">
+		<img src="{{achievement.url}}">
+		<p class="achievement-name">{{achievement.name}}</p>
+		<p class="achievement-description">{{achievement.description}}</p>
+	</div>
+	<button class="btn btn-dark" (click)="closeAchieveScreen()">Close</button>
+</div>

@@ -4,6 +4,7 @@ import { MatchService } from "src/services/match.service";
 
 @Module(
 	{
+		exports: [ MatchService ],
 		providers: [ MatchService ],
 		controllers: [ MatchController ],
 	}

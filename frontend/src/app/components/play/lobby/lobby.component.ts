@@ -15,6 +15,8 @@ import { Game } from 'src/app/models/game.model';
 })
 export class LobbyComponent {
 
+	user: User = this.userService.getUser()!;
+
 	constructor(public lobbyService: LobbyService,
 			private socketService: SocketService,
 			private userService: UserService, 
@@ -23,6 +25,7 @@ export class LobbyComponent {
 
 	ngOnInit(): void {
 		this.socketService.sendEvent('get_lobby', null);
+		this.socketService.sendEvent('status_connect', this.user.intraId);
 		this.socketService.listenToEvent('lobby').subscribe((lobby: Player[]) => {
 			this.lobbyService.setLobby(lobby);
 		});
@@ -34,9 +37,10 @@ export class LobbyComponent {
 	};
 
 	join = (): void => {
-		const user: User = this.userService.getUser()!;
-		const player: Player = this.playerService.createPlayer(user.rating, user.nickname, user.avatarUrl, user.intraId);
+		
+		const player: Player = this.playerService.createPlayer(this.user.rating, this.user.nickname, this.user.avatarUrl, this.user.intraId);
 		this.socketService.sendEvent('join', player);
+		this.socketService.sendEvent('ingame', this.user.intraId);
 		this.socketService.sendEvent('get_lobby', null);
 	};
 }

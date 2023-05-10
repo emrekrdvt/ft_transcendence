@@ -13,35 +13,45 @@ export class OnlineGateway {
 
 	@SubscribeMessage(StatusEvents.connect)
 	handleConnect(client: Socket, intraId: number): void {
-		Logger.log(`Client connected: ${client.id}`);
-		this.server.emit(StatusEvents.connect, client.id);
+		Logger.log(`Status Client connected: ${client.id}`);
 		this.onlineService.goOnline(intraId, client.id);
+		this.server.emit(StatusEvents.updateFriends);
 	};
 
 	@SubscribeMessage(StatusEvents.disconnect)
 	handleDisconnect(client: Socket): void {
-		Logger.log(`Client disconnected: ${client.id}`);
-		this.server.emit(StatusEvents.disconnect, client.id);
+		Logger.log(`Status Client disconnected: ${client.id}`);
 		this.onlineService.goOffline(client.id);
+		this.server.emit(StatusEvents.updateFriends);
+	};
+
+	@SubscribeMessage(StatusEvents.logout)
+	handleLogout(client: Socket, intraId: number): void {
+		Logger.log(`Status Client logged out: ${client.id}`);
+		this.onlineService.goOffline(client.id);
+		this.server.emit(StatusEvents.updateFriends);
 	};
 
 	@SubscribeMessage(StatusEvents.ingame)
 	handleIngame(client: Socket, intraId: number): void {
-		Logger.log(`Client ingame: ${client.id}`);
-		this.server.emit(StatusEvents.ingame, client.id);
+		Logger.log(`Status Client ingame: ${client.id}`);
 		this.onlineService.goIngame(intraId);
+		this.server.emit(StatusEvents.updateFriends);
 	};
 
 	@SubscribeMessage(StatusEvents.inchat)
 	handleInchat(client: Socket, intraId: number): void {
-		Logger.log(`Client inchat: ${client.id}`);
-		this.server.emit(StatusEvents.inchat, client.id);
+		Logger.log(`Status Client inchat: ${client.id}`);
 		this.onlineService.goInchat(intraId);
+		this.server.emit(StatusEvents.updateFriends);
 	}
 
+
 	@SubscribeMessage(StatusEvents.getFriends)
-	handleGetFriends(client: Socket, intraId: number): void {
-		Logger.log(`Client getFriends: ${client.id}`);
-		client.emit(StatusEvents.getFriends, this.onlineService.getFriends(intraId));
+	async handleGetFriends(client: Socket, intraId: number) {
+		Logger.log(`Status Client getFriends: ${client.id}`);
+		await this.onlineService.getFriends(intraId).then((friends) => {
+			client.emit(StatusEvents.getFriends, friends);
+		});
 	}
 };

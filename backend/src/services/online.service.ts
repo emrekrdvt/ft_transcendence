@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { UserService } from "src/auth/services/user.service";
 import { Status } from "src/models/status.model";
 import { PrismaService } from "src/prisma/prisma.service";
 
@@ -7,7 +6,7 @@ import { PrismaService } from "src/prisma/prisma.service";
 export class OnlineService {
 	users: Status[] = [];
 
-	constructor(private userService: UserService, private prismaService: PrismaService){}
+	constructor(private prismaService: PrismaService){}
 
 	goOnline = (intraId: number, clientId: string): void => {
 		const user = this.users.find(user => user.intraId === intraId);
@@ -46,6 +45,7 @@ export class OnlineService {
 			user.ingame = false;
 			user.online = false;
 		};
+		
 	}
 
 	getFriends = async (intraId: number): Promise<Status[]> => {

@@ -8,6 +8,7 @@ import { Match } from '@prisma/client';
 import { UserService } from 'src/auth/services/user.service';
 import { LevelService } from './level.service';
 import { BalanceService } from './balance.service';
+import { AchievementService } from './achievement.service';
 
 @Injectable()
 export class PongService {
@@ -16,7 +17,8 @@ export class PongService {
 			private prismaService: PrismaService,
 			private userService: UserService,
 			private levelService: LevelService,
-			private balanceService: BalanceService) {}
+			private balanceService: BalanceService,
+			private achievementService: AchievementService) {}
 
 	collisionDetection = (game: Game, player: Player, add: number) => {
 		if (game.ball.x  < player.x + player.width + add
@@ -131,6 +133,10 @@ export class PongService {
 				player2Elo: player2.rating,
 				player1AvatarUrl: player1.avatarUrl,
 				player2AvatarUrl: player2.avatarUrl,
+				player1CashChange: player1.cashChange,
+				player2CashChange: player2.cashChange,
+				player1XPChange: player1.xpChange,
+				player2XPChange: player2.xpChange,
 				user: {
 					connect: {
 						intraId: user.intraId
@@ -154,7 +160,7 @@ export class PongService {
 				intraId: game.player1.intraId
 			}
 		});
-		user1 = this.levelService.updateLevel(user1, score);
+		user1 = this.levelService.updateLevel(user1, score, game.player1);
 		this.userService.updateUser(game.player1.intraId, { wins: user1.wins + (score == 1 ? 1 : 0),
 			losses: user1.losses + (score == 0 ? 1 : 0),
 			rating: game.player1.rating,
@@ -162,13 +168,13 @@ export class PongService {
 			level: user1.level,
 			xp: user1.xp,
 			xpToNextLevel: user1.xpToNextLevel,
-			cash: this.balanceService.updateBalance(user1, score)});
+			cash: this.balanceService.updateBalance(user1, score, game.player1)});
 		let user2 = await this.prismaService.user.findUnique({
 			where: {
 				intraId: game.player2.intraId
 			}
 		});
-		user2 = this.levelService.updateLevel(user2, score === 1 ? 0 : 1);
+		user2 = this.levelService.updateLevel(user2, score === 1 ? 0 : 1, game.player2);
 		this.userService.updateUser(game.player2.intraId, { wins: user2.wins + (score == 0 ? 1 : 0),
 			losses: user2.losses + (score == 1 ? 1 : 0),
 			rating: game.player2.rating,
@@ -176,9 +182,11 @@ export class PongService {
 			level: user2.level,
 			xp: user2.xp,
 			xpToNextLevel: user2.xpToNextLevel,
-			cash: this.balanceService.updateBalance(user2, score === 1 ? 0 : 1)});
-		this.createMatch(score, game.player1, game.player2, game.player1);
-		this.createMatch(score === 1 ? 0 : 1, game.player1, game.player2, game.player2);
-		server.to(roomId).emit('endGame', { user1: user1, user2: user2 });
+			cash: this.balanceService.updateBalance(user2, score === 1 ? 0 : 1, game.player2)});
+		await this.createMatch(score, game.player1, game.player2, game.player1);
+		await this.createMatch(score === 1 ? 0 : 1, game.player1, game.player2, game.player2);
+		await this.achievementService.progressEndGameAchievements(user1);
+		await this.achievementService.progressEndGameAchievements(user2);
+		server.to(roomId).emit('endGame', { user1: user1, user2: user2 });	
 	}
 }

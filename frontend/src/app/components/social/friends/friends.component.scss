@@ -1,0 +1,30 @@
+.status-circle
+{
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 5px;
+	margin-top: 5px;
+	border: 1px solid white;
+
+	&.online
+	{
+		background-color: #00ff00;
+	}
+
+	&.offline
+	{
+		background-color: #ff0000;
+	}
+
+	&.chat
+	{
+		background-color: #ffff00;
+	}
+
+	&.game
+	{
+		background-color: #ff00ff;
+	}
+}

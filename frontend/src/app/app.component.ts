@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from './services/auth.service';
-import { RegisterService } from './services/register.service';
+import { AchievementService } from './services/achievement.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +8,7 @@ import { RegisterService } from './services/register.service';
 })
 export class AppComponent {
 
+	constructor(public achievementService: AchievementService) { }
 
-	constructor(public login: AuthService, public register: RegisterService) {
-	}
-
-	title = 'frontend';
+	title = 'ponghub';
 }

@@ -61,13 +61,11 @@ export class ChatGateway {
 	@SubscribeMessage('joinChatRoom')
 	handleJoinChatRoom(client: Socket, payload: any) {
 		client.join(payload);
-		console.log("joinChatRoom bu odayı dinliyorum -->", payload)
 	}
 
 	@SubscribeMessage('leaveChatRoom')
 	handleLeaveChatRoom(client: Socket, payload: any) {
 		client.leave(payload);
-		console.log("leaveChatRoom bu odayı dinlemeyi bırakıyorum -->", payload)
 	}
 
 	@SubscribeMessage('sendMessageToChannel')

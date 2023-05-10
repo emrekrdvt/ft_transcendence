@@ -39,6 +39,7 @@ import { FriendsComponent } from './components/social/friends/friends.component'
 import { BlockedComponent } from './components/social/blocked/blocked.component';
 import { ChatroomsComponent } from './components/social/chatrooms/chatrooms.component';
 import { ChatareaComponent } from './components/social/chatarea/chatarea.component';
+import { AchieveComponent } from './components/achieve/achieve.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -60,14 +61,15 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		GameEndComponent,
 		MatchHistoryPageComponent,
 		LeaderboardComponent,
-  WatchComponent,
-  AchievementsPageComponent,
-  SocialComponent,
-  RequestComponent,
-  FriendsComponent,
-  BlockedComponent,
-  ChatroomsComponent,
-  ChatareaComponent,
+		WatchComponent,
+		AchievementsPageComponent,
+		SocialComponent,
+		RequestComponent,
+		FriendsComponent,
+		BlockedComponent,
+		ChatroomsComponent,
+		ChatareaComponent,
+		AchieveComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -76,19 +78,19 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		SocketIoModule.forRoot(config)
 	],
 	providers: [AuthService,
-			UserService, 
-			RegisterService,
-			DrawService, 
-			SocketService, 
-			LobbyService, 
-			PlayerService, 
-			GameService, 
-			MatchService, 
-			LeaderboardService, 
-			RouterService,
-			AchievementService,
-			FriendsComponent,
-			ChatroomsComponent
+		UserService,
+		RegisterService,
+		DrawService,
+		SocketService,
+		LobbyService,
+		PlayerService,
+		GameService,
+		MatchService,
+		LeaderboardService,
+		RouterService,
+		AchievementService,
+		FriendsComponent,
+		ChatroomsComponent
 	],
 	bootstrap: [AppComponent]
 })

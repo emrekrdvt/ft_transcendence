@@ -16,6 +16,8 @@ export class GameService implements OnInit{
 	constructor(private drawService: DrawService, private socketService: SocketService, private userService: UserService){}
 
 	ngOnInit(): void {
+		const user = this.userService.getUser()!;
+		this.socketService.sendEvent('ingame', user.intraId);
 	}
 
 	findPlayer = () => {

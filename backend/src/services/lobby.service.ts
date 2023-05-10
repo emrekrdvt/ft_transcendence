@@ -14,6 +14,8 @@ export class LobbyService {
 			intraId: data.intraId,
 			avatarUrl: data.avatarUrl,
 			eloChange: 0,
+			xpChange: 0,
+			cashChange: 0,
 		};
 		this.lobby.push(player);
 	};

@@ -19,7 +19,8 @@ import { PrismaModule } from './prisma/prisma.module';
 		PongModule, MatchModule, LeaderboardModule,
 		AchievementModule,
 		ChatModule,
-		OnlineModule
+		OnlineModule,
+		MatchModule
 	],
 	controllers: [AppController],
 	providers: [AppService, AuthService],

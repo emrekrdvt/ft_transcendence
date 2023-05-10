@@ -47,6 +47,8 @@ export class UserService
 	}
 
 	getUsersWinrate = (user: User) => {
+		if (user.games === 0)
+			return '-';
 		const winrate = (user.wins / (user.wins + user.losses)) * 100;
 		return '%' + winrate.toFixed(2);
 	};
@@ -72,7 +74,6 @@ export class UserService
 	getFriendRequestUserName() {
 		const userId = this.getUser()?.intraId;
 		const requestedID = this.http.get<any>(`${environment.address}/users/${userId}/friendRequests`);
-		console.log(requestedID)
 		return requestedID;
 	}
 
