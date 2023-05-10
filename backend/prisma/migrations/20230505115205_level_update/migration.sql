@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "users" ADD COLUMN     "xpToNextLevel" INTEGER NOT NULL DEFAULT 300;

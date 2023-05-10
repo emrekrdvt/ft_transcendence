@@ -1,0 +1,30 @@
+.select
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin-top: 5%;
+	color: white;
+	img
+	{
+		width: 120px;
+		height: 120px;
+		border: 2px solid #ff6a00;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		margin: 10px;
+	}
+	img:hover
+	{
+		transform: scale(1.1);
+		border: 2px solid #ff6a00;
+	}
+	img.clicked
+	{
+		border: 10px solid white;
+	}
+	p{
+		font-size: 1.5em;
+	}
+}

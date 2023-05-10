@@ -11,4 +11,6 @@ export interface Game {
 	lastTime?: number;
 	end_message?: string;
 	isFinished: boolean;
+	finish: number;
+	mode: string;
 }

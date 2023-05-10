@@ -17,18 +17,25 @@ export class MatchmakingService {
 		return server.sockets.sockets.get(clientId);
 	};
 
-	matchPlayers = (lobby: Player[], server: Server, callback: Function): void => {
+	matchPlayers = (type: string, lobby: Player[], server: Server, callback: Function): void => {
 		const sortedLobby: Player[] = lobby.sort((a, b) => b.rating - a.rating);
+		
 		while (sortedLobby.length > 1) {
-			let player1 = sortedLobby.shift();
-			let player2 = sortedLobby.shift();
-			const ball = {
+			let ball = {
 				x: this.CANVAS_WIDTH / 2,
 				y: this.CANVAS_HEIGHT / 2,
 				velocityX: 6,
 				velocityY: 6,
 				size: 10,
-			};
+			}
+			if (type == 'modded')
+			{
+				ball.size = 8;
+				ball.velocityX = 7;
+				ball.velocityY = 7;
+			}
+			let player1 = sortedLobby.shift();
+			let player2 = sortedLobby.shift();
 			const game: Game = {
 				player1: player1,
 				player2: player2,
@@ -37,9 +44,11 @@ export class MatchmakingService {
 				canvasWidth: this.CANVAS_WIDTH,
 				canvasHeight: this.CANVAS_HEIGHT,
 				isFinished: false,
+				finish: type === 'modded' ? 10 : 5,
+				mode: type,
 			};
-			player1 = this.createPlayer1(player1);
-			player2 = this.createPlayer2(player2);
+			player1 = this.createPlayer1(player1, type);
+			player2 = this.createPlayer2(player2, type);
 			this.getClient(player1.clientId, server).join(game.id);
 			this.getClient(player2.clientId, server).join(game.id);
 			this.games.push(game);
@@ -47,7 +56,7 @@ export class MatchmakingService {
 		}
 	};
 
-	createPlayer1 = (player: Player) => {
+	createPlayer1 = (player: Player, type: string) => {
 		player.x = 0;
 		player.y = this.CANVAS_HEIGHT / 2 - 50;
 		player.speed = 1000;
@@ -56,10 +65,16 @@ export class MatchmakingService {
 		player.height = 100;
 		player.up = false;
 		player.down = false;
+		if (type == 'modded')
+		{
+			player.width = 8;
+			player.height = 140;
+			player.speed = 1200;
+		}
 		return player;
 	}
 
-	createPlayer2 = (player: Player) => {
+	createPlayer2 = (player: Player, type: string) => {
 		player.x = this.CANVAS_WIDTH - 10;
 		player.y = this.CANVAS_HEIGHT / 2 - 50;
 		player.speed = 1000;
@@ -68,6 +83,12 @@ export class MatchmakingService {
 		player.height = 100;
 		player.up = false;
 		player.down = false;
+		if (type == 'modded')
+		{
+			player.width = 8;
+			player.height = 140;
+			player.speed = 1200;
+		}
 		return player;
 	}
 

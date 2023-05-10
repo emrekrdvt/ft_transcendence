@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AchievementService } from './services/achievement.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +7,7 @@ import { AchievementService } from './services/achievement.service';
 })
 export class AppComponent {
 
-	constructor(public achievementService: AchievementService) { }
+	constructor() { }
 
 	title = 'ponghub';
 }

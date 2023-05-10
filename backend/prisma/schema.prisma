@@ -31,7 +31,7 @@ model User {
 	games	Int      @default(0)
 	rating  Float      @default(1500)
 	level	Int      @default(1)
-	xp	Int      @default(0)
+	xp	Float     @default(0)
 	xpToNextLevel Int @default(300)
 	cash Float @default(0)
 
@@ -78,8 +78,8 @@ model Match {
 	player2AvatarUrl String
 	player1Score Int
 	player2Score Int
-	player1XPChange Int
-	player2XPChange Int
+	player1XPChange Float
+	player2XPChange Float
 	player1CashChange Float
 	player2CashChange Float
 	endMessage String

@@ -144,20 +144,14 @@ export class AchievementService {
 			await this.findAchievement("Elon Musk", user, change);
 			await this.findAchievement("Billionaire", user, change);
 		}
-		if (user.nickname == match.player1 && match.player1XPChange === -1)
-		{
+		if (user.level === 2)
 			await this.findAchievement("Level 2", user, 1);
+		if (user.level === 5)
 			await this.findAchievement("Level 5", user, 1);
+		if (user.level === 10)
 			await this.findAchievement("Level 10", user, 1);
-			await this.findAchievement("Level 20", user, 1);	
-		}
-		if (user.nickname == match.player2 && match.player2XPChange === -1)
-		{
-			await this.findAchievement("Level 2", user, 1);
-			await this.findAchievement("Level 5", user, 1);
-			await this.findAchievement("Level 10", user, 1);
-			await this.findAchievement("Level 20", user, 1);	
-		}
+		if (user.level === 20)
+			await this.findAchievement("Level 20", user, 1);
 	};
 
 }

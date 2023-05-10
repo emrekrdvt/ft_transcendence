@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class AchieveComponent {
 
 	achievedAchievements: Achievement[] = [];
+	status: string = 'open';
 
 	constructor(private achievementService: AchievementService,
 		private userService: UserService) { }
@@ -23,7 +24,7 @@ export class AchieveComponent {
 		});
 	};
 
-	closeAchieveScreen = () => {
-		this.achievementService.setFalseToIsAchieved();
+	close = () => { 
+		this.status = 'closed';
 	};
 }

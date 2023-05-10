@@ -1,0 +1,10 @@
+<div class="row select">
+	<div class="col-md-6">
+		<img class="img-fluid logo" src="../../../assets/images/removed_bg_logo.png" (click)="selectMode('default')" [ngClass]="playComponent.selected === 'default' ? 'clicked' : ''">
+		<p>Default</p>
+	</div>
+	<div class="col-md-6">
+		<img class="img-fluid logo" src="../../../assets/images/removed_bg_logo.png" (click)="selectMode('modded')" [ngClass]="playComponent.selected === 'modded' ? 'clicked' : ''">
+		<p>Modded</p>
+	</div>
+</div>

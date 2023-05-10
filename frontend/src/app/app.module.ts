@@ -40,6 +40,7 @@ import { BlockedComponent } from './components/social/blocked/blocked.component'
 import { ChatroomsComponent } from './components/social/chatrooms/chatrooms.component';
 import { ChatareaComponent } from './components/social/chatarea/chatarea.component';
 import { AchieveComponent } from './components/achieve/achieve.component';
+import { SelectModeComponent } from './components/play/select-mode/select-mode.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -70,6 +71,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		ChatroomsComponent,
 		ChatareaComponent,
 		AchieveComponent,
+  SelectModeComponent,
 	],
 	imports: [
 		BrowserModule,

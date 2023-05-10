@@ -13,13 +13,12 @@ export class GameEndComponent {
 
 	game!: Match;
 
-	constructor(private matchService: MatchService, private router: Router, public achievementService: AchievementService) { }
+	constructor(private matchService: MatchService, private router: Router) { }
 
 	ngOnInit(): void {
 		this.matchService.getLastMatch().then((match) => {
 			this.game = match!;
 		});
-		this.achievementService.isAchieved();
 	};
 
 	homeButton = () => {

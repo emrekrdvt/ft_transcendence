@@ -4,4 +4,5 @@ export enum PongEvents {
 	UpdateBall = 'update_ball',
 	GetLobby = 'get_lobby',
 	Leave = 'leave',
+	LeaveLobby = 'leave_lobby',
 }

@@ -12,6 +12,11 @@ export class PlayComponent implements OnInit{
 
 	inGame: boolean = false;
 	game!: Game;
+	selected: string = 'default';
+	switch = {
+		default: false,
+		modded: false
+	};
 
 	constructor() {}
 

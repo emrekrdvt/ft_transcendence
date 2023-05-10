@@ -10,5 +10,8 @@
 			</div>
 		</div>
 	</div>
-	<button class="btn btn-dark btn-block" (click)="join()">Find a game</button>
+	<button class="btn btn-dark btn-block" (click)="join()" *ngIf="play.switch.default === false && play.selected === 'default'">Find a game</button>
+	<button class="btn btn-dark btn-block" (click)="leave()" *ngIf="play.switch.default === true && play.selected === 'default'">Leave queue</button>
+	<button class="btn btn-dark btn-block" (click)="join()" *ngIf="play.switch.modded === false && play.selected === 'modded'">Find a game</button>
+	<button class="btn btn-dark btn-block" (click)="leave()" *ngIf="play.switch.modded === true && play.selected === 'modded'">Leave queue</button>
 </div>

@@ -12,17 +12,17 @@ export class LevelService {
 			return 50 + (level * 5);
 	};
 
-	updateLevel = (user: User, score: number, player: Player): User => {
-		const xp = this.updateXp(user.level, score);
+	updateLevel = (user: User, score: number, player: Player, mode: string): User => {
+		let xp = this.updateXp(user.level, score);
+		if (mode == 'modded')
+			xp += xp * 0.05;
 		user.xp += xp;
 		if (user.xp >= user.xpToNextLevel && user.level < 20)
 		{
 			user.level++;
-			player.xpChange = -1;
 			user.xpToNextLevel = this.exps[user.level - 1];
 		}
-		else
-			player.xpChange = xp;
+		player.xpChange = xp;
 		return user;
 	};
 }

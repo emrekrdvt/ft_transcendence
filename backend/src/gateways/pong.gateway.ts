@@ -37,31 +37,39 @@ export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
 	handleDisconnect(client: Socket) {
 		Logger.log(`Game Client disconnected: ${client.id}`);
-		this.lobbyService.removePlayer(client.id);
-		this.server.emit('lobby', this.lobbyService.getLobby());
+		this.lobbyService.removePlayer(client.id, this.lobbyService.getLobby('default'), 'default');
+		this.lobbyService.removePlayer(client.id, this.lobbyService.getLobby('modded'), 'modded');
+		this.server.emit('lobby', {lobby: this.lobbyService.getLobby('default'), type: 'default'});
+		this.server.emit('lobby', {lobby: this.lobbyService.getLobby('modded'), type: 'modded'});
 	}
 
 	@SubscribeMessage(PongEvents.Join)
-	handleJoin(client: Socket, data: any) {
+	handleJoin(client: Socket, data: {player: Player, type: string}) {
 		Logger.log(`Client joined: ${client.id}`);
-		if (this.lobbyService.getPlayer(client.id) != null)
+		if (this.lobbyService.getPlayer(client.id, this.lobbyService.getLobby(data.type)) != null)
 			return;
-		this.lobbyService.addPlayer(client.id, data);
-		this.matchService.matchPlayers(this.lobbyService.getLobby(), this.server, (id1: string, id2: string) => {
-			this.lobbyService.removePlayer(id1);
-			this.lobbyService.removePlayer(id2);
+		this.lobbyService.addPlayer(client.id, data.player, data.type);
+		this.matchService.matchPlayers(data.type, this.lobbyService.getLobby(data.type), this.server, (id1: string, id2: string) => {
+			this.lobbyService.removePlayer(id1, this.lobbyService.getLobby(data.type), data.type);
+			this.lobbyService.removePlayer(id2, this.lobbyService.getLobby(data.type), data.type);
 			const roomId = this.matchService.getGameByClientId(id1).id;
 			const game: Game = this.matchService.getGameById(roomId);
 			this.server.to(roomId).emit('game', game);
 			this.pongService.startGame(game, this.server, roomId);
 		});
-		this.server.emit('lobby', this.lobbyService.getLobby());
+		this.server.emit('lobby', { lobby: this.lobbyService.getLobby(data.type), type: data.type});
 	}
 
+	@SubscribeMessage(PongEvents.LeaveLobby)
+	handleLeaveLobby(client: Socket, type: string) {
+		this.lobbyService.removePlayer(client.id, this.lobbyService.getLobby(type), type);
+		this.server.emit('lobby', { lobby: this.lobbyService.getLobby(type), type: type});
+	};
+
 	@SubscribeMessage(PongEvents.GetLobby)
-	handleGetLobby(client: Socket)
+	handleGetLobby(client: Socket, type: string)
 	{
-		client.emit('lobby', this.lobbyService.getLobby());
+		client.emit('lobby', { lobby: this.lobbyService.getLobby(type), type: type});
 	}
 
 	@SubscribeMessage(PongEvents.MovePaddle)
@@ -70,8 +78,8 @@ export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 	}
 
 	@SubscribeMessage(PongEvents.Leave)
-	handleLeave(client: Socket, roomId: string) {
-		this.lobbyService.removePlayer(client.id);
+	handleLeave(client: Socket, roomId: string, type: string) {
+		this.lobbyService.removePlayer(client.id, this.lobbyService.getLobby(type), type);
 		client.leave(roomId);
 		client.disconnect();
 	};

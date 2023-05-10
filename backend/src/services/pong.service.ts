@@ -38,6 +38,11 @@ export class PongService {
 	}
 
 	scoreDetection = (game: Game, player: Player) => {
+		if (game.mode == 'modded')
+		{
+			game.ball.velocityX = 7;
+			game.ball.velocityY = 7;
+		}
 		player.score++;
 		game.ball.x = game.canvasWidth / 2;
 		game.ball.y = game.canvasHeight / 2;
@@ -48,6 +53,11 @@ export class PongService {
 		game.ball.x += game.ball.velocityX;
 		game.ball.y += game.ball.velocityY;
 		if (this.collisionDetection(game, game.player1, 10) || this.collisionDetection(game, game.player2, 0)) {
+			if (game.mode == 'modded')
+			{
+				game.ball.velocityX += game.ball.velocityX > 0 ? 0.5 : -0.5;
+				game.ball.velocityY += game.ball.velocityY > 0 ? 0.5 : -0.5;
+			}
 			Math.random() > 0.5 ? game.ball.velocityY *= -1 : game.ball.velocityY *= 1;
 			game.ball.velocityX *= -1;
 		}
@@ -110,7 +120,7 @@ export class PongService {
 	};
 
 	startGame = async (game: Game, server: Server, roomId: string): Promise<void> => {
-		while (game.player1.score < 5 && game.player2.score < 5)
+		while (game.player1.score < game.finish && game.player2.score < game.finish)
 		{
 			await new Promise(resolve => setTimeout(resolve, 10));
 			this.updateGame(game, server, roomId);
@@ -150,9 +160,9 @@ export class PongService {
 
 	endGame = async (game: Game, server: Server, roomId: string) => {
 		let score: number;
-		if (game.player1.score == 5)
+		if (game.player1.score == game.finish)
 			score = 1;
-		else if (game.player2.score == 5)
+		else if (game.player2.score == game.finish)
 			score = 0;
 		this.ratingService.calculateNewElo(game.player1, game.player2, score);
 		let user1 = await this.prismaService.user.findUnique({
@@ -160,7 +170,7 @@ export class PongService {
 				intraId: game.player1.intraId
 			}
 		});
-		user1 = this.levelService.updateLevel(user1, score, game.player1);
+		user1 = this.levelService.updateLevel(user1, score, game.player1, game.mode);
 		this.userService.updateUser(game.player1.intraId, { wins: user1.wins + (score == 1 ? 1 : 0),
 			losses: user1.losses + (score == 0 ? 1 : 0),
 			rating: game.player1.rating,
@@ -168,13 +178,13 @@ export class PongService {
 			level: user1.level,
 			xp: user1.xp,
 			xpToNextLevel: user1.xpToNextLevel,
-			cash: this.balanceService.updateBalance(user1, score, game.player1)});
+			cash: this.balanceService.updateBalance(user1, score, game.player1, game.mode)});
 		let user2 = await this.prismaService.user.findUnique({
 			where: {
 				intraId: game.player2.intraId
 			}
 		});
-		user2 = this.levelService.updateLevel(user2, score === 1 ? 0 : 1, game.player2);
+		user2 = this.levelService.updateLevel(user2, score === 1 ? 0 : 1, game.player2, game.mode);
 		this.userService.updateUser(game.player2.intraId, { wins: user2.wins + (score == 0 ? 1 : 0),
 			losses: user2.losses + (score == 1 ? 1 : 0),
 			rating: game.player2.rating,
@@ -182,7 +192,7 @@ export class PongService {
 			level: user2.level,
 			xp: user2.xp,
 			xpToNextLevel: user2.xpToNextLevel,
-			cash: this.balanceService.updateBalance(user2, score === 1 ? 0 : 1, game.player2)});
+			cash: this.balanceService.updateBalance(user2, score === 1 ? 0 : 1, game.player2,  game.mode)});
 		await this.createMatch(score, game.player1, game.player2, game.player1);
 		await this.createMatch(score === 1 ? 0 : 1, game.player1, game.player2, game.player2);
 		await this.achievementService.progressEndGameAchievements(user1);

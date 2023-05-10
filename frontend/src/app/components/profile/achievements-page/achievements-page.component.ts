@@ -12,6 +12,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class AchievementsPageComponent {
 
+	isAchieved: boolean = false;
 	achievements: Achievement[] = [];
 
 	constructor(public routerService: RouterService,
@@ -22,6 +23,9 @@ export class AchievementsPageComponent {
 		const user: User = this.userService.getUser()!;
 		this.achievementService.getAchievements(user.intraId).then((achievements) => {
 			this.achievements = achievements!;
+		});
+		this.achievementService.checkAchievements(user.intraId).then((isAchieved) => {
+			this.isAchieved = isAchieved!;
 		});
 	};
 }

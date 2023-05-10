@@ -3,9 +3,10 @@ import { Player } from "../models/player.model";
 
 @Injectable()
 export class LobbyService {
-	private lobby: Player[] = [];
+	private default_lobby: Player[] = [];
+	private modded_lobby: Player[] = [];
 
-	addPlayer = (clientId: string, data: any) => {
+	addPlayer = (clientId: string, data: any, type: string) => {
 		const player: Player = {
 			clientId: clientId,
 			rating: data.rating,
@@ -17,16 +18,29 @@ export class LobbyService {
 			xpChange: 0,
 			cashChange: 0,
 		};
-		this.lobby.push(player);
+		if (type === 'default')
+			this.default_lobby.push(player);
+		else if (type === 'modded')
+			this.modded_lobby.push(player);
 	};
 
-	removePlayer = (clientId: string) => {
-		this.lobby = this.lobby.filter((player) => player.clientId !== clientId);
+	removePlayer = (clientId: string, lobby: Player[], type: string) => {
+		lobby = lobby.filter((player) => player.clientId !== clientId);
+		if (type === 'default')
+			this.default_lobby = lobby;
+		else if (type === 'modded')
+			this.modded_lobby = lobby;
 	};
 
-	getLobby = (): Player[] => this.lobby;
+	getLobby = (type: string): Player[] => {
+		if (type === 'default')
+			return this.default_lobby;
+		else if (type === 'modded')
+			return this.modded_lobby;
+		return [];
+	}
 
-	getPlayer = (clientId: string): Player | null => {
-		return this.lobby.find((player) => player.clientId === clientId);
+	getPlayer = (clientId: string, lobby: Player[]): Player | null => {
+		return lobby.find((player) => player.clientId === clientId);
 	}
 }

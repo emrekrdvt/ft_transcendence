@@ -1,6 +1,7 @@
 <div class="container">
 	<div class="lobby" *ngIf="inGame === false">
-		<app-lobby></app-lobby>
+		<app-select-mode></app-select-mode>
+		<app-lobby class="mt-1"></app-lobby>
 	</div>
 	<div class="game" *ngIf="inGame === true">
 		<app-game></app-game>

@@ -21,26 +21,37 @@ export class LobbyComponent {
 			private socketService: SocketService,
 			private userService: UserService, 
 			private playerService: PlayerService,
-			private parentComponent: PlayComponent) {}
+			public play: PlayComponent) {}
 
 	ngOnInit(): void {
-		this.socketService.sendEvent('get_lobby', null);
 		this.socketService.sendEvent('status_connect', this.user.intraId);
-		this.socketService.listenToEvent('lobby').subscribe((lobby: Player[]) => {
-			this.lobbyService.setLobby(lobby);
-		});
 		this.socketService.listenToEvent('game').subscribe((game: Game) => {
 			const user: User = this.userService.getUser()!;
-			this.parentComponent.inGame = true;
-			this.parentComponent.game = game;
+			this.play.inGame = true;
+			this.play.game = game;
+		});
+		this.socketService.sendEvent('get_lobby', this.play.selected);
+		this.socketService.listenToEvent('lobby').subscribe((data: {lobby: Player[], type: string}) => {
+			if (this.play.selected === data.type)
+				this.lobbyService.setLobby(data.lobby);
 		});
 	};
 
 	join = (): void => {
-		
 		const player: Player = this.playerService.createPlayer(this.user.rating, this.user.nickname, this.user.avatarUrl, this.user.intraId);
-		this.socketService.sendEvent('join', player);
+		this.play.switch.default = !this.play.switch.default;
+		this.play.switch.modded = !this.play.switch.modded;
+		this.socketService.sendEvent('join', {player: player, type: this.play.selected});
+		this.socketService.sendEvent('get_lobby', this.play.selected);
 		this.socketService.sendEvent('ingame', this.user.intraId);
-		this.socketService.sendEvent('get_lobby', null);
+	};
+
+	leave = (): void => {
+		if (this.play.selected === 'default')
+			this.play.switch.default = !this.play.switch.default;
+		else
+			this.play.switch.modded = !this.play.switch.modded;
+		this.socketService.sendEvent('leave_lobby', this.play.selected);
+		this.socketService.sendEvent('get_lobby', this.play.selected);
 	};
 }
