@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-profile-navigator',
-  templateUrl: './profile-navigator.component.html',
-  styleUrls: ['./profile-navigator.component.scss', '../profile.component.scss']
+	selector: 'app-profile-navigator',
+	templateUrl: './profile-navigator.component.html',
+	styleUrls: ['./profile-navigator.component.scss', '../profile.component.scss']
 })
 export class ProfileNavigatorComponent {
 
@@ -29,11 +29,6 @@ export class ProfileNavigatorComponent {
 			title: 'Inventory',
 			url: '/inventory',
 			icon: this.path + 'purchases.png'
-		},
-		{
-			title: 'Preferences',
-			url: '/preferences',
-			icon: this.path + 'preferences.png'
 		},
 	]
 

@@ -24,6 +24,8 @@ model User {
 	createdAt DateTime @default(now())
 	updatedAt DateTime @updatedAt
 	isSigned  Boolean  @default(false)
+	about	 String?
+	twoFactor Boolean @default(false)
 
 	
 	losses    Int      @default(0)

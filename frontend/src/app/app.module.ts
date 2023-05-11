@@ -41,6 +41,7 @@ import { ChatroomsComponent } from './components/social/chatrooms/chatrooms.comp
 import { ChatareaComponent } from './components/social/chatarea/chatarea.component';
 import { AchieveComponent } from './components/achieve/achieve.component';
 import { SelectModeComponent } from './components/play/select-mode/select-mode.component';
+import { ProfileService } from './services/profile.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -71,7 +72,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		ChatroomsComponent,
 		ChatareaComponent,
 		AchieveComponent,
-  SelectModeComponent,
+		SelectModeComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -92,7 +93,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		RouterService,
 		AchievementService,
 		FriendsComponent,
-		ChatroomsComponent
+		ChatroomsComponent,
+		ProfileService
 	],
 	bootstrap: [AppComponent]
 })

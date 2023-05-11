@@ -16,4 +16,6 @@ export interface User
 	xp: number;
 	xpToNextLevel: number;
 	cash: number;
+	about: string;
+	twoFactor: boolean;
 }

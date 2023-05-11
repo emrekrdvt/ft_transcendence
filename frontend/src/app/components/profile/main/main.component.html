@@ -1,9 +1,10 @@
 <div class="card">
-	<div class="card-body">
+	<div class="card-body" *ngIf="edit === false">
 		<img class="profile-image img-fluid" src="{{profile.user.avatarUrl}}" alt="Profile Image">
-		<h1 class="mt-1">{{profile.user.nickname}}</h1>
+		<h1>{{profile.user.nickname}}</h1>
 		<p class="text-muted">{{profile.user.email}}</p>
-		<p class="mt-3">Level {{profile.user.level}}</p>
+		<p class="text-muted">{{profile.user.about}}</p>
+		<p>Level {{profile.user.level}}</p>
 		<p class="text-muted">({{profile.user.xp}}/{{profile.user.xpToNextLevel}})</p>
 		<div class="stats">
 			<p class="stat" *ngFor="let stat of stats">
@@ -11,8 +12,30 @@
 				<span class="stat-name">{{stat.label}}</span>
 			</p>
 		</div>
-		<div>
-			<button class="btn btn-dark mb-4">Edit Profile</button>
-		</div>
+		<button class="btn btn-dark mb-4" (click)="switch()">Edit Profile</button>
 	</div>
-</div> 
+	<div class="card-body" *ngIf="edit === true">
+		<img class="profile-image img-fluid" src="{{profile.user.avatarUrl}}" alt="Profile Image">
+		<h1>{{profile.user.nickname}}</h1>
+		<p class="text-muted">{{profile.user.email}}</p>
+		<div class="input-group">
+			<span class="input-group-text" id="addon-wrapping">Nickname</span>
+			<input type="text" class="form-control" placeholder="{{profile.user.nickname}}" aria-label="nickname" aria-describedby="addon-wrapping"
+			(change)="takeInput($event, 'nickname')">
+		</div>
+		<div class="input-group">
+			<span class="input-group-text" id="addon-wrapping">2Auth</span>
+			<input type="checkbox" id="switch" />
+			<label for="switch">Toggle</label>
+		</div>
+		<div class="input-group">
+			<span class="input-group-text">About</span>
+			<textarea type="text" class="form-control" placeholder="{{profile.user.about}}" style="height: 100px;"
+			(change)="takeInput($event, 'about')"></textarea>
+		</div>
+		<div class="input-group">
+			<input type="file" class="form-control" (change)="takeInput($event, 'photo')">
+		</div>
+		<button class="btn btn-dark mb-4" (click)="switch()">Save</button>
+	</div>
+</div>
