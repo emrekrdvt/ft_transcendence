@@ -73,6 +73,7 @@ export class ChatroomsComponent {
 									messages: messages
 								};
 								this.selectedChatroom = chatroom;
+								this.chatOpen = true;
 							});
 						}
 						else {

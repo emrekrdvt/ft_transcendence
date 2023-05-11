@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/services/auth.service';
 import { AchievementModule } from './modules/achievement.module';
+import { BattleModule } from './modules/battle.module';
 import { ChatModule } from './modules/chat.module';
 import { LeaderboardModule } from './modules/leaderboard.module';
 import { MatchModule } from './modules/match.module';
@@ -20,7 +21,8 @@ import { PrismaModule } from './prisma/prisma.module';
 		AchievementModule,
 		ChatModule,
 		OnlineModule,
-		MatchModule
+		MatchModule,
+		BattleModule
 	],
 	controllers: [AppController],
 	providers: [AppService, AuthService],

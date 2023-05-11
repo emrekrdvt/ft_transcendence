@@ -1,5 +1,5 @@
 export interface Player {
-	clientId: string;
+	clientId?: string;
 	rating: number;
 	score: number;
 	nickname: string;

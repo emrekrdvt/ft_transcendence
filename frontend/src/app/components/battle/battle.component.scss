@@ -1,0 +1,55 @@
+.battle-container {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 999;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 10px;
+	padding: 20px;
+	text-align: center;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.request {
+
+	.request-img
+	{
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+	}
+	.request-text
+	{
+		font-size: 20px;
+		font-weight: bold;
+		margin-left: 10px;
+	}
+	.request-buttons
+	{
+		margin-top: 20px;
+
+		.btn
+		{
+			margin: 0 10px;
+			transition: 0.5s;
+		}
+		.accept:hover
+		{
+			transform: scale(1.1);
+			transition: 0.5s;
+			background-color: #00ff00;
+		}
+		.decline:hover
+		{
+			transition: 0.5s;
+			transform: scale(1.1);
+			background-color: #ff0000;
+		}
+	}
+}
+
+.closed
+{
+	display: none;
+}

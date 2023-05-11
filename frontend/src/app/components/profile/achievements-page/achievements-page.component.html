@@ -10,6 +10,9 @@
 				<img src="{{achievement.url}}" class="achievement-icon"/>
 				<div class="achievement-name">{{achievement.name}}</div>
 				<div class="achievement-description">{{achievement.description}}</div>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" [style.width]="((achievement.progress * 100) / achievement.progressMax) + '%'" aria-valuenow="achievement.progress" aria-valuemin="0" aria-valuemax="achievement.progressMax"></div>
+				</div>
 			</div>
 		</div>
 	</div>

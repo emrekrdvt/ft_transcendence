@@ -17,38 +17,48 @@ export class MatchmakingService {
 		return server.sockets.sockets.get(clientId);
 	};
 
+	createGame = (type: string, player1: Player, player2: Player): Game => {
+		let ball = {
+			x: this.CANVAS_WIDTH / 2,
+			y: this.CANVAS_HEIGHT / 2,
+			velocityX: 6,
+			velocityY: 6,
+			size: 10,
+		};
+		if (type == 'modded')
+		{
+			ball.size = 8;
+			ball.velocityX = 7;
+			ball.velocityY = 7;
+		}
+		const game: Game = {
+			player1: player1,
+			player2: player2,
+			id: this.generateId(),
+			ball: ball,
+			canvasWidth: this.CANVAS_WIDTH,
+			canvasHeight: this.CANVAS_HEIGHT,
+			isFinished: false,
+			finish: type === 'modded' ? 10 : 5,
+			mode: type,
+		};
+		return game;
+	};
+
+	oneVersusOne = (challanger: Player, challenged: Player): void => {
+		const game = this.createGame('modded', challanger, challenged);
+		this.games.push(game);
+	};
+
 	matchPlayers = (type: string, lobby: Player[], server: Server, callback: Function): void => {
 		const sortedLobby: Player[] = lobby.sort((a, b) => b.rating - a.rating);
 		
 		while (sortedLobby.length > 1) {
-			let ball = {
-				x: this.CANVAS_WIDTH / 2,
-				y: this.CANVAS_HEIGHT / 2,
-				velocityX: 6,
-				velocityY: 6,
-				size: 10,
-			}
-			if (type == 'modded')
-			{
-				ball.size = 8;
-				ball.velocityX = 7;
-				ball.velocityY = 7;
-			}
 			let player1 = sortedLobby.shift();
 			let player2 = sortedLobby.shift();
-			const game: Game = {
-				player1: player1,
-				player2: player2,
-				id: this.generateId(),
-				ball: ball,
-				canvasWidth: this.CANVAS_WIDTH,
-				canvasHeight: this.CANVAS_HEIGHT,
-				isFinished: false,
-				finish: type === 'modded' ? 10 : 5,
-				mode: type,
-			};
 			player1 = this.createPlayer1(player1, type);
 			player2 = this.createPlayer2(player2, type);
+			const game = this.createGame(type, player1, player2);
 			this.getClient(player1.clientId, server).join(game.id);
 			this.getClient(player2.clientId, server).join(game.id);
 			this.games.push(game);

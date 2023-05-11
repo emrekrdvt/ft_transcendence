@@ -24,11 +24,13 @@ export class FriendsComponent implements OnInit {
 	selectedFriend: Friend | null = null;
 	chatOpen: boolean = false;
 	selectedChatroom: Chatroom | null = null;
+	path = '../../assets/icons/';
 	buttons = [
-		{ name: '💬', function: (friend: Friend) => this.selectFriend(friend)},
-		{ name: '❌', function: (friend: Friend) => this.removeFriend(friend)},
-		{ name: '🚫', function: (friend: Friend) => this.blockFriend(friend)},
-		{ name: '👤', function: (friend: Friend) => this.viewProfile(friend)},
+		{ url: this.path + 'social.png', function: (friend: Friend) => this.selectFriend(friend)},
+		{ url: this.path + 'close.png', function: (friend: Friend) => this.removeFriend(friend)},
+		{ url: this.path + 'block.png', function: (friend: Friend) => this.blockFriend(friend)},
+		{ url: this.path + 'profile.png', function: (friend: Friend) => this.viewProfile(friend)},
+		{ url: this.path + 'battle.png', function: (friend: Friend) => this.sendBattle(friend)}
 	];
 	
 	constructor(private userService: UserService,
@@ -46,7 +48,6 @@ export class FriendsComponent implements OnInit {
 		});
 		this.socketService.sendEvent('status_connect', user.intraId);
 		this.socketService.sendEvent('inchat', user.intraId);
-		//wait 1ms for the server to update the status
 		setTimeout(() => {
 			this.socketService.sendEvent('getFriends', user.intraId);
 		}, 100);
@@ -157,5 +158,10 @@ export class FriendsComponent implements OnInit {
 
 	updateFriendName(event: any): void {
 		this.friendUsername = event.target.value;
+	};
+
+	sendBattle = (friend: Friend): void => {
+		const user: User = this.userService.getUser()!;
+		this.socketService.sendEvent('requestBattle', { friendId: friend.intraId, myID: user.intraId });	
 	};
 }

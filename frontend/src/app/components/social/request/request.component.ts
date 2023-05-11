@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { BattleService } from 'src/app/services/battle.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class RequestComponent {
 			}
 			);
 		});
+
 	}
 
 	acceptFriendRequest(request: any) {

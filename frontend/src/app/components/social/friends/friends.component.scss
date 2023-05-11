@@ -28,3 +28,23 @@
 		background-color: #ff00ff;
 	}
 }
+
+.button-image
+{
+	width: 30px;
+	height: 30px;
+}
+
+.btn
+{
+	background-color: white !important;
+
+	&:hover
+	{
+		background-color: black !important;
+		.button-image
+		{
+			filter: invert(100%);
+		}
+	}
+}

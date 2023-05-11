@@ -300,7 +300,7 @@ export class ChatService {
 			id += possible.charAt(Math.floor(Math.random() * possible.length));
 		}
 		return id;
-	}
+	};
 
 	async getAllRoomName() {
 		const rooms = await this.prisma.chatRoom.findMany({
@@ -313,10 +313,8 @@ export class ChatService {
 				password: true,
 			},
 		});
-
 		return rooms;
-	}
-
+	};
 
 	async findRoomID(sender: string, receiver: string) {
 		const senderID = await this.prisma.user.findUnique({
@@ -337,9 +335,7 @@ export class ChatService {
 			},
 		});
 		return roomName.map((room) => room.name);
-	}
-
-
+	};
 
 	async findUserID(username: string) {
 		const user = await this.prisma.user.findUnique({
@@ -348,7 +344,7 @@ export class ChatService {
 			},
 		});
 		return user.intraId;
-	}
+	};
 
 
 	async getUsernameFromID(id: number): Promise<string> {
@@ -358,7 +354,7 @@ export class ChatService {
 			},
 		});
 		return user.username;
-	}
+	};
 
 	async getMessages(roomID: string) {
 		const messages = await this.prisma.message.findMany({
@@ -377,7 +373,7 @@ export class ChatService {
 			},
 		});
 		return messages;
-	}
+	};
 
 	async getChatRoomId(roomID: string) {
 		const room = await this.prisma.chatRoom.findUnique({
@@ -386,7 +382,7 @@ export class ChatService {
 			},
 		});
 		return room.id
-	}
+	};
 
 
 	async getPublicMessages(roomID: string) {
@@ -412,7 +408,7 @@ export class ChatService {
 		}));
 
 		return formattedMessages;
-	}
+	};
 
 
 	async kickUser(roomName: string, kickedName: string, sender: string) {
@@ -459,8 +455,7 @@ export class ChatService {
 				return updateRoom;
 			}
 		}
-
-	}
+	};
 
 	async banUser(roomName: string, whos: string, senderName: string, time: number) {
 		const role = await this.checkRole(roomName, senderName);
@@ -526,7 +521,7 @@ export class ChatService {
 				console.log(err)
 			}
 		}
-	}
+	};
 
 	async checkRole(roomName: string, senderName: string) {
 		const room = await this.prisma.chatRoom.findFirst({
@@ -554,7 +549,7 @@ export class ChatService {
 		else {
 			return 'user';
 		}
-	}
+	};
 
 	async canIJoin(roomName: string, intraID: number): Promise<boolean> {
 		const id = parseInt(intraID.toString())
@@ -570,7 +565,7 @@ export class ChatService {
 		catch (err) {
 			return;
 		}
-	}
+	};
 
 	async unbanUser(roomName: string, whos: string, senderName: string) {
 		const role = await this.checkRole(roomName, senderName);
@@ -601,7 +596,7 @@ export class ChatService {
 		else {
 			return;
 		}
-	}
+	};
 
 	async muteUser(roomName: string, whos: string, senderName: string, time: number) {
 		const role = await this.checkRole(roomName, senderName);
@@ -677,7 +672,7 @@ export class ChatService {
 		else {
 			return;
 		}
-	}
+	};
 
 
 	async canIchat(roomName: string, senderName: string): Promise<boolean> {
@@ -700,7 +695,7 @@ export class ChatService {
 		else {
 			return true;
 		}
-	}
+	};
 
 	async changePassword(roomName: string, password: string, senderName: string) {
 		const role = await this.checkRole(roomName, senderName);
@@ -729,7 +724,7 @@ export class ChatService {
 			});;
 			return updatePassword;
 		}
-	}
+	};
 
 	async destroyPassword(roomName: string, password: string, senderName: string) {
 		const role = await this.checkRole(roomName, senderName);
@@ -757,5 +752,5 @@ export class ChatService {
 			});
 			return updatePassword;
 		}
-	}
+	};
 }

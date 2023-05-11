@@ -320,4 +320,11 @@ export class UserService {
 		return [updatedUser, updatedFriend];
 	}
 
+	getAnUser = async (intraId: number) =>{
+		return await this.prisma.user.findUnique({
+			where: {
+				intraId: intraId,
+			},
+		});
+	};
 }

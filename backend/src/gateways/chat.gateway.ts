@@ -25,7 +25,7 @@ export class ChatGateway {
 		this.chatService.createRoom(friendId, myID).then((room) => {
 			this.wss.to(client.id).emit('createRoom', room);
 		});
-	}
+	};
 
 	@SubscribeMessage('createChatRoom')
 	handleCreateChatRoom(client: Socket, payload: any) {
@@ -56,17 +56,17 @@ export class ChatGateway {
 				console.log(error);
 			}
 		}
-	}
+	};
 
 	@SubscribeMessage('joinChatRoom')
 	handleJoinChatRoom(client: Socket, payload: any) {
 		client.join(payload);
-	}
+	};
 
 	@SubscribeMessage('leaveChatRoom')
 	handleLeaveChatRoom(client: Socket, payload: any) {
 		client.leave(payload);
-	}
+	};
 
 	@SubscribeMessage('sendMessageToChannel')
 	async handleSendMessageToChannel(client: Socket, payload: any) {
@@ -78,7 +78,7 @@ export class ChatGateway {
 			client.to(roomName).emit('channelMsg', asd);
 		});
 		client.broadcast.to(roomName).emit('newChannelMsg', { message: message, sender: senderName });
-	}
+	};
 
 	@SubscribeMessage('sendMessageToFriend')
 	async handleSendMessageToFriend(client: Socket, payload: any) {
@@ -93,18 +93,18 @@ export class ChatGateway {
 			});
 		client.join(roomID);
 		client.broadcast.to(roomID).emit('newMessage', { message: message, sender: senderName });
-	}
+	};
 
 	@SubscribeMessage('joinRoom')
 	async handleJoinRoom(client: Socket, payload: any) {
 		client.join(payload);
-	}
+	};
 
 	@SubscribeMessage('leaveRoom')
 	async handleLeaveRoom(client: Socket, payload: any) {
 		console.log("leaveRoom", payload)
 		client.leave(payload);
-	}
+	};
 
 	@SubscribeMessage('kickUser')
 	async handleKickUser(client: Socket, payload: any) {
@@ -118,7 +118,7 @@ export class ChatGateway {
 		}).then(() => {
 			client.broadcast.to(roomName).emit('newChannelMsg', { "message": whos + " kicked by " + senderName, "sender": "System" });
 		});
-	}
+	};
 
 	@SubscribeMessage('banUser')
 	async handleBanUser(client: Socket, payload: any) {
@@ -131,12 +131,12 @@ export class ChatGateway {
 		this.chatService.banUser(roomName, whos, senderName, banTime).then((res) => {
 			client.broadcast.to(roomName).emit('newChannelMsg', { "message": whos + " banned by " + senderName, "sender": "System" });
 		});
-	}
+	};
 
 	@SubscribeMessage('chatClosed')
 	async handleChatClosed(client: Socket, payload: any) {
 		const roomName = payload.roomName;
 		const whos = payload.whos
 		client.to(client.id).emit('chatClosed', whos);
-	}
+	};
 }

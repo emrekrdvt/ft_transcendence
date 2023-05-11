@@ -1,0 +1,14 @@
+<div class="battle-container" [ngClass]="status">
+	<h1>Challanges!</h1>
+	<div class="row mt-4" *ngFor="let request of socialComponent.requests">
+		<div class="request">
+			<img src="{{request.challanger.avatarUrl}}" class="request-img">
+			<span class="request-text">{{request.challanger.nickname}}</span>
+			<div class="request-buttons">
+				<button class="btn btn-dark accept" (click)="acceptBattleRequest(request)">Accept</button>
+				<button class="btn btn-dark decline" (click)="declineBattleRequest(request)">Decline</button>
+			</div>
+		</div>
+	</div>
+	<button class="btn btn-dark mt-4" (click)="close()">Close</button>
+</div>

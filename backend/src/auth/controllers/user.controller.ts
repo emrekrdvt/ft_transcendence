@@ -27,6 +27,13 @@ export class UserController {
 	async updateUser(@Param('id') id: number, @Body() data: any) {
 		return this.userService.updateUser(+id, data);
 	}
+
+	@Get('get/:intraId')
+	async getAnUser(@Param('intraId') intraId: number) {
+		return this.userService.getAnUser(+intraId);
+	}
+
+
 	@Post(':requesterId/addFriend/:requestedId')
 	async addFriend(
 		@Param('requesterId') requesterId: string,

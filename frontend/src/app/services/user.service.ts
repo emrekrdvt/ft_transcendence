@@ -32,8 +32,12 @@ export class UserService
 		});
 		data = callback(data);
 		return this.http.put(`${environment.address}/users/${user.intraId}`, data, { headers }).subscribe(res => {
-			console.log("update user: ", res);
+			
 		});
+	};
+
+	getAnUser = (intraId: number) => {
+		return this.http.get<User>(`${environment.address}/users/get/${intraId}`);
 	};
 
 	getUserFromDb = () => {
