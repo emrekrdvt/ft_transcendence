@@ -5,9 +5,7 @@
 		<img src="../../../../assets/icons/profile.png" class="icon" (click)="routerService.routeToProfile()"/>
 	</div>
 	<div class="page-main">
-		<div class="row">
-			<div class="col-md-4">
-				<div class="match" *ngFor="let match of matches">
+				<div class="match" style="flex-wrap:wrap;" *ngFor="let match of matches">
 					<div class="match-content">
 						<div class="column">
 							<div class="team">
@@ -36,8 +34,6 @@
 								<h2 class="player">{{match.player2}}</h2>
 							</div>
 						</div>
-					</div>
-			</div>
 			</div>
 		</div>
 	</div>

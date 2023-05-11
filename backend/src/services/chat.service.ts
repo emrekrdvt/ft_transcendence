@@ -753,4 +753,68 @@ export class ChatService {
 			return updatePassword;
 		}
 	};
+
+	async checkBlock(senderName: string, receiverName: string): Promise<boolean> {
+		const sender = await this.prisma.user.findUnique({
+			where: {
+				username: senderName,
+			},
+		});
+		const receiver = await this.prisma.user.findUnique({
+			where: {
+				username: receiverName,
+			},
+		});
+
+		const checkBlock = receiver.blockedFriends.filter((intraId) => intraId == sender.intraId);
+
+		const checkFriend = receiver.friendIntraIds.filter((intraId) => intraId == sender.intraId);
+		console.log(checkFriend.length);
+
+		if (checkBlock.length > 0) {
+			return true;
+		}
+		else if (checkFriend.length == 0) {
+			return true;
+		}
+
+	}
+
+
+	async checkModKickCreator(roomName: string , whos: string, senderName: string)
+	{
+
+		const role = await this.checkRole(roomName, senderName);
+
+		const findRoom = await this.prisma.chatRoom.findFirst({
+			where: {
+				name: roomName,
+			},
+		});
+
+		const whosIsTheMod = await this.prisma.user.findUnique({
+			where: {
+				username: whos,
+			},
+		});
+
+		if (role == "moderator")
+		{
+			if (findRoom.creator.includes(whosIsTheMod.intraId))
+			{
+				console.log("evet creator")
+				return true;
+			}
+			else
+			{
+				console.log("creator değil ");
+			}
+		}
+		else if (role == "user")
+		{
+			return true;
+		}
+		
+
+	}
 }

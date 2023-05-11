@@ -21,7 +21,7 @@ export class RegisterService
 	}
 
 	checkNickname = (nickname: String) => {
-		if (nickname.length < 8 || nickname.length > 20)
+		if (nickname.length < 4 || nickname.length > 11)
 			return false;
 		if (!nickname.match(/^[a-zA-Z0-9]+$/))
 			return false;

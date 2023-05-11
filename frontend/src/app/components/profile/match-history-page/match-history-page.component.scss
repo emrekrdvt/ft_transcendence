@@ -1,6 +1,8 @@
 .page-main
 {
-	justify-content: start !important;
+	//justify-content: start !important;
+	scrollbar-width: none;
+
 }
 
 
@@ -8,9 +10,9 @@
 	margin: 30px;
 	color: white;
 	background-color: #303030;
-	display: flex;
-	flex-direction: column;
-	min-width: 600px;
+	//display: flex;
+	//flex-direction: column;
+	min-width: 500px;
 	margin-bottom: 24px;
 	border-radius: 10px;
 	box-shadow: 0 0 2px 0 rgba(#303030, 0.1), 0 4px 4px 0 rgba(#303030, 0.1);

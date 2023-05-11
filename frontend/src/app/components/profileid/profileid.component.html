@@ -1,0 +1,22 @@
+
+<div class="container">
+	<div class="row">
+		<div class="card">
+			<div class="card-body">
+				<img class="profile-image img-fluid" src="{{user.avatarUrl}}" alt="Profile Image">
+				<h1>{{user.nickname}}</h1>
+				<p class="text-muted">{{user.email}}</p>
+				<p class="text-muted">{{user.about}}</p>
+				<p>Level {{user.level}}</p>
+				<p class="text-muted">({{user.xp}}/{{user.xpToNextLevel}})</p>
+				<div class="stats">
+					<p class="stat" *ngFor="let stat of stats">
+						<span class="stat-number">{{stat.value}}</span>
+						<span class="stat-name">{{stat.label}}</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	

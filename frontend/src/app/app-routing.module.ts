@@ -12,6 +12,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
 import { WatchComponent } from './components/watch/watch.component';
 import { AchievementsPageComponent } from './components/profile/achievements-page/achievements-page.component';
 import { SocialComponent } from './components/social/social.component';
+import { ProfileidComponent } from './components/profileid/profileid.component';
 
 const routes: Routes = [
 	{
@@ -62,6 +63,10 @@ const routes: Routes = [
 	{
 		path: 'social',
 		component: SocialComponent, canActivate: [AuthGuard]
+	},
+	{
+		path: 'profileid/:intraId',
+		component: ProfileidComponent
 	},
 	{
 		path: '**',

@@ -120,4 +120,21 @@ export class ChatController {
         const room = await this.chatService.destroyPassword(data.roomName, data.password, data.senderName);
         return room;
     }
+
+
+    @Get('/checkBlock/:senderName/:receiverName')
+    async checkBlock(@Param('senderName') senderName: string, @Param('receiverName') receiverName: string): Promise<boolean> {
+        const room = await this.chatService.checkBlock(senderName, receiverName);
+        console.log("chat.controller.ts 127. satır -->", room);
+        return room;
+    }
+
+
+ //async checkModKickCreator(roomName: string , whos: string, senderName: string)
+    @Get('/checkModKickCreator/:roomName/:whos/:senderName')
+    async checkModKickCreator(@Param('roomName') roomName: string, @Param('whos') whos: string, @Param('senderName') senderName: string): Promise<boolean> {
+        const room = await this.chatService.checkModKickCreator(roomName, whos, senderName);
+        return room;
+    }
+	
 }

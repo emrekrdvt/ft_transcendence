@@ -45,6 +45,12 @@ export class UserService {
 				blockedFriends: true,
 			}
 		});
+		const checkFriendShipForRequester  = requester.friendIntraIds.includes(requestedId);
+		const checkFriendShipForRequested = requested.friendIntraIds.includes(requesterId);
+		if (checkFriendShipForRequester || checkFriendShipForRequested) {
+			console.log('already friends');
+			return;
+		}
 		if (checkRequesterBlockedFriends.blockedFriends.includes(requestedId) || checkRequestedBlockedFriends.blockedFriends.includes(requesterId)) {
 			console.log('blocked');
 			return;

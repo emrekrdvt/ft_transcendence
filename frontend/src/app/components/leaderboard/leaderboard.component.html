@@ -4,20 +4,31 @@
 		<img src="../../../../assets/icons/home.png" class="icon" (click)="routerService.routeToHome()"/>
 	</div>
 	<div class="page-main">
-		<div class="row">
-			<div class="col-md-4" *ngFor="let users of userLists">
+		<div class="row justify-content-center align-items-center" style="width: inherit;">
+			<div class="col-md-4 col-4" *ngFor="let users of userLists" style="min-width: 600px;">
 				<h3 class="sort-names">{{users.name}}</h3>
-				<ul class="list-group">
-					<li class="list-group-item" *ngFor="let user of users.sorted">
-						<div class="user">
-							<img src="{{user.avatarUrl}}" class="avatar">
-							<div class="user-info">
-								<h4>{{user.nickname}}</h4>
-								<p>XP: {{user.xp}}</p>
-								<p>Wins: {{user.wins}}</p>
-								<p>Rating: {{user.rating}}</p>
-							</div>
-						</div>
+				<ul class="list-group" style="border-radius:0%">
+					<li class="list-group-item" *ngFor="let user of users.sorted; let i = index">
+						<a  (click)="goToProfile(user.intraId)" style=" color: white;">
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <div class="col-3 col-sm-3 col-md-3" style="width: 10%;" >
+                                    <div class="li-number" style="min-width: fit-content;"> {{i+1}} </div> 
+                                </div>
+                                <div class="col-3">
+                                    <img src="{{user.avatarUrl}}" class="pro-img" width="100" height="100">
+                                </div>
+                                <div class="col-3">
+                                    <div class="li-title row" style="text-align:center ; font-size: 1.2rem;">
+										<div class="li-text col-12">{{user.username}}</div>
+										<div class="li-text col-12" style="text-align:center ; font-size: 0.8rem;" *ngIf="user.nickname">@{{user.nickname}}</div>
+									</div>
+                                </div>
+                                <div class="col-3 forhover" style="margin-right: 4%;">
+                                    <div class="col" style="text-align:center ; font-size: 0.9rem;">Rating : {{user.rating}}</div>
+									<div class="col" style="text-align:center ; font-size: 0.9rem;">Level : {{user.level}}</div>
+                                </div>
+                            </div>
+                        </a>
 					</li>
 				</ul>
 			</div>

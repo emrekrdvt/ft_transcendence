@@ -63,11 +63,18 @@ export class ChatareaComponent implements OnInit {
 		const sender = message.sender;
 		const receiver = message.receiver;
 		const senderIntra = message.senderID
-		this.chatService.findRoomID(sender, receiver!).subscribe((response) => {
-			const roomID = response;
-			this.chatService.joinRoom(roomID!);
-			this.chatService.sendMessageToFriend(message, roomID!);
-			this.messages.push(message);
+		this.chatService.checkBlock(sender!, receiver!).subscribe((response) => {
+			if (response == true) {
+				alert('You cannot send message to this user because you are blocked or user delete you from friend list');
+			}
+			else {
+				this.chatService.findRoomID(sender, receiver!).subscribe((response) => {
+					const roomID = response;
+					this.chatService.joinRoom(roomID!);
+					this.chatService.sendMessageToFriend(message, roomID!);
+					this.messages.push(message);
+				});
+			}
 		});
 	}
 
@@ -95,12 +102,18 @@ export class ChatareaComponent implements OnInit {
 		}
 		else if (command === '/pass') {
 			const password = updateMsg.content.split(' ')[1];
-			this.chatService.changePassword(this.selectedChatroom?.name!, password, updateMsg.sender);
+			if (password != null)
+				this.chatService.changePassword(this.selectedChatroom?.name!, password, updateMsg.sender);
+			else
+				alert("Please enter password usage /pass <password>")
 
 		}
 		else if (command === '/deletePass') {
 			const password = updateMsg.content.split(' ')[1];
-			this.chatService.destroyPassWord(this.selectedChatroom?.name!, password, updateMsg.sender);
+			if (password != null)
+				this.chatService.destroyPassWord(this.selectedChatroom?.name!, password, updateMsg.sender);
+			else
+				alert("Please enter password usage /deletePass <password>")
 		}
 		else {
 			const checkMute = this.chatService.canIchat(this.selectedChatroom?.name!, updateMsg.sender).subscribe((response) => {

@@ -11,7 +11,7 @@
 				<span class="content-text">{{friend.username}}</span>
 				<span class="content-text"><span class="status-circle" [ngClass]="getColor(friend.status)"></span>{{getStatus(friend.status)}}</span>
 				<div class="content-buttons">
-					<button class="btn btn-dark" *ngFor="let button of buttons" (click)="button.function(friend)">
+					<button class="btn btn-dark buttonforchat" *ngFor="let button of buttons" (click)="button.function(friend)">
 						<img src="{{button.url}}" class="button-image">
 					</button>
 				</div>

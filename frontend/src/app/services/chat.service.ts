@@ -73,7 +73,7 @@ export class ChatService {
 	}
 
 	// command gelen komut - message.sender da kimin gönderdiği - roomName de hangi odada - commandContent de komutun içeriği
-	executeCommand(command: string, commandContent: any, sender: string, roomName: string, time: any) {
+	async executeCommand(command: string, commandContent: any, sender: string, roomName: string, time: any) {
 		console.log("executeCommand", command, commandContent, sender, roomName);
 		const senderName = sender;
 		const whos = commandContent.split(' ')[0];
@@ -81,40 +81,80 @@ export class ChatService {
 			case '/kick':
 				{
 					if (whos === senderName) {
+						return alert("You can't mute yourself  :D  why you want to do that ? ");
 						break;
 					}
-					else {
-						this.socket.emit('kickUser', { roomName, whos, senderName });
-						break;
-					}
+
+					const checkMod = this.checkModKickCreator(roomName, whos, senderName).subscribe(response => {
+						if (response === true) {
+							return alert("You can't kick creator or moderator  :D  why you want to do that ? ");
+						}
+						else {
+							this.socket.emit('kickUser', { roomName, whos, senderName });
+						}
+						return;
+					});
+					break;
 				}
 			case '/ban':
 				{
 					if (whos === senderName) {
-						return alert("You can't ban yourself  :D  why you want to do that ? ");
+						return alert("You can't mute yourself  :D  why you want to do that ? ");
 						break;
 					}
-					else {
-						this.socket.emit('banUser', { roomName, whos, senderName, time });
-						break;
-					}
+					this.checkModKickCreator(roomName, whos, senderName).subscribe(response => {
+						if (response === true) {
+							return alert("You can't use this command ");
+						}
+						else {
+							this.socket.emit('banUser', { roomName, whos, senderName, time });
+						}
+						return;
+					});
+					break;
+
+					// if (whos === senderName) {
+					// 	return alert("You can't ban yourself  :D  why you want to do that ? ");
+					// 	break;
+					// }
+					// else {
+					// 	this.socket.emit('banUser', { roomName, whos, senderName, time });
+					// 	break;
+					// }
 				}
 			case '/unban':
 				{
-					this.unbanUser(roomName, whos, senderName);
+					if (whos === senderName) {
+						return alert("You can't mute yourself  :D  why you want to do that ? ");
+						break;
+					}
+					this.checkModKickCreator(roomName, whos, senderName).subscribe(response => {
+						if (response === true) {
+							return alert("You can't unban you are not moderator sorry :(");
+						}
+						else {
+							this.socket.emit('unbanUser', { roomName, whos, senderName });
+						}
+						return;
+					});
+					// this.unbanUser(roomName, whos, senderName);
 					break;
 				}
 			case '/setMod':
 				{
 					if (whos === senderName) {
-						return alert("You can't set yourself as moderator  :D  why you want to do that ? ");
-						break;
+						return;
 					}
-					else {
-						console.log("setMod", roomName, whos)
-						this.setMod(roomName, whos, senderName);
-						break;
-					}
+					this.checkModKickCreator(roomName, whos, senderName).subscribe(response => {
+						if (response === true) {
+							return alert("You can't set moderator you are not moderator sorry :(");
+						}
+						else {
+							this.setMod(roomName, whos, senderName);
+						}
+						return;
+					});
+					break;
 				}
 			case '/unsetMod':
 				{
@@ -122,10 +162,16 @@ export class ChatService {
 						return alert("You can't unset yourself as moderator  :D  why you want to do that ? ");
 						break;
 					}
-					else {
-						this.unsetMod(roomName, whos, senderName);
-						break;
-					}
+					this.checkModKickCreator(roomName, whos, senderName).subscribe(response => {
+						if (response === true) {
+							return alert("You can't unset moderator you are not moderator sorry :(");
+						}
+						else {
+							this.unsetMod(roomName, whos, senderName);
+						}
+						return;
+					});
+					break;
 				}
 			case '/mute':
 				{
@@ -133,10 +179,16 @@ export class ChatService {
 						return alert("You can't mute yourself  :D  why you want to do that ? ");
 						break;
 					}
-					else {
-						this.muteUser(roomName, whos, senderName, time);
-						break;
-					}
+					this.checkModKickCreator(roomName, whos, senderName).subscribe(response => {
+						if (response === true) {
+							return alert("You can't mute you are not moderator sorry :(");
+						}
+						else {
+							this.muteUser(roomName, whos, senderName, time);
+						}
+						return;
+					});
+					break;
 				}
 			case '/unmute':
 				{
@@ -144,10 +196,17 @@ export class ChatService {
 						return alert("You can't unmute yourself  :D  why you want to do that ? ");
 						break;
 					}
-					else {
-						this.unmuteUser(roomName, whos, senderName);
-						break;
-					}
+					this.checkModKickCreator(roomName, whos, senderName).subscribe(response => {
+						if (response === true) {
+							return alert("You can't unmute you are not moderator sorry :(");
+						}
+						else {
+							this.unmuteUser(roomName, whos, senderName);
+						}
+						return;
+					});
+					break;
+
 				}
 		}
 	}
@@ -159,7 +218,6 @@ export class ChatService {
 	findChatRoom(roomID: string) {
 		const name = roomID.toString();
 		return this.http.get(`${this.apiUrl}/${name}/findChatRoom`).subscribe(response => {
-			console.log(response);
 		});
 	}
 
@@ -178,7 +236,8 @@ export class ChatService {
 	joinChatRoom(data: any) {
 		const roomName = Object.values(data)[0];
 		const intraID = Object.values(data)[1];
-		return this.http.post(`${this.apiUrl}/join-chat-room`, { roomID: roomName, intraID: intraID });
+		return this.http.post(`${this.apiUrl}/join-chat-room`, { roomID: roomName, intraID: intraID }).subscribe(response => {
+		});
 	}
 
 	leaveChatRoom(data: any) {
@@ -253,4 +312,16 @@ export class ChatService {
 		}
 		);
 	}
+
+	checkModKickCreator(roomName: string, whos: string, senderName: string): Observable<boolean> {
+		console.log("roomName", roomName, "whos", whos, "senderName", senderName)
+		return this.http.get<boolean>(`${this.apiUrl}/checkModKickCreator/${roomName}/${whos}/${senderName}`)
+	}
+
+	checkBlock(senderName: string, receiverName: string): Observable<boolean> {
+		console.log("checkBlock", senderName, receiverName)
+		return this.http.get<boolean>(`${this.apiUrl}/checkBlock/${senderName}/${receiverName}`)
+	}
+
+
 }

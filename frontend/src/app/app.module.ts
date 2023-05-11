@@ -46,6 +46,7 @@ import { QrComponent } from './components/qr/qr.component';
 import { TwoFactorAuthService } from './services/twoFactor.service';
 import { BattleService } from './services/battle.service';
 import { BattleComponent } from './components/battle/battle.component';
+import { ProfileidComponent } from './components/profileid/profileid.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -79,6 +80,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		SelectModeComponent,
 		QrComponent,
 	BattleComponent,
+ ProfileidComponent,
 	],
 	imports: [
 		BrowserModule,

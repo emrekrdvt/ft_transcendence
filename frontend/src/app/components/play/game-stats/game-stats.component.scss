@@ -1,43 +1,46 @@
-.stats{
+.game-container {
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}
-
-.player
-{
-	height: 15rem;
-	width: 50%;
+	flex-wrap: wrap;
+	justify-content: space-between;
+  }
+  
+  .player-card {
 	display: flex;
-	.avatar
-	{
-		height: 100%;
-		width: 240px;
-		object-fit: contain;
-	}
-	.player-info{
-		height: 100%;
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		align-items: center;
+	flex-direction: column;
+	align-items: center;
+	margin: 1rem;
+	max-width: 300px;
+  }
+  
+  .player-card__avatar {
+	position: relative;
+	width: 100%;
+	padding-bottom: 100%;
+	img {
+		position: absolute;
 		width: 100%;
-		color: white;
-		.player-name{
-			font-size: 20px;
-			font-weight: bold;
-		}
-		.player-rating{
-			font-size: 12px;
-		}
-	}	
-}
-.player1{
-	flex-direction: row;
-	justify-content: start;
-}
-.player2 {
-	flex-direction: row-reverse;
-	justify-content: end;
-}
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+  }
+  
+  }
+  
 
+  .player-card__info {
+	text-align: center;
+	margin-top: 1rem;
+  }
+  
+  .player-card__info h3 {
+	font-size: 1.5rem;
+	margin: 0;
+	color: white;
+  }
+  
+  .player-card__info p {
+	font-size: 1.2rem;
+	margin: 0;
+	color: white;
+  }
+  
