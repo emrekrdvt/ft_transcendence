@@ -25,8 +25,8 @@
 		</div>
 		<div class="input-group">
 			<span class="input-group-text" id="addon-wrapping">2Auth</span>
-			<input type="checkbox" id="switch" />
-			<label for="switch">Toggle</label>
+			<input type="checkbox" id="switch" (change)="changeToggle()" [ngClass]="toggle"/>
+			<label for="switch" [ngClass]="toggle">Toggle</label>
 		</div>
 		<div class="input-group">
 			<span class="input-group-text">About</span>
@@ -39,3 +39,5 @@
 		<button class="btn btn-dark mb-4" (click)="switch()">Save</button>
 	</div>
 </div>
+<app-qr *ngIf="qrCodeUrl"></app-qr>
+```

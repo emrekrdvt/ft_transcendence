@@ -26,6 +26,7 @@ model User {
 	isSigned  Boolean  @default(false)
 	about	 String?
 	twoFactor Boolean @default(false)
+	twoFactorSecret String? @unique
 
 	
 	losses    Int      @default(0)

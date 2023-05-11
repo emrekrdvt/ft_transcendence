@@ -109,11 +109,11 @@ label:after {
 	transition: 0.3s;
 }
 
-input:checked + label {
+input.on + label {
 	background: #bada55;
 }
 
-input:checked + label:after {
+label.on:after {
 	left: calc(100% - 5px);
 	transform: translateX(-100%);
 }

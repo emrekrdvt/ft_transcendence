@@ -43,6 +43,12 @@ export class ProfileService {
 		this.userService.updateUser(user, () => {
 			return { twoFactor: user.twoFactor };
 		}, user.twoFactor)
+		if (user.twoFactor === false)
+		[
+			this.userService.updateUser(user, () => {
+				return { twoFactorSecret: '' };
+			}, '')
+		]
 		this.userService.setUser(user);
 	};
 
@@ -57,4 +63,5 @@ export class ProfileService {
 			this.aboutInput = event.target.value;
 		}
 	};
+
 }

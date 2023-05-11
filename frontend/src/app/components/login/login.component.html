@@ -1,6 +1,15 @@
 <div class="row">
 	<div class="col-md-12">
 		<img class="img-fluid" src="../../../assets/images/removed_bg_logo.png" alt="logo">
-		<button class="btn btn-dark btn-block" (click)="signIn()">SIGN IN</button>
+		<button class="btn btn-dark btn-block" (click)="signIn()" *ngIf="twoFactorAuth === false">SIGN IN</button>
+		<input id="submitted" type="checkbox" tabindex="-1">
+		<div class="2a" *ngIf="twoFactorAuth === true">
+			<form (keydown)="submit($event)" tabindex="0">
+				<input type="number" min="0" max="9" maxlength="1" placeholder=" " value="{{input.value}}"
+					oninput="this.nextElementSibling.focus()" *ngFor="let input of inputs" (change)="changeInput($event, input.id)"
+					[ngClass]="input.focus === true ? 'true' : 'false'" [ngClass]="result">
+				<label class="submit" type="button" tabindex="0" for="submitted" ></label>
+			</form>
+		</div>
 	</div>
 </div>

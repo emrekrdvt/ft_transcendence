@@ -6,14 +6,15 @@ import { RegisterService } from './register.service';
 import { User } from '../models/user.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { TwoFactorAuthService } from './twoFactor.service';
 
-@Injectable({ providedIn: 'root'})
+@Injectable()
 export class AuthService
 {
 	private isLoggedIn$ = new BehaviorSubject<boolean>(false);
 
 
-	constructor(private http: HttpClient, private registerService: RegisterService, private router: Router){
+	constructor(private http: HttpClient, private registerService: RegisterService, private router: Router, private twoFactorService: TwoFactorAuthService) {
 		if (localStorage.getItem('user') !== null)
 			this.isLoggedIn$.next(true);
 	}
@@ -42,6 +43,13 @@ export class AuthService
 				localStorage.setItem('user', JSON.stringify(res));
         localStorage.setItem('token', token);
         if (res.isSigned) {
+			if (res.twoFactor === true)
+			{
+				localStorage.setItem('twoFactor', 'true');
+				this.router.navigate(['/']);
+				location.reload();
+				return;
+			}
 			this.login();
         } else {
 			this.registerService.beginRegister();
@@ -55,6 +63,7 @@ export class AuthService
 	}
 
 	login = () => {
+		localStorage.removeItem('twoFactor');
 		this.isLoggedIn$.next(true);
 		this.router.navigate(['/']).then(r => console.log(r));
 	}
@@ -63,4 +72,17 @@ export class AuthService
 		this.isLoggedIn$.next(false);
 	}
 
+	twoFactorAuth = (code: string) => {
+		const user = JSON.parse(localStorage.getItem('user')!);
+		this.twoFactorService.verifyTwoFactorAuth(code, user.username).subscribe(
+			res => {
+				if (res.isValid === true)
+					this.login();
+				else
+					return false;
+				return false;
+			}
+		);
+		return false;
+	};
 }

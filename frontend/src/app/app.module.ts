@@ -42,6 +42,8 @@ import { ChatareaComponent } from './components/social/chatarea/chatarea.compone
 import { AchieveComponent } from './components/achieve/achieve.component';
 import { SelectModeComponent } from './components/play/select-mode/select-mode.component';
 import { ProfileService } from './services/profile.service';
+import { QrComponent } from './components/qr/qr.component';
+import { TwoFactorAuthService } from './services/twoFactor.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -73,6 +75,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		ChatareaComponent,
 		AchieveComponent,
 		SelectModeComponent,
+  QrComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -94,7 +97,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 		AchievementService,
 		FriendsComponent,
 		ChatroomsComponent,
-		ProfileService
+		ProfileService,
+		TwoFactorAuthService
 	],
 	bootstrap: [AppComponent]
 })

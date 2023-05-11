@@ -9,10 +9,12 @@ import { JwtStrategy } from './strategy';
 import { AchievementService } from 'src/services/achievement.service';
 import { AchievementModule } from 'src/modules/achievement.module';
 import { MatchModule } from 'src/modules/match.module';
+import { TwoFactorAuthController } from './controllers/twoFactorAuth.controller';
+import { TwoFactorAuthService } from './services/twoFactorAuth.service';
 
 @Module({
 	imports: [HttpModule, JwtModule.register({}), AchievementModule, MatchModule],
-	providers: [UserService, AuthService, JwtStrategy, AchievementService],
-	controllers: [UserController, AuthController],
+	providers: [UserService, AuthService, JwtStrategy, AchievementService, TwoFactorAuthService],
+	controllers: [UserController, AuthController, TwoFactorAuthController],
 })
 export class AuthModule { }

@@ -1,0 +1,7 @@
+<div class="qr-container" [ngClass]="status">
+	<h1>Scan the code!</h1>
+	<div class="qr mt-4">
+		<img class="qr-image img-fluid" src="{{url}}" alt="QR Code">
+	</div>
+	<button class="btn btn-dark mt-4" (click)="close()">Close</button>
+</div>
