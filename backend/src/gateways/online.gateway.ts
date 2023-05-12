@@ -4,7 +4,7 @@ import { Server, Socket } from 'socket.io';
 import { StatusEvents } from 'src/models/sevents.model';
 import { OnlineService } from 'src/services/online.service';
 
-@WebSocketGateway({protocol: 'http', cors: {origin: 'http://localhost:4200'}})
+@WebSocketGateway({protocol: 'http', cors: {origin: process.env.FRONTEND}})
 export class OnlineGateway {
 	@WebSocketServer()
 	server: Server;

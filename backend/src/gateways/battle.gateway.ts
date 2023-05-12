@@ -5,7 +5,7 @@ import { BattleService } from 'src/services/battle.service';
 import { Game } from 'src/models/game.model';
 
 
-@WebSocketGateway({protocol: 'http', cors: {origin: 'http://localhost:4200'}})
+@WebSocketGateway({protocol: 'http', cors: {origin: process.env.FRONTEND}})
 @Injectable()
 export class BattleGateway implements OnGatewayConnection, OnGatewayDisconnect  {
 	@WebSocketServer() server: Server;

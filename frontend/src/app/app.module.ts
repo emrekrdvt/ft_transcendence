@@ -47,8 +47,9 @@ import { TwoFactorAuthService } from './services/twoFactor.service';
 import { BattleService } from './services/battle.service';
 import { BattleComponent } from './components/battle/battle.component';
 import { ProfileidComponent } from './components/profileid/profileid.component';
+import { environment } from 'src/environment/environment';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: 'http://' + environment.address, options: {} };
 
 @NgModule({
 	declarations: [

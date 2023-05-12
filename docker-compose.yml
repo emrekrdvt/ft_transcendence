@@ -1,14 +1,37 @@
 version: '3.8'
+
 services:
-  dev-db:
-    image: postgres:13
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
     ports:
-      - 5434:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: nest
+      - "4200:4200"
     networks:
-      - transendence
+      - ft_trans
+    depends_on:
+      - backend
+      
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+    networks:
+      - ft_trans
+
+  db:
+    image: postgres
+    env_file:
+     - ./.env
+    networks:
+      - ft_trans
+
 networks:
-  transendence:
+  ft_trans:
+     driver: bridge

@@ -8,7 +8,7 @@ import { Server, Socket } from 'socket.io';
 import { ChatService } from '../services/chat.service';
 
 @WebSocketGateway({
-	cors: { origin: ['http://localhost:4200'] },
+	cors: { origin: [process.env.FRONTEND] },
 })
 
 @Injectable()

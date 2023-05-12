@@ -16,7 +16,7 @@ import { Player } from 'src/models/player.model';
 import { Game } from 'src/models/game.model';
 
 
-@WebSocketGateway({protocol: 'http', cors: {origin: 'http://localhost:4200'}})
+@WebSocketGateway({protocol: 'http', cors: {origin: process.env.FRONTEND}})
 export class PongGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect  {
 	@WebSocketServer()
 	server: Server;
