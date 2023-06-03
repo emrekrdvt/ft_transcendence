@@ -1,33 +1,36 @@
 # ft_transcendence
+---
+# Project Achievements
 
-![Login Page](https://github.com/mcakay/ft_transcendence/blob/master/gif/1-%20Login.gif)
----
+This project has achieved the following goals:
 
-![User Activity](https://github.com/mcakay/ft_transcendence/blob/master/gif/8-%20user%20activty.gif)
----
-When you open the feature and press the 'save' button, the QR code appears on the screen. You can scan and use the qr code in the google authenticator app
+- Utilized the NestJS backend framework
+- Implemented the Angular frontend framework
+- Integrated the PostgreSQL database
+- Established real-time communication using the WebSocket protocol
+- Implemented strong encryption and security measures
+- Implemented user login and authorization using the OAuth system
+- Created user profiles with avatar upload and customization options
+- Developed chat functionality with the ability to create public, private, and password-protected channels
+- Enabled direct messaging between users
+- Implemented friend functionality and displayed user statuses
+- Provided user statistics and match history
+- Developed a real-time multiplayer Pong game
+- Implemented a matchmaking system and customization options for the game
+- Handled errors to improve the user experience
 
-![2auth](https://github.com/mcakay/ft_transcendence/blob/master/gif/9-%20two%20factor.gif)
+## Project visuals
 
----
-![Nick](https://github.com/mcakay/ft_transcendence/blob/master/gif/14-%20nick.gif)
+| Home Page | Achievement | Match History |
+|-----------|-------------|---------------|
+| ![Home Page](https://www.linkpicture.com/q/1_766.png) | ![Achievement](https://www.linkpicture.com/q/7_99.png) | ![Match History](https://www.linkpicture.com/q/8_73.png) |
 
----
-![FriendRequest](https://github.com/mcakay/ft_transcendence/blob/master/gif/2-%20FriendRequest.gif)
---
-![Game invite](https://github.com/mcakay/ft_transcendence/blob/master/gif/5-%20%C3%B6zel%20oyun.gif)
---
-![Game Lobby](https://github.com/mcakay/ft_transcendence/blob/master/gif/4-%20loby.gif)
----
-![Lobby game](https://github.com/mcakay/ft_transcendence/blob/master/gif/7-%20loby%20game.gif)
-----
-![](https://github.com/mcakay/ft_transcendence/blob/master/gif/6-%20achivement.gif)
-----
-![Matcg](https://github.com/mcakay/ft_transcendence/blob/master/gif/12-%20matchg.gif)
----
-![Chat](https://github.com/mcakay/ft_transcendence/blob/master/gif/3-%20chat.gif)
---
-![Chat command](https://github.com/mcakay/ft_transcendence/blob/master/gif/10%20-kick.gif)
---
-![Chat command](https://github.com/mcakay/ft_transcendence/blob/master/gif/11-%20pass.gif)
---
+## Gifs
+
+| Chat | Lobby | User Activity |
+|------|-------|---------------|
+| ![Chat](https://github.com/mcakay/ft_transcendence/raw/master/gif/3-%20chat.gif) | ![Lobby](https://github.com/mcakay/ft_transcendence/raw/master/gif/7-%20loby%20game.gif) | ![User Activity](https://github.com/mcakay/ft_transcendence/raw/master/gif/8-%20user%20activty.gif) |
+
+| Game Invite | 2 Auth |
+|-------------|--------|
+| ![Game Invite](https://github.com/mcakay/ft_transcendence/raw/master/gif/5-%20%C3%B6zel%20oyun.gif) | ![2 Auth](https://github.com/mcakay/ft_transcendence/raw/master/gif/9-%20two%20factor.gif) |
